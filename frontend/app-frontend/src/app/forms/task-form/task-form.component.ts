@@ -23,11 +23,10 @@ export class TaskFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.taskService.save(this.task).subscribe(result => this.gotoUserList());
+    this.taskService.save(this.task).subscribe(result => this.gotoTaskList());
   }
 
-  gotoUserList() {
-    this.router.navigate(['/users']);
+  gotoTaskList() {
+    this.router.navigate(['/tasks']);
   }
-
 }
