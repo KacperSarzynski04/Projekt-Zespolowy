@@ -1,7 +1,5 @@
 package pl.edu.pwr.app.models;
 
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,11 +8,10 @@ import javax.persistence.GenerationType;
 public class Task {
 
     @javax.persistence.Id
-    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String name;
-    private String description;
+    private final String name;
+    private final String description;
 
     public Task() {
         this.name = "no name";
@@ -26,15 +23,6 @@ public class Task {
         this.description = description;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Id
-    public Long getId() {
-        return id;
-    }
-
     @Override
     public String toString() {
         return "Task{" +
@@ -42,5 +30,21 @@ public class Task {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 '}';
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

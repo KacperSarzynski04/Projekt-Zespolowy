@@ -1,7 +1,5 @@
 package pl.edu.pwr.app.models;
 
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +8,6 @@ import javax.persistence.GenerationType;
 public class User {
 
     @javax.persistence.Id
-    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private final String name;
@@ -26,7 +23,6 @@ public class User {
         this.email = s;
     }
 
-
     @Override
     public String toString() {
         return "User{" +
@@ -34,5 +30,21 @@ public class User {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }
