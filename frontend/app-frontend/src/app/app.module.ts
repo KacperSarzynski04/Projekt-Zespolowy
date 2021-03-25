@@ -10,6 +10,8 @@ import { UserService } from './services/user-service/user-service.service';
 import { TaskListComponent } from './lists/task-list/task-list.component';
 import { TaskFormComponent } from './forms/task-form/task-form.component'
 import {TaskService} from "./services/task-service/task-service.service";
+import { MainPageComponent } from './main-page/main-page.component';
+import { NavbarComponent } from './main-page/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import {TaskService} from "./services/task-service/task-service.service";
     UserListComponent,
     UserFormComponent,
     TaskListComponent,
-    TaskFormComponent
+    TaskFormComponent,
+    MainPageComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
