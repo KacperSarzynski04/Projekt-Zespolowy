@@ -10,6 +10,8 @@ import { UserService } from './services/user-service/user-service.service';
 import { TrainingListComponent } from './lists/training-list/training-list.component';
 import { TrainingFormComponent } from './forms/training-form/training-form.component';
 import { TrainingService } from "./services/training-service/training-service.service";
+import { NavbarComponent } from './main-page/navbar/navbar.component';
+import { MainPageComponent } from './main-page/main-page.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { TrainingService } from "./services/training-service/training-service.se
     UserListComponent,
     UserFormComponent,
     TrainingListComponent,
-    TrainingFormComponent
+    TrainingFormComponent,
+    MainPageComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

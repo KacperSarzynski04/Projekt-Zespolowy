@@ -12,4 +12,9 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public classes = {
+    item : true,
+    specialButton : true
+  };
+
 }
