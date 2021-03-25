@@ -1,27 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { UserListComponent } from './lists/user-list/user-list.component';
 import { UserFormComponent } from './forms/user-form/user-form.component';
 import { UserService } from './services/user-service/user-service.service';
-import { TaskListComponent } from './lists/task-list/task-list.component';
-import { TaskFormComponent } from './forms/task-form/task-form.component'
-import {TaskService} from "./services/task-service/task-service.service";
-import { MainPageComponent } from './main-page/main-page.component';
-import { NavbarComponent } from './main-page/navbar/navbar.component';
+import { TrainingListComponent } from './lists/training-list/training-list.component';
+import { TrainingFormComponent } from './forms/training-form/training-form.component';
+import { TrainingService } from "./services/training-service/training-service.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     UserListComponent,
     UserFormComponent,
-    TaskListComponent,
-    TaskFormComponent,
-    MainPageComponent,
-    NavbarComponent
+    TrainingListComponent,
+    TrainingFormComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +26,7 @@ import { NavbarComponent } from './main-page/navbar/navbar.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [UserService, TaskService],
+  providers: [UserService, TrainingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
