@@ -4,10 +4,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import pl.edu.pwr.app.models.Task;
+import pl.edu.pwr.app.models.Training;
 import pl.edu.pwr.app.models.User;
+import pl.edu.pwr.app.repositories.TrainingRepository;
 import pl.edu.pwr.app.repositories.UserRepository;
-import pl.edu.pwr.app.repositories.TaskRepository;
 
 import java.util.stream.Stream;
 
@@ -19,7 +19,7 @@ public class AppApplication {
     }
 
     @Bean
-    CommandLineRunner init(UserRepository userRepository, TaskRepository taskRepository) {
+    CommandLineRunner init(UserRepository userRepository, TrainingRepository trainingRepository) {
         return args -> {
             Stream.of("Kacper", "Jacek", "Pavel", "Krzysztof").forEach(name -> {
                 User user = new User(name, name.toLowerCase() + "@student.pwr.edu.pl");
@@ -27,10 +27,11 @@ public class AppApplication {
                 userRepository.findAll().forEach(System.out::println);
             });
 
-            Stream.of("todo 1", "todo 2").forEach(name -> {
-                Task task = new Task(name, name);
-                taskRepository.save(task);
-                taskRepository.findAll().forEach(System.out::println);
+            Stream.of("training 1").forEach(name -> {
+                Training training = new Training("interesting topic", "even more interesting description",
+                        "super trainer", 100);
+                trainingRepository.save(training);
+                trainingRepository.findAll().forEach(System.out::println);
             });
         };
     }
