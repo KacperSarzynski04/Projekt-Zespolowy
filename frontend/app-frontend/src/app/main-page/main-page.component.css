@@ -6,10 +6,6 @@
     margin: 2rem 0rem;
 }
 
-.navbarDiv{
-    margin: 0rem 4rem;
-}
-
 .mainPageContent{
     box-sizing: border-box;
     margin: 2rem 0rem;
@@ -33,4 +29,15 @@
     top: 50%;
     left: 50%;
     transform:translate(-50%, -50%);
+}
+
+.description{
+    margin: 2rem 10rem;
+    font-size: 1.4rem;
+}
+
+.description .title{
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
 }

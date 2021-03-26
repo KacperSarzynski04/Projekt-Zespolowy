@@ -17,4 +17,8 @@ export class NavbarComponent implements OnInit {
     item : true
   };
 
+  public onClick(){
+    
+    document.querySelector('#training_list').scrollIntoView({behavior:'smooth'});
+  }
 }
