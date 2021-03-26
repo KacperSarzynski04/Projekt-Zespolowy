@@ -13,8 +13,8 @@ export class NavbarComponent implements OnInit {
   }
 
   public classes = {
-    item : true,
-    specialButton : true
+    specialItem : true,
+    item : true
   };
 
 }

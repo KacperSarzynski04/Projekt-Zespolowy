@@ -1,9 +1,11 @@
 
-<div class=navbarDiv>
+<nav class=navbarDiv>
+    <a routerLink="/">
     <img src="../../../assets/images/logo-light2.png" class=logo>
+    </a>
     <div class=buttons>
-        <a class=item><a class=special>Strona główna</a></a>
-        <a class=item>Lista Szkoleń</a>
-        <button [class]="classes">Poprowadź Szkolenia</button>
+        <a class=item routerLink="/">Strona główna</a>
+        <a class=item routerLink="/trainings">Lista Szkoleń</a>
+        <a routerLink="/addtraining" [class]="classes">Poprowadź Szkolenia</a>
     </div>
-</div>
+</nav>
