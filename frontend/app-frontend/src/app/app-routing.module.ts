@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: 'adduser', component: UserFormComponent },
   { path: 'trainings', component: TrainingListComponent },
   { path: 'addtraining', component: TrainingFormComponent },
-  { path: 'home', component: MainPageComponent}
+  { path: 'home', component: MainPageComponent},
+  { path: '', component: MainPageComponent}
 ];
 
 @NgModule({

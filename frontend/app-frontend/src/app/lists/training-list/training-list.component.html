@@ -1,28 +1,30 @@
-<div class="card my-5" id="training_list">
-  <div class="card-body">
-    <table class="table table-bordered table-striped">
-      <thead class="thead-dark">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Training's topic</th>
-        <th scope="col">Training's description</th>
-        <th scope="col">Training's trainer</th>
-        <th scope="col">Training's duration</th>
-        <th scope="col">Training's date</th>
-        <th scope="col">Training's time</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let training of trainings">
-        <td>{{ training.id }}</td>
-        <td>{{ training.topic }}</td>
-        <td>{{ training.description }}</td>
-        <td>{{ training.trainer }}</td>
-        <td>{{ training.durationInMinutes }}</td>
-        <td>{{ training.date }}</td>
-        <td>{{ training.time }}</td>
-      </tr>
-      </tbody>
-    </table>
+<div class="myContainer">
+  <div class="card my-5" id="training_list">
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Training's topic</th>
+          <th scope="col">Training's description</th>
+          <th scope="col">Training's trainer</th>
+          <th scope="col">Training's duration</th>
+          <th scope="col">Training's date</th>
+          <th scope="col">Training's time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let training of trainings">
+          <td>{{ training.id }}</td>
+          <td>{{ training.topic }}</td>
+          <td>{{ training.description }}</td>
+          <td>{{ training.trainer }}</td>
+          <td>{{ training.durationInMinutes }}</td>
+          <td>{{ training.date }}</td>
+          <td>{{ training.time }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
