@@ -6,3 +6,4 @@ import pl.edu.pwr.app.models.User;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {}
+ 

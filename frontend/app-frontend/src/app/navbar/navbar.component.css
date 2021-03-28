@@ -16,7 +16,7 @@
     height: auto;
 }
 
-.buttons{   
+.buttons{
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -52,5 +52,5 @@
 }
 
 a:visited {
-   color: black; 
+   color: black;
 }
