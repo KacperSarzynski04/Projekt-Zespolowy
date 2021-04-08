@@ -1,50 +1,31 @@
 package pl.edu.pwr.app.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import lombok.Data;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
-public class User {
+@Table(name = "users")
+@Data
+public class User extends BaseEntity {
 
-    @javax.persistence.Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    private final String name;
-    private final String email;
+    @Column(name = "username")
+    private String username;
 
-    public User() {
-        this.name = "no name";
-        this.email = "no email";
-    }
+    @Column(name = "first_name")
+    private String firstName;
 
-    public User(String name, String s) {
-        this.name = name;
-        this.email = s;
-    }
+    private String lastName;
+    private String email;
+    private String password;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+    joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+    private List<Role> roles;
 
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
 }
