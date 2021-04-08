@@ -48,6 +48,10 @@ public class TrainingController {
     }
     public List<Training> getTrainingsAsUser(int limit){
         List<Training> sortedTrainingList = getSortedTrainings();
+
+        if(sortedTrainingList.size()<limit){
+            limit=sortedTrainingList.size();
+        }
         List<Training> trainingListUser = new ArrayList<>();
         int i=0;
         for (Training training : sortedTrainingList) {
