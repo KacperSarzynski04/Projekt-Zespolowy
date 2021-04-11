@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'register', component: UserFormComponent },
   { path: 'trainings', component: TrainingListComponent },
   { path: 'addtraining', component: TrainingFormComponent },
-  { path: 'topics', component: TopicListComponent},
+  { path: 'topics', component: ProposalListComponent},
   { path: 'home', component: MainPageComponent},
   { path: 'login', component: LoginFormComponent},
   { path: 'register', component: UserFormComponent},
