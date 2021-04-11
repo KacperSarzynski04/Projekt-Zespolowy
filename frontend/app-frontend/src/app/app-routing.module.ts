@@ -10,7 +10,7 @@ import { TopicListComponent } from './lists/topic-list/topic-list.component';
 
 const routes: Routes = [
   { path: 'users', component: UserListComponent },
-  { path: 'adduser', component: UserFormComponent },
+  { path: 'register', component: UserFormComponent },
   { path: 'trainings', component: TrainingListComponent },
   { path: 'addtraining', component: TrainingFormComponent },
   { path: 'topics', component: TopicListComponent},

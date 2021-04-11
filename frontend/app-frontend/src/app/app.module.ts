@@ -15,8 +15,6 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { LoginFormComponent } from './forms/login-form/login-form.component';
 import { TopicListComponent } from './lists/topic-list/topic-list.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +26,7 @@ import { TopicListComponent } from './lists/topic-list/topic-list.component';
     NavbarComponent,
     LoginFormComponent,
     TopicListComponent,
+    UserFormComponent
   ],
   imports: [
     BrowserModule,
