@@ -13,6 +13,7 @@ import { TrainingService } from './services/training-service/training-service.se
 import { NavbarComponent } from './navbar/navbar.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { LoginFormComponent } from './forms/login-form/login-form.component';
+import { TopicListComponent } from './lists/topic-list/topic-list.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { LoginFormComponent } from './forms/login-form/login-form.component';
     MainPageComponent,
     NavbarComponent,
     LoginFormComponent,
+    TopicListComponent,
     UserFormComponent
   ],
   imports: [
@@ -31,7 +33,7 @@ import { LoginFormComponent } from './forms/login-form/login-form.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [UserService, TrainingService],
   bootstrap: [AppComponent]

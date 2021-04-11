@@ -5,7 +5,15 @@
     </a>
     <div class=buttons>
         <a class=item routerLink="/home">Strona główna</a>
-        <a class=item routerLink="/trainings" (click)="onClick()">Lista Szkoleń</a>
+        <a class=item routerLink="/trainings">Lista Szkoleń</a>
+        <a class=item routerLink="/topics">Proponowane tematy</a>
         <a routerLink="/addtraining" class="item">Zaproponuj temat</a>
+        <div *ngIf="!loggedIn; then login else logout"></div>
     </div>
 </nav>
+
+<ng-template #login>
+    <a class=item routerLink="/login">Logowanie</a>
+    <a class=item routerLink="/register">Rejestracja</a>
+</ng-template>
+<ng-template #logout><a class=item (click)="logout()">Wyloguj</a></ng-template>
