@@ -1,6 +1,7 @@
 package pl.edu.pwr.app.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -50,10 +51,16 @@ public class AuthRestController {
             String token = jwtTokenGenerator.createToken(email, user.getRoles());
 
             Map<Object, Object> response = new HashMap<>();
+
+            // cors headers
+            HttpHeaders responseHeaders = new HttpHeaders();
+            responseHeaders.add("Access-Control-Allow-Origin", "http://localhost:4200");
+            responseHeaders.add("Access-Control-Allow-Credentials", "true");
+
             response.put("email", email);
             response.put("token", token);
 
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok().headers(responseHeaders).body(response);
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
         }

@@ -4,6 +4,7 @@ import { UserService } from '../../services/user-service/user-service.service';
 import { User } from '../../models/user/user';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {PasswordValidationServiceService} from "../../services/password-validation-service/password-validation-service.service";
+import {AuthenticationService} from "../../services/authentication-service/authentication-service.service";
 
 @Component({
   selector: 'app-login-form',
@@ -30,16 +31,15 @@ export class LoginFormComponent {
     ]),
   });
 
-  constructor(private route: ActivatedRoute, private router: Router, private userService: UserService) {
+  constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private authService : AuthenticationService) {
     this.user = new User();
   }
 
   onSubmit() {
 
-    this.user.email = this.userForms.get('userEmail').value;
-    this.user.password = this.userForms.get('userPassword').value;
-    this.userService.save(this.user).subscribe(result => this.gotoUserList());
+    this.authService.auth();
   }
+
 
   gotoUserList() {
     this.router.navigate(['/users']);

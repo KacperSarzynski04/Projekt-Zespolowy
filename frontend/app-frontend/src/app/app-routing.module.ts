@@ -5,6 +5,7 @@ import { UserFormComponent } from './forms/user-form/user-form.component';
 import {TrainingListComponent} from "./lists/training-list/training-list.component";
 import {TrainingFormComponent} from "./forms/training-form/training-form.component";
 import { MainPageComponent } from './main-page/main-page.component';
+import {LoginFormComponent} from "./forms/login-form/login-form.component";
 
 const routes: Routes = [
   { path: 'users', component: UserListComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'trainings', component: TrainingListComponent },
   { path: 'addtraining', component: TrainingFormComponent },
   { path: 'home', component: MainPageComponent},
+  { path: 'login', component: LoginFormComponent},
   { path: '', component: MainPageComponent},
 ];
 
