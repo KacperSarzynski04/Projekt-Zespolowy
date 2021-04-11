@@ -13,7 +13,7 @@ import { TrainingService } from './services/training-service/training-service.se
 import { NavbarComponent } from './navbar/navbar.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { LoginFormComponent } from './forms/login-form/login-form.component';
-
+import { NotificationService } from './services/notification.service';
 
 
 @NgModule({
@@ -34,7 +34,7 @@ import { LoginFormComponent } from './forms/login-form/login-form.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [UserService, TrainingService],
+  providers: [UserService, TrainingService, NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

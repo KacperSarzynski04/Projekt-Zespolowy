@@ -20,6 +20,7 @@ export class UserFormComponent {
     this.user = new User();
   }
 
+  // tslint:disable-next-line:typedef
   onSubmit() {
     this.userService.save(this.user).subscribe(result => this.gotoUserList());
   }

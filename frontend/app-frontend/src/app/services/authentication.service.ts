@@ -18,9 +18,8 @@ export class AuthenticationService {
   constructor(private http: HttpClient) {}
 
 
-  public logIn(user: User): Observable<HttpResponse<any> | HttpErrorResponse> {
-    return this.http.post<HttpResponse<any> | HttpErrorResponse>
-      (`${this.host}/login`, user, {observe: 'response'});
+  public logIn(user: User): Observable<HttpResponse<User>> {
+    return this.http.post<User>(`${this.host}/login`, user, { observe: 'response' });
   }
 
   public register(user: User): Observable<User | HttpErrorResponse> {
@@ -43,6 +42,7 @@ export class AuthenticationService {
 
   public saveUser(user: User): void {
     localStorage.setItem('user', JSON.stringify(user));
+    console.log(JSON.stringify(user));
   }
 
   public getUser(): User {
@@ -58,7 +58,7 @@ export class AuthenticationService {
     return this.token;
   }
 
-  public isLogged(): boolean {
+  public isLoggedIn(): boolean {
     this.loadToken();
     if (this.token != null && this.token !== ''){
       if (this.jwtHelperService.decodeToken(this.token).sub != null || '') {

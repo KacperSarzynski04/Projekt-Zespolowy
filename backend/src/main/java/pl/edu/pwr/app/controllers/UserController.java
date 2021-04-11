@@ -18,6 +18,8 @@ import pl.edu.pwr.app.service.UserService;
 
 import java.util.List;
 
+import static pl.edu.pwr.app.constant.SecurityConstant.JWT_TOKEN_HEADER;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = { "/", "/user"})
@@ -80,9 +82,11 @@ public class UserController {
         return new ResponseEntity<>(userLogin, loginHeader, HttpStatus.OK);
     }
 
+
+
     private HttpHeaders getHeaders(UserPrincipals userP) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Jwt-Token", jwtTokenGenerator.createToken(userP));
+        headers.add(JWT_TOKEN_HEADER, jwtTokenGenerator.createToken(userP));
         return headers;
 
     }

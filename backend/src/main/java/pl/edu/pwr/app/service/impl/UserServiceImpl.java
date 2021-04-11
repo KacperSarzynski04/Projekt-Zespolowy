@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public User register(String firstName, String lastName, String email, String password) throws UserNotFoundException, UsernameExistException, EmailExistException {
         //validateNewUsernameAndEmail(email);
         User user = new User();
-        user.setUserId(generateUserId());
+        //user.setUserId(generateUserId());
         //String password = generatePassword();
         user.setFirstName(firstName);
         user.setLastName(lastName);
