@@ -43,6 +43,11 @@ export class UserFormComponent implements OnInit, OnDestroy {
   });
 
   ngOnInit(): void {
+    if (this.authenticationService.isLogged()) {
+      this.router.navigateByUrl('');
+    } else {
+      this.router.navigateByUrl('/login');
+    }
   }
 
   // tslint:disable-next-line:typedef
