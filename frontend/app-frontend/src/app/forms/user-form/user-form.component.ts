@@ -57,6 +57,10 @@ export class UserFormComponent implements OnInit, OnDestroy {
     this.user.lastName = this.userForms.get('userSurname').value;
     this.user.email = this.userForms.get('userEmail').value;
     this.user.password = this.userForms.get('userPassword').value;
+<<<<<<< HEAD
+=======
+    // this.userService.save(this.user).subscribe(result => this.gotoHome());
+>>>>>>> token-fix
     this.subscriptions.push(
       this.authenticationService.register(this.user).subscribe(
         (response: User) => {
