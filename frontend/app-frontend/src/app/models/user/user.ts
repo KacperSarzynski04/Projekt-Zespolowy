@@ -2,6 +2,7 @@ export class User {
   public firstName: string;
   public lastName: string;
   public email: string;
+  public password: string;
   public lastLoginDate: Date;
   public active: boolean;
   public notLocked: boolean;
@@ -12,6 +13,7 @@ export class User {
     this.firstName = '';
     this.lastName = '';
     this.email = '';
+    this.password = '';
     this.lastLoginDate = null;
     this.active = false;
     this.notLocked = false;

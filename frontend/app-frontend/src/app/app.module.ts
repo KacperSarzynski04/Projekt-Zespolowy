@@ -14,8 +14,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { LoginFormComponent } from './forms/login-form/login-form.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +24,7 @@ import { LoginFormComponent } from './forms/login-form/login-form.component';
     MainPageComponent,
     NavbarComponent,
     LoginFormComponent,
+    UserFormComponent
   ],
   imports: [
     BrowserModule,
