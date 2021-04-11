@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, Output, EventEmitter} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
@@ -14,6 +14,8 @@ import { HeadersPrefix } from '../../enum/headers.enum';
 export class LoginFormComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   constructor(private router: Router, private authenticationService: AuthenticationService) { }
+
+  @Output() loginEvent = new EventEmitter();
 
   ngOnInit(): void {
     if (this.authenticationService.isLogged()) {
@@ -35,6 +37,8 @@ export class LoginFormComponent implements OnInit, OnDestroy {
         },
       )
     );
+    //an attempt to send event to navbar
+    this.loginEvent.emit("user logged in");
   }
 
   ngOnDestroy(): void {
