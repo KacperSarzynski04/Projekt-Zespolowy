@@ -25,7 +25,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
 
   onLogin(user: User): void {
     this.subscriptions.push(
-      this.authenticationService.logIn(user).subscribe(
+      this.authenticationService.login(user).subscribe(
         (response: HttpResponse<User>) => {
           const token = response.headers.get(HeadersPrefix.JWT_TOKEN);
           this.authenticationService.saveToken(token);
