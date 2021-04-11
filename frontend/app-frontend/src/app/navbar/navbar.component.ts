@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'navbar',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authenticationService : AuthenticationService) { }
 
   ngOnInit(): void {
+    this.loggedIn=this.authenticationService.isLogged();
   }
 
   public classes = {
@@ -17,8 +19,10 @@ export class NavbarComponent implements OnInit {
     item : true
   };
 
-  public onClick(){
-    
-    document.querySelector('#training_list').scrollIntoView({behavior:'smooth'});
+  public loggedIn;
+
+  public logout(){
+    this.authenticationService.logOut();
+    this.loggedIn = false;
   }
 }

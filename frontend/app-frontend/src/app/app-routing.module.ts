@@ -6,15 +6,19 @@ import {TrainingListComponent} from './lists/training-list/training-list.compone
 import {TrainingFormComponent} from './forms/training-form/training-form.component';
 import {LoginFormComponent} from './forms/login-form/login-form.component';
 import { MainPageComponent } from './main-page/main-page.component';
+import { TopicListComponent } from './lists/topic-list/topic-list.component';
 
 const routes: Routes = [
   { path: 'users', component: UserListComponent },
   { path: 'adduser', component: UserFormComponent },
   { path: 'trainings', component: TrainingListComponent },
   { path: 'addtraining', component: TrainingFormComponent },
+  { path: 'topics', component: TopicListComponent},
   { path: 'home', component: MainPageComponent},
   { path: 'login', component: LoginFormComponent},
-  { path: '', component: MainPageComponent}
+  { path: 'register', component: UserFormComponent},
+  { path: '', component: MainPageComponent},
+  { path: '*', component: MainPageComponent}
 ];
 
 @NgModule({

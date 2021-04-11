@@ -43,7 +43,7 @@
 .specialButton{
     background-color: antiquewhite;
     font-weight: bold;
-    border: 2px black solid;
+    border: 2px rgb(0, 0, 0) solid;
     border-radius: 4%;
 }
 
