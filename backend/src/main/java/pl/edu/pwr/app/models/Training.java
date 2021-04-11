@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-public class Training {
+public class Training implements Comparable<Training>{
 
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -89,5 +89,14 @@ public class Training {
                 ", date=" + date +
                 ", time=" + time +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Training o) {
+        if(this.getDate().isBefore(o.getDate())) return -1;
+        if(this.getDate().isAfter(o.getDate())) return 1;
+        if(this.getTime().isBefore(o.getTime())) return -1;
+        if(this.getTime().isAfter(o.getTime())) return 1;
+        else return 0;
     }
 }
