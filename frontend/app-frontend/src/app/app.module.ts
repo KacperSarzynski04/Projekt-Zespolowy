@@ -12,6 +12,7 @@ import { TrainingFormComponent } from './forms/training-form/training-form.compo
 import { TrainingService } from "./services/training-service/training-service.service";
 import { NavbarComponent } from './navbar/navbar.component';
 import { MainPageComponent } from './main-page/main-page.component';
+import {LoginFormComponent} from "./forms/login-form/login-form.component";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MainPageComponent } from './main-page/main-page.component';
     TrainingListComponent,
     TrainingFormComponent,
     MainPageComponent,
-    NavbarComponent
+    NavbarComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,

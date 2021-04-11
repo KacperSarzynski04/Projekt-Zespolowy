@@ -6,25 +6,17 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {PasswordValidationServiceService} from "../../services/password-validation-service/password-validation-service.service";
 
 @Component({
-  selector: 'app-user-form',
-  templateUrl: './user-form.component.html',
-  styleUrls: ['./user-form.component.css']
+  selector: 'app-login-form',
+  templateUrl: './login-form.component.html',
+  styleUrls: ['./login-form.component.css']
 })
 
-export class UserFormComponent {
+export class LoginFormComponent {
 
   user: User;
   match: Boolean;
 
   userForms = new FormGroup({
-
-    userName: new FormControl('',[
-      Validators.required,
-      Validators.pattern("[a-zA-Z ]*")]),
-
-    userSurname: new FormControl('',[
-      Validators.required,
-      Validators.pattern("[a-zA-Z ]*")]),
 
     userEmail: new FormControl('',[
       Validators.required,
@@ -35,21 +27,15 @@ export class UserFormComponent {
 
     confirmPassword: new FormControl('',[
       Validators.required,
-      ]),
+    ]),
   });
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private userService: UserService,
-    private customValidator: PasswordValidationServiceService) {
+  constructor(private route: ActivatedRoute, private router: Router, private userService: UserService) {
     this.user = new User();
   }
 
   onSubmit() {
-
-    this.user.name = this.userForms.get('userName').value;
-    this.user.surname = this.userForms.get('userSurname').value;
+    
     this.user.email = this.userForms.get('userEmail').value;
     this.user.password = this.userForms.get('userPassword').value;
     this.userService.save(this.user).subscribe(result => this.gotoUserList());

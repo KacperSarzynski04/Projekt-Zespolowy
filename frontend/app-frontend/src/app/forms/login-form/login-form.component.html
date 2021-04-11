@@ -1,0 +1,29 @@
+<div class="myContainer">
+  <div class="card my-5">
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()">
+
+        <div [formGroup]="userForms">
+          <label for="email">Email</label>
+          <input type= "email"
+                 id="email"
+                 class="form-control"
+                 formControlName="userEmail">
+        </div>
+        <div class="alert alert-danger" *ngIf="userEmail.invalid && userEmail.touched" > todo </div>
+
+        <div [formGroup]="userForms">
+          <label for="password">Password</label>
+          <input type= "password"
+                 id="password"
+                 class="form-control"
+                 formControlName="userName">
+        </div>
+        <div class="alert alert-danger" *ngIf="userName.invalid && userName.touched" > todo </div>
+
+        <button type="submit" [disabled]="!userForms.valid"
+                class="btn btn-info">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,28 +1,56 @@
 <div class="myContainer">
   <div class="card my-5">
     <div class="card-body">
-      <form (ngSubmit)="onSubmit()" #userForm="ngForm">
-        <div class="form-group">
+      <form (ngSubmit)="onSubmit()" #usersForm="ngForm">
+
+        <div [formGroup]="userForms">
           <label for="name">Name</label>
-          <input type="text" [(ngModel)]="user.name"
-                class="form-control"
-                id="name"
-                name="name"
-                placeholder="Enter your name"
-                required #name="ngModel">
+          <input type= "text"
+                 id="name"
+                 class="form-control"
+                 formControlName="userName">
         </div>
-        <div [hidden]="!name.pristine" class="alert alert-danger">Name is required</div>
-        <div class="form-group">
+        <div class="alert alert-danger" *ngIf="userName.invalid && userName.touched" > name is empty or invalid </div>
+
+        <div [formGroup]="userForms">
+          <label for="surname">Surname</label>
+          <input type= "text"
+                 id="surname"
+                 class="form-control"
+                 formControlName="userSurname">
+        </div>
+        <div class="alert alert-danger" *ngIf="userSurname.invalid && userSurname.touched" > surname is empty or invalid </div>
+
+        <div [formGroup]="userForms">
           <label for="email">Email</label>
-          <input type="text" [(ngModel)]="user.email"
-                class="form-control"
-                id="email"
-                name="email"
-                placeholder="Enter your email address"
-                required #email="ngModel">
-          <div [hidden]="!email.pristine" class="alert alert-danger">Email is required</div>
+          <input type= "email"
+                  id="email"
+                  class="form-control"
+                  formControlName="userEmail">
         </div>
-        <button type="submit" [disabled]="!userForm.form.valid"
+          <div class="alert alert-danger" *ngIf="userEmail.invalid && userEmail.touched" > email is empty or invalid, email must
+          contain comarch.com or comarch.pl suffix </div>
+
+        <div [formGroup]="userForms">
+          <label for="password">Password</label>
+          <input type="password"
+                 id="password"
+                 class="form-control"
+                 formControlName="userPassword">
+        </div>
+        <div class="alert alert-danger" *ngIf="userPassword.invalid && userPassword.touched" > password is empty or invalid </div>
+
+        <div [formGroup]="userForms">
+          <label for="passwordConfirmation">Confirm password</label>
+          <input type="password"
+                 id="passwordConfirmation"
+                 class="form-control"
+                 formControlName="confirmPassword">
+        </div>
+        <div class="alert alert-danger" *ngIf="confirmPassword.invalid && confirmPassword.touched" > password is
+          empty or invalid or isn't same as firstly entered password</div>
+
+        <button type="submit" [disabled]="!userForms.valid || this.checkPassword()"
                 class="btn btn-info">Submit</button>
       </form>
     </div>

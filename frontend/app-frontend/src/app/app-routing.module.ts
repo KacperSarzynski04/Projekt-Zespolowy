@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'trainings', component: TrainingListComponent },
   { path: 'addtraining', component: TrainingFormComponent },
   { path: 'home', component: MainPageComponent},
-  { path: '', component: MainPageComponent}
+  { path: '', component: MainPageComponent},
 ];
 
 @NgModule({

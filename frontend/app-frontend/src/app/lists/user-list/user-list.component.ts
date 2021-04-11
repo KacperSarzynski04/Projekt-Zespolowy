@@ -20,4 +20,8 @@ export class UserListComponent implements OnInit {
       console.log(data);
     });
   }
+
+  get usersFromDb(){
+    return this.users;
+  }
 }
