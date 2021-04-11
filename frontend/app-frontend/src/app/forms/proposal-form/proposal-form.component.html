@@ -1,0 +1,30 @@
+<div class="myContainer">
+  <div class="card my-5">
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()" #proposalForm="ngForm">
+        <div class="form-group">
+          <label for="topic">Topic</label>
+          <input type="text" [(ngModel)]="proposal.topic"
+                 class="form-control"
+                 id="topic"
+                 name="topic"
+                 placeholder="Enter proposal's topic"
+                 required #name="ngModel">
+        </div>
+        <div [hidden]="!name.pristine" class="alert alert-danger">Proposals's topic is required</div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input type="text" [(ngModel)]="proposal.description"
+                 class="form-control"
+                 id="description"
+                 name="description"
+                 placeholder="Enter proposals's description"
+                 required #name="ngModel">
+        </div>
+        <div [hidden]="!name.pristine" class="alert alert-danger">Proposals's description is required</div>
+        <button type="submit" [disabled]="!proposalForm.form.valid"
+                class="btn btn-info">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
