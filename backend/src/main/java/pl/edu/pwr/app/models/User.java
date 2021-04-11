@@ -1,31 +1,31 @@
 package pl.edu.pwr.app.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
 @Data
-public class User extends BaseEntity {
+public class User implements Serializable {
 
-    @Column(name = "username")
-    private String username;
-
-    @Column(name = "first_name")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false, updatable = false)
+    private Long id;
+    private String userId;
     private String firstName;
-
     private String lastName;
-    private String email;
     private String password;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
-    joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
-    private List<Role> roles;
-
-
+    private String email;
+    private Date lastLoginDate;
+    private String role;
+    private String[] authorities;
+    private boolean isActive;
+    private boolean isNotLocked;
 
 }
+

@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'trainings', component: TrainingListComponent },
   { path: 'addtraining', component: TrainingFormComponent },
   { path: 'home', component: MainPageComponent},
-  { path: 'admin', component: LoginFormComponent},
+  { path: 'login', component: LoginFormComponent},
   { path: '', component: MainPageComponent}
 ];
 

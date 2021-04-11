@@ -1,18 +1,19 @@
 package pl.edu.pwr.app.service;
 
 import pl.edu.pwr.app.models.User;
+import pl.edu.pwr.app.exception.domain.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface UserService {
 
-    User register(User user);
+    User register(String firstName, String lastName, String email, String password) throws UserNotFoundException, UsernameExistException, EmailExistException;
 
-    List<User> getAll();
+    User findUserByEmail(String email);
 
-    User findByEmail(String email);
+    User updateUser(String currentUsername, String newFirstName, String newLastName, String newUsername, String newEmail, String role, boolean isNonLocked, boolean isActive, MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException;
 
-    User findById(Long id);
-
-    void delete(Long id);
+    void deleteUser(String username) throws IOException;
 }

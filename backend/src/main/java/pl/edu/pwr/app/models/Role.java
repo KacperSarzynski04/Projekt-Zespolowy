@@ -1,19 +1,18 @@
 package pl.edu.pwr.app.models;
 
-import lombok.Data;
+import static pl.edu.pwr.app.constant.Authorities.*;
 
-import javax.persistence.*;
-import java.util.List;
+public enum Role {
+    ROLE_USER(USER_AUTHORITIES),
+    ROLE_ADMIN(ADMIN_AUTHORITIES);
 
-@Entity
-@Table(name = "roles")
-@Data
-public class Role extends BaseEntity {
+    private String[] authorities;
 
-    @Column(name = "name")
-    private String name;
+    Role(String... authorities) {
+        this.authorities = authorities;
+    }
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private List<User> users;
-
+    public String[] getAuthorities() {
+        return authorities;
+    }
 }
