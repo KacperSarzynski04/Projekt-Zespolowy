@@ -21,10 +21,12 @@ export class NavbarComponent implements OnInit {
 
   public loggedIn;
   public reload(){
+    console.log("navbar: reload called");
     this.loggedIn = this.authenticationService.isLogged();
   }
+  
   public logout(){
     this.authenticationService.logOut();
-    this.loggedIn = false;
+    this.reload();
   }
 }
