@@ -15,15 +15,12 @@ const routes: Routes = [
   { path: 'addtraining', component: TrainingFormComponent },
   { path: 'topics', component: TopicListComponent},
   { path: 'home', component: MainPageComponent},
-<<<<<<< HEAD
   { path: 'login', component: LoginFormComponent},
   { path: 'register', component: UserFormComponent},
   { path: '', component: MainPageComponent},
-  { path: '*', component: MainPageComponent}
-=======
+  { path: '*', component: MainPageComponent},
   { path: 'user/login', component: LoginFormComponent},
   { path: '', component: MainPageComponent}
->>>>>>> token-fix
 ];
 
 @NgModule({
