@@ -4,6 +4,9 @@ import {User} from '../../models/user/user';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../services/user-service/user-service.service';
 import {Router} from '@angular/router';
+import {AuthenticationService} from '../../services/authentication.service';
+import {HttpErrorResponse} from '@angular/common/http';
+
 
 @Component({
   selector: 'app-user-form',
@@ -13,7 +16,7 @@ import {Router} from '@angular/router';
 export class UserFormComponent implements OnInit, OnDestroy {
   private user: User;
   private subscriptions: Subscription[] = [];
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router, private authenticationService: AuthenticationService) {
     this.user = new User();
   }
 
@@ -50,12 +53,20 @@ export class UserFormComponent implements OnInit, OnDestroy {
   }
 
   onRegister(): void {
-
     this.user.firstName = this.userForms.get('userName').value;
     this.user.lastName = this.userForms.get('userSurname').value;
     this.user.email = this.userForms.get('userEmail').value;
     this.user.password = this.userForms.get('userPassword').value;
     this.userService.save(this.user).subscribe(result => this.gotoHome());
+    this.subscriptions.push(
+      this.authenticationService.register(this.user).subscribe(
+        (response: User) => {
+        },
+        (errorResponse: HttpErrorResponse) => {
+          console.log('Error while register');
+        }
+      )
+    );
 
   }
 

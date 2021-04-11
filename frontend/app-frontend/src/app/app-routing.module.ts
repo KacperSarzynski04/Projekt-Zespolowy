@@ -9,7 +9,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 
 const routes: Routes = [
   { path: 'users', component: UserListComponent },
-  { path: 'adduser', component: UserFormComponent },
+  { path: 'register', component: UserFormComponent },
   { path: 'trainings', component: TrainingListComponent },
   { path: 'addtraining', component: TrainingFormComponent },
   { path: 'home', component: MainPageComponent},
