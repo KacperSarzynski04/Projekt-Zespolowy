@@ -26,6 +26,7 @@ public class TrainingController {
         //Wyswietlenie trzech najblizszych szkolen dla niezalogowanego uzytkownika
         return getTrainingsAsUser(3);
         //return (List<Training>) trainingRepository.findAll();
+        //return getTrainingAsAdmin();
     }
     public List<Training> getSortedTrainings(){
         List<Training> trainingList = (List<Training>) trainingRepository.findAll();
@@ -34,6 +35,7 @@ public class TrainingController {
         LocalDate localDate = null;
         LocalTime localTime = null;
         for (Training training : trainingList) {
+
             if(training.getDate().isEqual(localDate.now())){
                 if(training.getTime().isAfter(localTime.now())){
                     sortedTrainingList.add(training);
@@ -62,6 +64,10 @@ public class TrainingController {
                        }
                    }
         return trainingListUser;
+    }
+    public List<Training> getTrainingAsAdmin(){
+        List<Training> sortedTrainingList = getSortedTrainings();
+        return sortedTrainingList;
     }
     @PostMapping("/trainings")
     void addTraining(@RequestBody Training training) {

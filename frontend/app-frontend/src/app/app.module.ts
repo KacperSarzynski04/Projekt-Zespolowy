@@ -13,6 +13,9 @@ import { TrainingService } from './services/training-service/training-service.se
 import { NavbarComponent } from './navbar/navbar.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { LoginFormComponent } from './forms/login-form/login-form.component';
+import { ProposalListComponent } from './lists/proposal-list/proposal-list.component';
+import { ProposalFormComponent } from './forms/proposal-form/proposal-form.component';
+import { ProposalService} from './services/proposal-service/proposal-service.service';
 
 
 
@@ -26,6 +29,8 @@ import { LoginFormComponent } from './forms/login-form/login-form.component';
     MainPageComponent,
     NavbarComponent,
     LoginFormComponent,
+    ProposalListComponent,
+    ProposalFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +39,7 @@ import { LoginFormComponent } from './forms/login-form/login-form.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [UserService, TrainingService],
+  providers: [UserService, TrainingService, ProposalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,22 @@
+<div class="myContainer">
+  <div class="card my-5" id="proposal_list">
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Proposal's topic</th>
+          <th scope="col">Proposal's description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let proposal of proposals">
+          <td>{{ proposal.id }}</td>
+          <td>{{ proposal.topic }}</td>
+          <td>{{ proposal.description }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
