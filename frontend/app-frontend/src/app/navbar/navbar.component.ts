@@ -11,7 +11,7 @@ export class NavbarComponent implements OnInit {
   constructor(private authenticationService : AuthenticationService) { }
 
   ngOnInit(): void {
-    this.loggedIn=this.authenticationService.isLogged();
+    this.loggedIn =this.authenticationService.isLogged();
   }
 
   public classes = {
@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit {
     console.log("navbar: reload called");
     this.loggedIn = this.authenticationService.isLogged();
   }
-  
+
   public logout(){
     this.authenticationService.logOut();
     this.reload();

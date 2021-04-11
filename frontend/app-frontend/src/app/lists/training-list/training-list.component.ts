@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Training } from '../../models/training/training';
-import {TrainingService} from "../../services/training-service/training-service.service";
+import {TrainingService} from '../../services/training-service/training-service.service';
 
 @Component({
   selector: 'app-training-list',

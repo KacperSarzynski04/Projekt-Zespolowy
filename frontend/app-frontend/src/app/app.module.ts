@@ -14,6 +14,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { LoginFormComponent } from './forms/login-form/login-form.component';
 import { TopicListComponent } from './lists/topic-list/topic-list.component';
+import { ProposalFormComponent } from './forms/proposal-form/proposal-form.component';
+import { ProposalListComponent } from './lists/proposal-list/proposal-list.component';
+import {ProposalService} from './services/proposal-service/proposal-service.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,9 @@ import { TopicListComponent } from './lists/topic-list/topic-list.component';
     NavbarComponent,
     LoginFormComponent,
     TopicListComponent,
-    UserFormComponent
+    UserFormComponent,
+    ProposalFormComponent,
+    ProposalListComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +40,7 @@ import { TopicListComponent } from './lists/topic-list/topic-list.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [UserService, TrainingService],
+  providers: [UserService, TrainingService, ProposalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
