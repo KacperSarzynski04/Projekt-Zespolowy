@@ -17,8 +17,7 @@ export class TrainingListComponent implements OnInit {
     private authService : AuthenticationService) {
     this.router.events.subscribe(e => {
       if(e instanceof NavigationEnd && this.router.url == "/trainings"){
-        console.log("route:" + this.router.url);
-        this.renderAdmin()
+        this.admin = this.authService.getUser().role == "ROLE_ADMIN";
       }
     })
   }
@@ -30,7 +29,7 @@ export class TrainingListComponent implements OnInit {
     });
   }
 
-  admin = true;
+  admin = false;
   
   public navToAddTrainings(){
     if(this.admin){

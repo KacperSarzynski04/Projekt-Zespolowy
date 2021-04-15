@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit {
 
   public loggedIn;
   public reload(){
-    console.log("navbar: reload called");
+    //console.log("navbar: reload called");
     this.loggedIn = this.authenticationService.isLogged();
   }
 
