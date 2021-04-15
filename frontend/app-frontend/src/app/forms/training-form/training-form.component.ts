@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Training } from '../../models/training/training';
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, GuardsCheckStart, NavigationEnd, NavigationStart, Router} from "@angular/router";
 import {TrainingService} from "../../services/training-service/training-service.service";
 
 @Component({
@@ -17,6 +17,15 @@ export class TrainingFormComponent implements OnInit {
     private router: Router,
     private trainingService: TrainingService) {
     this.training = new Training();
+    this.router.events.subscribe(e => {
+      if(e instanceof NavigationEnd){
+        //TODO: check for admin
+        let admin = true;
+        if(!admin){
+          this.router.navigateByUrl("");
+        }
+      }
+    })
   }
 
   ngOnInit(): void {

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Training } from '../../models/training/training';
 import {TrainingService} from '../../services/training-service/training-service.service';
 
@@ -11,7 +13,14 @@ export class TrainingListComponent implements OnInit {
 
   trainings: Training[];
 
-  constructor(private trainingService: TrainingService) {
+  constructor(private trainingService: TrainingService, private router: Router,
+    private authService : AuthenticationService) {
+    this.router.events.subscribe(e => {
+      if(e instanceof NavigationEnd && this.router.url == "/trainings"){
+        console.log("route:" + this.router.url);
+        this.renderAdmin()
+      }
+    })
   }
 
   ngOnInit(): void {
@@ -19,6 +28,22 @@ export class TrainingListComponent implements OnInit {
       this.trainings = data;
       console.log(data);
     });
+  }
+
+  admin = true;
+  
+  public navToAddTrainings(){
+    if(this.admin){
+      this.router.navigateByUrl("/addtraining");
+    }
+  }
+
+  renderAdmin() :void {
+    //TODO: handle checking for administrator by using token
+    this.admin = true;
+    if(this.admin){
+      console.log("X");
+    }
   }
 }
 

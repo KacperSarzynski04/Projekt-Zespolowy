@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationError, NavigationStart, Router } from '@angular/router';
 import { Training } from 'src/app/models/training/training';
 import { TrainingService } from 'src/app/services/training-service/training-service.service';
 
@@ -10,7 +11,7 @@ import { TrainingService } from 'src/app/services/training-service/training-serv
 export class TopicListComponent implements OnInit {
 
   trainings: Training[];
-  constructor(private trainingService: TrainingService) {
+  constructor(private trainingService: TrainingService, private router:Router) {
   }
 
   ngOnInit(): void {

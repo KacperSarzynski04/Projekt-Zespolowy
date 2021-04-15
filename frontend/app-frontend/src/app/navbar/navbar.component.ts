@@ -9,7 +9,8 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private authenticationService : AuthenticationService, private router : Router) { 
+  constructor(private authenticationService : AuthenticationService, 
+    private router : Router) { 
     this.router.events.subscribe(e => {
       if (e instanceof NavigationStart){
         this.reload();
