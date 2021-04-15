@@ -11,7 +11,7 @@ import {applySourceSpanToExpressionIfNeeded} from '@angular/compiler/src/output/
 })
 export class AuthenticationService {
 
-  private host = environment.apiUrl;
+  public host = environment.apiUrl;
   private token: string;
   private loggedInUserEmail: string;
   private  jwtHelperService = new JwtHelperService();
