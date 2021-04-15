@@ -65,7 +65,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.authenticationService.register(this.user).subscribe(
         (response: User) => {
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('registration_confirmation');
         },
         (errorResponse: HttpErrorResponse) => {
           console.log('Error while register');

@@ -9,6 +9,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { TopicListComponent } from './lists/topic-list/topic-list.component';
 import {ProposalFormComponent} from './forms/proposal-form/proposal-form.component';
 import {ProposalListComponent} from './lists/proposal-list/proposal-list.component';
+import {RegisterConfirmationComponent} from './pages/register-confirmation/register-confirmation.component';
 
 const routes: Routes = [
   { path: 'users', component: UserListComponent },
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'user/login', component: LoginFormComponent},
   { path: '', component: MainPageComponent},
   { path: 'proposals', component: ProposalListComponent},
-  { path: 'addproposal', component: ProposalFormComponent}
+  { path: 'addproposal', component: ProposalFormComponent},
+  { path: 'registration_confirmation', component: RegisterConfirmationComponent}
 ];
 
 @NgModule({

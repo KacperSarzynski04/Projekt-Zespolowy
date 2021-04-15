@@ -17,6 +17,7 @@ import { TopicListComponent } from './lists/topic-list/topic-list.component';
 import { ProposalFormComponent } from './forms/proposal-form/proposal-form.component';
 import { ProposalListComponent } from './lists/proposal-list/proposal-list.component';
 import {ProposalService} from './services/proposal-service/proposal-service.service';
+import { RegisterConfirmationComponent } from './pages/register-confirmation/register-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {ProposalService} from './services/proposal-service/proposal-service.serv
     TopicListComponent,
     UserFormComponent,
     ProposalFormComponent,
-    ProposalListComponent
+    ProposalListComponent,
+    RegisterConfirmationComponent
   ],
   imports: [
     BrowserModule,
