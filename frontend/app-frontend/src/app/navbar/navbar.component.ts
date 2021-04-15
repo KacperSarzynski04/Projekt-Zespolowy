@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationStart, Router, RouterEvent } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
@@ -8,7 +9,13 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private authenticationService : AuthenticationService) { }
+  constructor(private authenticationService : AuthenticationService, private router : Router) { 
+    this.router.events.subscribe(e => {
+      if (e instanceof NavigationStart){
+        this.reload();
+      }
+    })
+  }
 
   ngOnInit(): void {
     this.loggedIn =this.authenticationService.isLogged();
