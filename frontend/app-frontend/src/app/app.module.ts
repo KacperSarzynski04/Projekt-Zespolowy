@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { UserListComponent } from './lists/user-list/user-list.component';
 import { UserFormComponent } from './forms/user-form/user-form.component';
@@ -17,6 +17,8 @@ import { TopicListComponent } from './lists/topic-list/topic-list.component';
 import { ProposalFormComponent } from './forms/proposal-form/proposal-form.component';
 import { ProposalListComponent } from './lists/proposal-list/proposal-list.component';
 import {ProposalService} from './services/proposal-service/proposal-service.service';
+import {AuthenticationService} from './services/authentication.service';
+import {AuthInterceptor} from './intercept/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import {ProposalService} from './services/proposal-service/proposal-service.serv
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [UserService, TrainingService, ProposalService],
+  providers: [UserService, TrainingService, ProposalService, AuthenticationService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
