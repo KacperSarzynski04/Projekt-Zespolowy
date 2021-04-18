@@ -13,13 +13,7 @@ export class TrainingListComponent implements OnInit {
 
   trainings: Training[];
 
-  constructor(private trainingService: TrainingService, private router: Router,
-    private authService : AuthenticationService) {
-    this.router.events.subscribe(e => {
-      if(e instanceof NavigationEnd && this.router.url == "/trainings"){
-        this.admin = this.authService.getUser().role == "ROLE_ADMIN";
-      }
-    })
+  constructor(private trainingService: TrainingService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -28,21 +22,6 @@ export class TrainingListComponent implements OnInit {
       console.log(data);
     });
   }
-
-  admin = false;
   
-  public navToAddTrainings(){
-    if(this.admin){
-      this.router.navigateByUrl("/addtraining");
-    }
-  }
-
-  renderAdmin() :void {
-    //TODO: handle checking for administrator by using token
-    this.admin = true;
-    if(this.admin){
-      console.log("X");
-    }
-  }
 }
 
