@@ -48,6 +48,10 @@ export class AuthenticationService {
     return JSON.parse(localStorage.getItem('user'));
   }
 
+  public isAdmin(): boolean {
+    return JSON.parse(localStorage.getItem('user')).role === 'ROLE_ADMIN';
+  }
+
   public loadToken(): void {
     this.token = localStorage.getItem('token');
     console.log(this.token);

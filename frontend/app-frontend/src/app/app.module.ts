@@ -19,6 +19,7 @@ import { ProposalListComponent } from './lists/proposal-list/proposal-list.compo
 import {ProposalService} from './services/proposal-service/proposal-service.service';
 import {AuthenticationService} from './services/authentication.service';
 import {AuthInterceptor} from './intercept/auth.interceptor';
+import {AuthGuard} from './guard/guard.guard';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import {AuthInterceptor} from './intercept/auth.interceptor';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [UserService, TrainingService, ProposalService, AuthenticationService,
+  providers: [UserService, TrainingService, ProposalService, AuthGuard, AuthenticationService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })

@@ -9,12 +9,13 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { TopicListComponent } from './lists/topic-list/topic-list.component';
 import {ProposalFormComponent} from './forms/proposal-form/proposal-form.component';
 import {ProposalListComponent} from './lists/proposal-list/proposal-list.component';
+import {AuthGuard} from './guard/guard.guard';
+import {RoleGuard} from './guard/role-guard.guard';
 
 const routes: Routes = [
-  { path: 'users', component: UserListComponent },
   { path: 'register', component: UserFormComponent },
   { path: 'trainings', component: TrainingListComponent },
-  { path: 'addtraining', component: TrainingFormComponent },
+  { path: 'addtraining', component: TrainingFormComponent , canActivate: [RoleGuard]},
   { path: 'topics', component: ProposalListComponent},
   { path: 'home', component: MainPageComponent},
   { path: 'login', component: LoginFormComponent},
@@ -24,7 +25,7 @@ const routes: Routes = [
   { path: 'user/login', component: LoginFormComponent},
   { path: '', component: MainPageComponent},
   { path: 'proposals', component: ProposalListComponent},
-  { path: 'addproposal', component: ProposalFormComponent}
+  { path: 'addproposal', component: ProposalFormComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
