@@ -1,10 +1,12 @@
-import {Component, OnDestroy, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {User} from '../../models/user/user';
-import { HeadersPrefix } from '../../enum/headers.enum';
+import {HeadersPrefix} from '../../enum/headers.enum';
+import {NotificationsEnum} from '../../enum/notifications.enum';
+import {NotificationsService} from '../../services/notifications.service';
 
 @Component({
   selector: 'app-login-form',
@@ -13,7 +15,8 @@ import { HeadersPrefix } from '../../enum/headers.enum';
 })
 export class LoginFormComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
-  constructor(private router: Router, private authenticationService: AuthenticationService) { }
+  constructor(private router: Router, private authenticationService: AuthenticationService,
+              private notificationsService: NotificationsService) { }
 
   @Output() loginEvent = new EventEmitter();
 
@@ -35,14 +38,24 @@ export class LoginFormComponent implements OnInit, OnDestroy {
           this.authenticationService.saveUser(response.body);
           this.router.navigateByUrl('/home');
         },
+        (errorResponse: HttpErrorResponse) => {
+          this.sendErrorNotification(NotificationsEnum.ERROR, errorResponse.error.message);
+        }
       )
     );
-    //an attempt to send event to navbar
-    this.loginEvent.emit("user logged in");
+    this.notificationsService.showMessage(NotificationsEnum.SUCCESS, 'Logged in!');
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  private sendErrorNotification(notificationType: NotificationsEnum, message: string): void {
+    if (message) {
+      this.notificationsService.showMessage(notificationType, message);
+    } else {
+      this.notificationsService.showMessage(notificationType, 'An error occurred. Please try again.');
+    }
   }
 
 }

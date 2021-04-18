@@ -20,6 +20,8 @@ import {ProposalService} from './services/proposal-service/proposal-service.serv
 import {AuthenticationService} from './services/authentication.service';
 import {AuthInterceptor} from './intercept/auth.interceptor';
 import {AuthGuard} from './guard/guard.guard';
+import {NotificationModule} from './notification.module';
+import {NotificationsService} from './services/notifications.service';
 
 @NgModule({
   declarations: [
@@ -42,8 +44,9 @@ import {AuthGuard} from './guard/guard.guard';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NotificationModule
   ],
-  providers: [UserService, TrainingService, ProposalService, AuthGuard, AuthenticationService,
+  providers: [UserService, TrainingService, ProposalService, AuthGuard, NotificationsService, AuthenticationService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })

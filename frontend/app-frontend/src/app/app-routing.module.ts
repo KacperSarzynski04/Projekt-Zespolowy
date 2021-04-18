@@ -15,7 +15,7 @@ import {RoleGuard} from './guard/role-guard.guard';
 const routes: Routes = [
   { path: 'register', component: UserFormComponent },
   { path: 'trainings', component: TrainingListComponent },
-  { path: 'addtraining', component: TrainingFormComponent , canActivate: [RoleGuard]},
+  { path: 'addtraining', component: TrainingFormComponent , canActivate: [RoleGuard, AuthGuard]},
   { path: 'topics', component: ProposalListComponent},
   { path: 'home', component: MainPageComponent},
   { path: 'login', component: LoginFormComponent},

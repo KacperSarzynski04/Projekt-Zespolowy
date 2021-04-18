@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
-import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {AuthenticationService} from '../services/authentication.service';
+import {NotificationsService} from '../services/notifications.service';
+import {NotificationsEnum} from '../enum/notifications.enum';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authenticationService: AuthenticationService, private router: Router) {}
+  constructor(private authenticationService: AuthenticationService, private router: Router, private notificationsService: NotificationsService) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     return this.isUserLoggedIn();
@@ -18,7 +19,7 @@ export class AuthGuard implements CanActivate {
       return true;
     }
     this.router.navigate(['/login']);
-    console.log('Login in first');
+    this.notificationsService.showMessage(NotificationsEnum.WARNING, "Login first");
     return false;
   }
 }

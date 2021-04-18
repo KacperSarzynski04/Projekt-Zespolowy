@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
-import { environment} from '../../environments/environment.prod';
+import {Injectable} from '@angular/core';
+import {environment} from '../../environments/environment.prod';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {User} from '../models/user/user';
 import {Observable} from 'rxjs';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import {applySourceSpanToExpressionIfNeeded} from '@angular/compiler/src/output/output_ast';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {NotificationsService} from './notifications.service';
+import {NotificationsEnum} from '../enum/notifications.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,7 @@ export class AuthenticationService {
   public host = environment.apiUrl;
   private token: string;
   private loggedInUserEmail: string;
-  private  jwtHelperService = new JwtHelperService();
-  constructor(private http: HttpClient) {}
+  private  jwtHelperService = new JwtHelperService(); constructor(private http: HttpClient,) {}
 
 
   public login(user: User): Observable<HttpResponse<User>> {
@@ -33,6 +33,7 @@ export class AuthenticationService {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     localStorage.removeItem('users');
+
   }
 
   public saveToken(token: string): void {
