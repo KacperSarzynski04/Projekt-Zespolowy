@@ -22,6 +22,6 @@ export class TrainingListComponent implements OnInit {
       console.log(data);
     });
   }
-  
+
 }
 
