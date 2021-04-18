@@ -34,8 +34,8 @@ public class Proposal implements Comparable<Proposal>{
 
     @Override
     public int compareTo(Proposal o) {
-        if(this.getTopic().compareTo(o.getTopic())>0) return -1;
-        if(this.getTopic().compareTo(o.getTopic())<0) return 1;
+        if(this.getTopic().compareTo(o.getTopic())>0) return 1;
+        if(this.getTopic().compareTo(o.getTopic())<0) return -1;
         return 0;
     }
 }
