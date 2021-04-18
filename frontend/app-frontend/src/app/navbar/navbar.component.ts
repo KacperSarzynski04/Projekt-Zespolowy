@@ -38,6 +38,7 @@ export class NavbarComponent implements OnInit {
   public logout(){
     this.authenticationService.logOut();
     this.reload();
-    this.notificationsService.showMessage(NotificationsEnum.SUCCESS, "Logged out");
+    this.notificationsService.showMessage(NotificationsEnum.DEFAULT, "Logged out");
+    this.router.navigate(['/home']);
   }
 }

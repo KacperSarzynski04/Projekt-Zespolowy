@@ -6,6 +6,8 @@ import {UserService} from '../../services/user-service/user-service.service';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
 import {HttpErrorResponse} from '@angular/common/http';
+import {NotificationsEnum} from '../../enum/notifications.enum';
+import {NotificationsService} from '../../services/notifications.service';
 
 
 @Component({
@@ -16,7 +18,8 @@ import {HttpErrorResponse} from '@angular/common/http';
 export class UserFormComponent implements OnInit, OnDestroy {
   private user: User;
   private subscriptions: Subscription[] = [];
-  constructor(private userService: UserService, private router: Router, private authenticationService: AuthenticationService) {
+  constructor(private userService: UserService, private router: Router, private authenticationService: AuthenticationService,
+              private notificationsService: NotificationsService) {
     this.user = new User();
   }
 
@@ -66,13 +69,21 @@ export class UserFormComponent implements OnInit, OnDestroy {
       this.authenticationService.register(this.user).subscribe(
         (response: User) => {
           this.router.navigateByUrl('/');
+          this.notificationsService.showMessage(NotificationsEnum.SUCCESS, "Konto zostało utworzone");
         },
         (errorResponse: HttpErrorResponse) => {
-          console.log('Error while register');
+          this.notificationsService.showMessage(NotificationsEnum.ERROR, errorResponse.error.message);
         }
       )
     );
 
+  }
+  private sendErrorNotification(notificationType: NotificationsEnum, message: string): void {
+    if (message) {
+      this.notificationsService.showMessage(notificationType, message);
+    } else {
+      this.notificationsService.showMessage(notificationType, 'Bład. Sprobuj jeszcze raz.');
+    }
   }
 
   // tslint:disable-next-line:typedef

@@ -85,11 +85,13 @@
           </div>
           <div class="help-block" style="color:red;" *ngIf="confirmPassword.invalid && confirmPassword.touched" > zawartość pola jest pusta </div>
 
+          <div class="help-block" style="color:red;" *ngIf="this.checkPassword() != false" > Hasła muszą być takie same </div>
           <div class="d-flex justify-content-center mt-3 login_container">
-            <button type="submit" [disabled]="!userForms.valid || this.checkPassword()">
-              <span style="color: white;"> Login</span>
-              <div class="help-block" style="color:red;" *ngIf="this.checkPassword() != false" > Hasła muszą być takie same </div>
+            <button type="submit" name="button" class="btn login_btn" [disabled]="!userForms.valid || this.checkPassword()">
+              <span style="color: white;"> Zarejestruj</span>
+
             </button>
+
           </div>
         </form>
       </div>

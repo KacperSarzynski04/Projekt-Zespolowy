@@ -20,7 +20,7 @@ export class RoleGuard implements CanActivate {
     if (this.authenticationService.isAdmin()) {
       return true;
     }
-    this.notificationsService.showMessage(NotificationsEnum.WARNING, `You need to log in to access this page`);
+    this.notificationsService.showMessage(NotificationsEnum.DEFAULT, `You need to log in as an admin ad to access this page`);
     this.router.navigate(['/home']);
     console.log('Not an admin');
     return false;

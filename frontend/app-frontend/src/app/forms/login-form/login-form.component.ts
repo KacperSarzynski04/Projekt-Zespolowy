@@ -36,6 +36,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
           this.authenticationService.saveToken(token);
           console.log(token);
           this.authenticationService.saveUser(response.body);
+          this.notificationsService.showMessage(NotificationsEnum.SUCCESS, 'Logged in!');
           this.router.navigateByUrl('/home');
         },
         (errorResponse: HttpErrorResponse) => {
@@ -43,7 +44,6 @@ export class LoginFormComponent implements OnInit, OnDestroy {
         }
       )
     );
-    this.notificationsService.showMessage(NotificationsEnum.SUCCESS, 'Logged in!');
   }
 
   ngOnDestroy(): void {
@@ -54,7 +54,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
     if (message) {
       this.notificationsService.showMessage(notificationType, message);
     } else {
-      this.notificationsService.showMessage(notificationType, 'An error occurred. Please try again.');
+      this.notificationsService.showMessage(notificationType, 'Bład. Sprobuj jeszcze raz');
     }
   }
 
