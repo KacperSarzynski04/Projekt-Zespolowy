@@ -21,6 +21,10 @@
                  placeholder="Enter proposals's description"
                  required #name="ngModel">
         </div>
+        <label for="assignTrainer">I would like to be the host of training
+          <input id="assignTrainer"  [hidden]="false"  type="checkbox"
+          name="assignTrainer">
+        </label>
         <div [hidden]="!name.pristine" class="alert alert-danger">Proposals's description is required</div>
         <button type="submit" [disabled]="!proposalForm.form.valid"
                 class="btn btn-info">Submit</button>

@@ -1,11 +1,13 @@
 package pl.edu.pwr.app.controllers;
 
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pwr.app.models.Proposal;
-import pl.edu.pwr.app.models.Training;
+import pl.edu.pwr.app.models.ProposalHost;
+import pl.edu.pwr.app.models.User;
+import pl.edu.pwr.app.repositories.ProposalHostRepository;
 import pl.edu.pwr.app.repositories.ProposalRepository;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,9 +17,10 @@ import java.util.List;
 @RequestMapping(path = { "/"})
 public class ProposalController {
     private final ProposalRepository proposalRepository;
-
-    public ProposalController(ProposalRepository proposalRepository) {
+    private final ProposalHostRepository proposalHostRepository;
+    public ProposalController(ProposalRepository proposalRepository, ProposalHostRepository proposalHostRepository) {
         this.proposalRepository = proposalRepository;
+        this.proposalHostRepository = proposalHostRepository;
     }
     @GetMapping("/proposals")
     public List<Proposal> getProposals(){
@@ -28,6 +31,8 @@ public class ProposalController {
     @PostMapping("/proposals")
     public void addProposal(@RequestBody Proposal proposal){
         proposalRepository.save(proposal);
-
+        //To wszystko niżej musi być zależne od checkboxa czy wcisnięty czy nie
+        //ProposalHost proposalHost = new ProposalHost(5, proposal.getId());
+        //proposalHostRepository.save(proposalHost);
     }
 }
