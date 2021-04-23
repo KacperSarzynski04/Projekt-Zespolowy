@@ -11,7 +11,7 @@ import {ProposalService} from '../../services/proposal-service/proposal-service.
 export class ProposalFormComponent implements OnInit {
 
   proposal: Proposal;
-
+  assignTrainer: boolean;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -23,7 +23,7 @@ export class ProposalFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.proposalService.save(this.proposal).subscribe(result => this.gotoProposalList());
+    this.proposalService.save(this.proposal, this.assignTrainer).subscribe(result => this.gotoProposalList());
   }
 
   gotoProposalList() {

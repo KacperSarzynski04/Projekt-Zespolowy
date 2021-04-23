@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.pwr.app.AppApplication;
 import pl.edu.pwr.app.exception.domain.EmailExistException;
 import pl.edu.pwr.app.exception.domain.UserNotFoundException;
 import pl.edu.pwr.app.exception.domain.UsernameExistException;
@@ -27,7 +28,6 @@ public class UserController {
     private UserService userService;
     private AuthenticationManager authenticationManager;
     private JwtTokenGenerator jwtTokenGenerator;
-
 
     @Autowired
     public UserController(UserRepository userRepository,
@@ -75,6 +75,7 @@ public class UserController {
     public ResponseEntity<User> login(@RequestBody User user) {
         getAuthenticaton(user.getEmail(), user.getPassword());
         User userLogin = userService.findUserByEmail(user.getEmail());
+        AppApplication.loggedUserID = userLogin.getId();
         UserPrincipals userP = new UserPrincipals(userLogin);
         HttpHeaders loginHeader = getHeaders(userP);
         return new ResponseEntity<>(userLogin, loginHeader, HttpStatus.OK);

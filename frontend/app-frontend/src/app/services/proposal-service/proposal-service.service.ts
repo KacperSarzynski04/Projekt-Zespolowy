@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
-import { Proposal } from '../../models/proposal/proposal';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Proposal} from '../../models/proposal/proposal';
+import {Observable} from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +17,8 @@ export class ProposalService {
     return this.http.get<Proposal[]>(this.proposalsUrl);
   }
 
-  public save(proposal: Proposal) {
-    return this.http.post<Proposal>(this.proposalsUrl, proposal);
+  public save(proposal: Proposal, assignTrainer: boolean) {
+    return this.http.post<Proposal>(
+      this.proposalsUrl + '?checkBoxOn=' + assignTrainer, proposal, {withCredentials: true});
   }
 }

@@ -8,6 +8,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import pl.edu.pwr.app.models.ProposalHost;
+import pl.edu.pwr.app.models.User;
 import pl.edu.pwr.app.repositories.ProposalHostRepository;
 
 import java.util.Arrays;
@@ -15,7 +16,7 @@ import java.util.Collections;
 
 @SpringBootApplication
 public class AppApplication {
-
+    public static long loggedUserID;
     public static void main(String[] args) {
         SpringApplication.run(AppApplication.class, args);
     }
