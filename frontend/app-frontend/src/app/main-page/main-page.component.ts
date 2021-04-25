@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Training} from "../models/training/training";
+import {TrainingService} from "../services/training-service/training-service.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'main-page',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor() { }
+  trainings: Training[];
+
+  constructor(private trainingService: TrainingService, private router: Router) {
+  }
 
   ngOnInit(): void {
+    this.trainingService.findAll().subscribe(data => {
+      this.trainings = data;
+      console.log(data);
+    });
   }
 
 }
