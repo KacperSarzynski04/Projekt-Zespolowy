@@ -38,6 +38,6 @@ export class ProposalFormComponent implements OnInit {
   }
 
   gotoProposalList(): void {
-    this.router.navigate(['/proposals']);
+    this.router.navigate(['/topics']);
   }
 }

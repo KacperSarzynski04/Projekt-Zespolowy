@@ -10,7 +10,7 @@ export class ProposalService {
   private proposalsUrl: string;
 
   constructor(private http: HttpClient) {
-    this.proposalsUrl = 'http://localhost:8080/proposals';
+    this.proposalsUrl = 'http://localhost:8080/topics';
   }
 
   public findAll(): Observable<Proposal[]> {
