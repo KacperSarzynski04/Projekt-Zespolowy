@@ -7,6 +7,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import pl.edu.pwr.app.models.TokenBlackList;
+import pl.edu.pwr.app.service.impl.TokenBlackListServiceImpl;
+
 import static pl.edu.pwr.app.constant.SecurityConstant.*;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -14,14 +17,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
     private JwtTokenGenerator jwtTokenGenerator;
+    private TokenBlackListServiceImpl tokenBlackListService;
 
-    public JwtFilter(JwtTokenGenerator jwtTokenGenerator) {
+    public JwtFilter(JwtTokenGenerator jwtTokenGenerator, TokenBlackListServiceImpl tokenBlackListService) {
         this.jwtTokenGenerator = jwtTokenGenerator;
+        this.tokenBlackListService = tokenBlackListService;
     }
 
     @Override
@@ -36,7 +42,8 @@ public class JwtFilter extends OncePerRequestFilter {
             }
             String token = authHeader.substring(TOKEN_PREFIX.length());
             String email = jwtTokenGenerator.getSubject(token);
-            if (jwtTokenGenerator.isTokenValid(email, token) && SecurityContextHolder.getContext().getAuthentication() == null) {
+            if (jwtTokenGenerator.isTokenValid(email, token) && SecurityContextHolder.getContext().getAuthentication() == null &&
+            !isOnBlackList(token)) {
                 List<GrantedAuthority> authorities = jwtTokenGenerator.getAuthorities(token);
                 Authentication authentication = jwtTokenGenerator.getAuthentication(email, authorities, request);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -46,5 +53,13 @@ public class JwtFilter extends OncePerRequestFilter {
         }
         filterChain.doFilter(request, response);
 
+    }
+
+    private boolean isOnBlackList(String token) {
+        token = token.replace(TOKEN_PREFIX, "");
+        final Optional<TokenBlackList> bToken = tokenBlackListService.findToken(token);
+        logger.info("Token " + token);
+        logger.info("Present  " + bToken.isPresent());
+        return bToken.isPresent();
     }
 }
