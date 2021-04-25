@@ -23,11 +23,10 @@ import java.util.Optional;
 public class JwtFilter extends OncePerRequestFilter {
 
     private JwtTokenGenerator jwtTokenGenerator;
-    private TokenBlackListServiceImpl tokenBlackListService;
+
 
     public JwtFilter(JwtTokenGenerator jwtTokenGenerator, TokenBlackListServiceImpl tokenBlackListService) {
         this.jwtTokenGenerator = jwtTokenGenerator;
-        this.tokenBlackListService = tokenBlackListService;
     }
 
     @Override
@@ -36,14 +35,15 @@ public class JwtFilter extends OncePerRequestFilter {
             response.setStatus(HttpStatus.OK.value());
         } else {
             String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+
             if (authHeader == null || !authHeader.startsWith(TOKEN_PREFIX)) {
                 filterChain.doFilter(request, response);
                 return;
             }
             String token = authHeader.substring(TOKEN_PREFIX.length());
             String email = jwtTokenGenerator.getSubject(token);
-            if (jwtTokenGenerator.isTokenValid(email, token) && SecurityContextHolder.getContext().getAuthentication() == null &&
-            !isOnBlackList(token)) {
+            System.out.println("Token");
+            if (jwtTokenGenerator.isTokenValid(email, token) && SecurityContextHolder.getContext().getAuthentication() == null) {
                 List<GrantedAuthority> authorities = jwtTokenGenerator.getAuthorities(token);
                 Authentication authentication = jwtTokenGenerator.getAuthentication(email, authorities, request);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -53,13 +53,5 @@ public class JwtFilter extends OncePerRequestFilter {
         }
         filterChain.doFilter(request, response);
 
-    }
-
-    private boolean isOnBlackList(String token) {
-        token = token.replace(TOKEN_PREFIX, "");
-        final Optional<TokenBlackList> bToken = tokenBlackListService.findToken(token);
-        logger.info("Token " + token);
-        logger.info("Present  " + bToken.isPresent());
-        return bToken.isPresent();
     }
 }

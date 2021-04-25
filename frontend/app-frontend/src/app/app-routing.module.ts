@@ -24,7 +24,6 @@ const routes: Routes = [
   { path: '*', component: MainPageComponent},
   { path: 'user/login', component: LoginFormComponent},
   { path: '', component: MainPageComponent},
-  { path: 'proposals', component: ProposalListComponent},
   { path: 'addproposal', component: ProposalFormComponent, canActivate: [AuthGuard]}
 ];
 

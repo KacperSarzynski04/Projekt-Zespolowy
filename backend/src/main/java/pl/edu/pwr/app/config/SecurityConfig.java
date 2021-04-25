@@ -21,9 +21,13 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 import pl.edu.pwr.app.constant.SecurityConstant;
 import pl.edu.pwr.app.jwt.JwtAccessError;
 import pl.edu.pwr.app.jwt.JwtAuthEntry;
+import pl.edu.pwr.app.jwt.JwtAuthFilter;
 import pl.edu.pwr.app.jwt.JwtFilter;
 import pl.edu.pwr.app.service.TokenBlackListService;
+import pl.edu.pwr.app.service.UserService;
 import pl.edu.pwr.app.service.impl.TokenBlackListServiceImpl;
+import pl.edu.pwr.app.service.impl.UserServiceImpl;
+import static pl.edu.pwr.app.constant.SecurityConstant.*;
 
 @Configuration
 @EnableWebSecurity
@@ -36,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private TokenBlackListServiceImpl tokenBlackListService;
+    private UserServiceImpl userService;
 
     @Autowired
     public SecurityConfig(JwtFilter jwtFilter,
@@ -43,13 +48,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                           JwtAuthEntry jwtAuthEntry,
                           @Qualifier("UserDetailsService")UserDetailsService userDetailsService,
                           BCryptPasswordEncoder bCryptPasswordEncoder,
-                          TokenBlackListServiceImpl tokenBlackListService) {
+                          TokenBlackListServiceImpl tokenBlackListService,
+                          UserServiceImpl userService) {
         this.jwtFilter = jwtFilter;
         this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
         this.jwtAuthEntry = jwtAuthEntry;
         this.userDetailsService = userDetailsService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.tokenBlackListService = tokenBlackListService;
+        this.userService = userService;
     }
 
     @Override
@@ -61,15 +68,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().cors().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().authorizeRequests().antMatchers(SecurityConstant.PUBLIC_URLS).permitAll()
+                .and().authorizeRequests().antMatchers(PUBLIC_URLS).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().accessDeniedHandler(jwtAccessDeniedHandler)
                 .authenticationEntryPoint(jwtAuthEntry)
-                .and()
-                .logout()
-                .logoutUrl("/logout").addLogoutHandler(logoutHandler())
-                .logoutSuccessHandler((new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)))
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 

@@ -1,8 +1,6 @@
 package pl.edu.pwr.app.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class TokenBlackList {
@@ -10,6 +8,8 @@ public class TokenBlackList {
     @GeneratedValue
     private long tokenId;
 
+    @Lob
+    @Column( length = 100000 )
     private String token;
 
     public TokenBlackList() {
