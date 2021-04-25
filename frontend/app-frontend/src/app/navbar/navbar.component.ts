@@ -40,5 +40,8 @@ export class NavbarComponent implements OnInit {
    return this.authenticationService.isLogged();
   }
 
+  public getName(){
+    return this.authenticationService.getUser().firstName;
+  }
   
 }
