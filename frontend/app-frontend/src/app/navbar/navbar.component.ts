@@ -13,15 +13,9 @@ export class NavbarComponent implements OnInit {
 
   constructor(private authenticationService : AuthenticationService,
     private router : Router, private notificationsService: NotificationsService) {
-    this.router.events.subscribe(e => {
-      if (e instanceof NavigationStart){
-        this.reload();
-      }
-    })
   }
 
   ngOnInit(): void {
-    this.loggedIn =this.authenticationService.isLogged();
   }
 
   public classes = {
@@ -29,16 +23,22 @@ export class NavbarComponent implements OnInit {
     item : true
   };
 
-  public loggedIn;
-  public reload(){
-    //console.log("navbar: reload called");
-    this.loggedIn = this.authenticationService.isLogged();
-  }
+  
 
   public logout(){
     this.authenticationService.logOut();
-    this.reload();
     this.notificationsService.showMessage(NotificationsEnum.DEFAULT, "Logged out");
     this.router.navigate(['/home']);
   }
+
+  public isAdmin(){
+      let role = this.authenticationService.getUser().role; 
+      return role == "ROLE_ADMIN";
+  }
+
+  public isLoggedIn(){
+   return this.authenticationService.isLogged();
+  }
+
+  
 }
