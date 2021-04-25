@@ -31,44 +31,48 @@ public class TrainingController {
     }
     public List<Training> getSortedTrainings(){
         List<Training> trainingList = (List<Training>) trainingRepository.findAll();
-        List<Training> sortedTrainingList = new ArrayList<>();
-        //Collections.sort(trainingList);
-        LocalDate localDate = null;
-        LocalTime localTime = null;
-        for (Training training : trainingList) {
-
-            if(training.getDate().isEqual(localDate.now())){
-                if(training.getTime().isAfter(localTime.now())){
-                    sortedTrainingList.add(training);
-                }
-            } else {
-                if(training.getDate().isAfter(localDate.now())){
-                    sortedTrainingList.add(training);
-                }
-            }
-        }
-        return sortedTrainingList;
+        Collections.sort(trainingList);
+        return trainingList;
     }
     public List<Training> getTrainingsAsUser(int limit){
         List<Training> sortedTrainingList = getSortedTrainings();
-
-        if(sortedTrainingList.size()<limit){
-            limit=sortedTrainingList.size();
-        }
+        LocalDate localDate = null;
+        LocalTime localTime = null;
         List<Training> trainingListUser = new ArrayList<>();
+        List<Training> trainingPassed = new ArrayList<>();
         int i=0;
         for (Training training : sortedTrainingList) {
-            trainingListUser.add(training);
-            i++;
+            if(training.getDate().isAfter(localDate.now())){
+                trainingListUser.add(training);
+                i++;
+            }
+            else if (training.getDate() == localDate.now()) {
+                    if (training.getTime().isAfter(localTime.now())) {
+                        trainingListUser.add(training);
+                        i++;
+                    }
+                }
+            else {
+                trainingPassed.add(0,training);
+            }
+
             if(i>limit){
                 break;
             }
         }
+        if(limit>trainingListUser.size()){
+            int difference = limit - trainingListUser.size();
+            for( int j = 0 ; j<difference;j++){
+                if(trainingPassed.size()>j){
+                trainingListUser.add(0,trainingPassed.get(j));
+                }
+            }
+        }
+
         return trainingListUser;
     }
     public List<Training> getTrainingAsAdmin(){
-        List<Training> sortedTrainingList = getSortedTrainings();
-        return sortedTrainingList;
+        return (List<Training>) trainingRepository.findAll();
     }
     @PostMapping("/trainings")
     void addTraining(@RequestBody Training training) {

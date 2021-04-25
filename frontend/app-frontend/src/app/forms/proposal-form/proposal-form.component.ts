@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Proposal } from '../../models/proposal/proposal';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProposalService} from '../../services/proposal-service/proposal-service.service';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-proposal-form',
@@ -11,22 +12,32 @@ import {ProposalService} from '../../services/proposal-service/proposal-service.
 export class ProposalFormComponent implements OnInit {
 
   proposal: Proposal;
-
+  assignTrainer: boolean;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private proposalService: ProposalService) {
+    private proposalService: ProposalService,
+    private authenticationService: AuthenticationService
+    ) {
     this.proposal = new Proposal();
   }
 
   ngOnInit(): void {
+    this.assignTrainer = false;
   }
 
-  onSubmit() {
-    this.proposalService.save(this.proposal).subscribe(result => this.gotoProposalList());
+  assign(event): void{
+    this.assignTrainer = event.target.checked;
+    console.log(this.assignTrainer);
   }
 
-  gotoProposalList() {
+  onSubmit(): void {
+    this.proposal.authorId = this.authenticationService.getUser().id;
+    this.proposalService.save(this.proposal,
+        this.assignTrainer).subscribe(result => this.gotoProposalList());
+  }
+
+  gotoProposalList(): void {
     this.router.navigate(['/proposals']);
   }
 }

@@ -1,6 +1,5 @@
 package pl.edu.pwr.app;
 
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -8,18 +7,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-import pl.edu.pwr.app.models.Training;
+import pl.edu.pwr.app.models.ProposalHost;
 import pl.edu.pwr.app.models.User;
-import pl.edu.pwr.app.repositories.TrainingRepository;
-import pl.edu.pwr.app.repositories.UserRepository;
+import pl.edu.pwr.app.repositories.ProposalHostRepository;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.stream.Stream;
 
 @SpringBootApplication
 public class AppApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(AppApplication.class, args);
     }
