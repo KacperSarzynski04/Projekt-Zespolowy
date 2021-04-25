@@ -39,18 +39,22 @@
     user-select: none;
 }
 
-
-.specialButton{
-    background-color: antiquewhite;
-    font-weight: bold;
-    border: 2px rgb(0, 0, 0) solid;
-    border-radius: 4%;
-}
-
-.buttons .specialItem{
-    font-weight: bolder;
-}
-
 a:visited {
    color: black;
+}
+
+.loginSection {
+    box-sizing: border-box;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding-left: 10px;
+    padding-bottom: 15px;
+    font-family: 'Oswald', sans-serif;
+    background-color: white;
+    border-left: 5px solid burlywood;
+    user-select: none;
+}
+
+.loginSection h3{
+    font-weight: bolder;
 }
