@@ -32,8 +32,7 @@ public class TrainingController {
     public List<Training> geThreeTasks() {
         //Wyswietlenie trzech najblizszych szkolen dla niezalogowanego uzytkownika
         return getTrainingsAsUser(3);
-        //return (List<Training>) trainingRepository.findAll();
-        //return getTrainingAsAdmin();
+
     }
     public List<Training> getSortedTrainings(){
         List<Training> trainingList = (List<Training>) trainingRepository.findAll();
