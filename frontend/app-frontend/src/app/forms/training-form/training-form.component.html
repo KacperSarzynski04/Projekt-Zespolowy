@@ -20,9 +20,9 @@
                 id="description"
                 name="description"
                 placeholder="Enter training's description"
-                required #name="ngModel">
+                required #desc="ngModel">
         </div>
-        <div [hidden]="!name.pristine || name.untouched" class="alert alert-danger">Training's description is required</div>
+        <div [hidden]="!desc.pristine || desc.untouched" class="alert alert-danger">Training's description is required</div>
 
         <div class="form-group">
           <label for="trainer">Trainer</label>
@@ -31,9 +31,9 @@
                 id="trainer"
                 name="trainer"
                 placeholder="Enter training's trainer"
-                required #name="ngModel">
+                required #trainer="ngModel">
         </div>
-        <div [hidden]="!name.pristine || name.untouched" class="alert alert-danger">Training's trainer is required</div>
+        <div [hidden]="!trainer.pristine || trainer.untouched" class="alert alert-danger">Training's trainer is required</div>
 
         <div class="form-group">
           <label for="date">Date</label>
@@ -42,11 +42,11 @@
                 id="date"
                 name="date"
                 placeholder="Enter training's date"
-                required #name="ngModel">
+                required #date="ngModel">
 
         </div>
 
-        <div [hidden]="!name.pristine || name.untouched" class="alert alert-danger">Training's date is required</div>
+        <div [hidden]="!date.pristine || date.untouched" class="alert alert-danger">Training's date is required</div>
 
         <div class="form-group">
           <label for="time">Time</label>
@@ -55,11 +55,11 @@
                 id="time"
                 name="time"
                 placeholder="Enter training's time"
-                required #name="ngModel">
+                required #time="ngModel">
 
         </div>
 
-        <div [hidden]="!name.pristine || name.untouched" class="alert alert-danger">Training's time is required</div>
+        <div [hidden]="!time.pristine || time.untouched" class="alert alert-danger">Training's time is required</div>
 
         <div class="form-group">
           <label for="duration">Duration</label>
@@ -68,8 +68,8 @@
                 id="duration"
                 name="duration"
                 placeholder="Enter training's duration"
-                required #name="ngModel">
-          <div [hidden]="!name.pristine || name.untouched" class="alert alert-danger">Training's duration is required</div>
+                required #dur="ngModel">
+          <div [hidden]="!dur.pristine || dur.untouched" class="alert alert-danger">Training's duration is required</div>
         </div>
         <button type="submit" [disabled]="!trainingForm.form.valid"
                 class="btn btn-info">Submit</button>

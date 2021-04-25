@@ -11,7 +11,7 @@
                  placeholder="Enter proposal's topic"
                  required #name="ngModel">
         </div>
-        <div [hidden]="!name.pristine" class="alert alert-danger">Proposals's topic is required</div>
+        <div [hidden]="!name.pristine || name.untouched" class="alert alert-danger">Proposals's topic is required</div>
         <div class="form-group">
           <label for="description">Description</label>
           <input type="text" [(ngModel)]="proposal.description"
@@ -19,14 +19,14 @@
                  id="description"
                  name="description"
                  placeholder="Enter proposals's description"
-                 required #name="ngModel">
+                 required #name2="ngModel">
         </div>
         <label for="assignTrainer">I would like to be the host of training
           <input id="assignTrainer" [checked]="assignTrainer" (change)="assign($event)" [hidden]="false" type="checkbox"
                  class="form-control"
                  name="assignTrainer">
         </label>
-        <div [hidden]="!name.pristine" class="alert alert-danger">Proposals's description is required</div>
+        <div [hidden]="!name2.pristine || name2.untouched" class="alert alert-danger">Proposals's description is required</div>
         <button type="submit" [disabled]="!proposalForm.form.valid"
                 class="btn btn-info">Submit
         </button>
