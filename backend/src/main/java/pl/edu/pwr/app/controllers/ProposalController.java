@@ -22,13 +22,13 @@ public class ProposalController {
         this.proposalRepository = proposalRepository;
         this.proposalHostRepository = proposalHostRepository;
     }
-    @GetMapping("/proposals")
+    @GetMapping("/topics")
     public List<Proposal> getProposals(){
         List<Proposal> proposalList = (List<Proposal>) proposalRepository.findAll();
         Collections.sort(proposalList);
         return proposalList;
     }
-    @PostMapping(path = "/proposals", params = {"assignAsTrainer"})
+    @PostMapping(path = "/topics", params = {"assignAsTrainer"})
     public void addProposal(@RequestBody Proposal proposal, @RequestParam("assignAsTrainer") boolean assign){
         ProposalHost proposalHost;
         proposalRepository.save(proposal);
