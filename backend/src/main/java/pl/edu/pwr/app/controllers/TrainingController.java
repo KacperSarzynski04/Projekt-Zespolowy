@@ -25,6 +25,12 @@ public class TrainingController {
     @GetMapping("/trainings")
     public List<Training> getTasks() {
         //Wyswietlenie trzech najblizszych szkolen dla niezalogowanego uzytkownika
+        return getSortedTrainings();
+        //return getTrainingAsAdmin();
+    }
+    @GetMapping("/three_trainings")
+    public List<Training> geThreeTasks() {
+        //Wyswietlenie trzech najblizszych szkolen dla niezalogowanego uzytkownika
         return getTrainingsAsUser(3);
         //return (List<Training>) trainingRepository.findAll();
         //return getTrainingAsAdmin();

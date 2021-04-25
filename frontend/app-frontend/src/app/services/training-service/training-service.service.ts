@@ -7,13 +7,19 @@ import { Observable } from 'rxjs';
 export class TrainingService {
 
   private trainingsUrl: string;
+  private threeTrainingsUrl: string;
 
   constructor(private http: HttpClient) {
     this.trainingsUrl = 'http://localhost:8080/trainings';
+    this.threeTrainingsUrl = 'http://localhost:8080/three_trainings';
   }
 
   public findAll(): Observable<Training[]> {
     return this.http.get<Training[]>(this.trainingsUrl);
+  }
+
+  public findThree(): Observable<Training[]> {
+    return this.http.get<Training[]>(this.threeTrainingsUrl);
   }
 
   public save(training: Training) {

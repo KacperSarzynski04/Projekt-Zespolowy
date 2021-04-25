@@ -16,7 +16,7 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.trainingService.findAll().subscribe(data => {
+    this.trainingService.findThree().subscribe(data => {
       this.trainings = data;
       console.log(data);
     });
