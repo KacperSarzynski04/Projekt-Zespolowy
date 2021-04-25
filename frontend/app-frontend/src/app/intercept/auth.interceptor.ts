@@ -23,6 +23,9 @@ export class AuthInterceptor implements HttpInterceptor {
     if (httpRequest.url.includes(`${this.authenticationService.host}/trainings`)) {
       return handler.handle(httpRequest);
     }
+    if (httpRequest.url.includes(`${this.authenticationService.host}/three_trainings`)) {
+      return handler.handle(httpRequest);
+    }
     if (httpRequest.url.includes(`${this.authenticationService.host}/topics`)) {
       return handler.handle(httpRequest);
     }
