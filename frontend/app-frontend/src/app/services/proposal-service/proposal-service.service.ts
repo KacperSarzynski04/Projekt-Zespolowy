@@ -17,8 +17,8 @@ export class ProposalService {
     return this.http.get<Proposal[]>(this.proposalsUrl);
   }
 
-  public save(proposal: Proposal, assignTrainer: boolean) {
+  public save(proposal: Proposal, assignAsTrainer: boolean) {
     return this.http.post<Proposal>(
-      this.proposalsUrl + '?checkBoxOn=' + assignTrainer, proposal, {withCredentials: true});
+      this.proposalsUrl + '?assignAsTrainer=' + assignAsTrainer, proposal, {withCredentials: true});
   }
 }
