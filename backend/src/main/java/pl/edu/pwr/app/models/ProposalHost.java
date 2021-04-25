@@ -5,17 +5,43 @@ import javax.persistence.*;
 @Entity
 @Table(name = "proposal_host")
 public class ProposalHost {
-    @javax.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
+    @Column(nullable = false, updatable = false)
     private long id;
-    private long hostID;
     private long proposalID;
+    private long authorID;
+    private long hostID;
+
+    public ProposalHost(long proposalId, long authorId) {
+        this.proposalID = proposalId;
+        this.authorID = authorId;
+
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getAuthorID() {
+        return authorID;
+    }
+
+    public void setAuthorID(long authorID) {
+        this.authorID = authorID;
+    }
 
 
-    public ProposalHost(long hostID, long proposalID) {
-        this.hostID = hostID;
+
+
+    public ProposalHost(long proposalID, long authorID, long hostID) {
         this.proposalID = proposalID;
+        this.authorID = authorID;
+        this.hostID = hostID;
     }
 
     public long getHostID() {

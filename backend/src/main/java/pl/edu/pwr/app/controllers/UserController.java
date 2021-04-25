@@ -75,7 +75,6 @@ public class UserController {
     public ResponseEntity<User> login(@RequestBody User user) {
         getAuthenticaton(user.getEmail(), user.getPassword());
         User userLogin = userService.findUserByEmail(user.getEmail());
-        AppApplication.loggedUserID = userLogin.getId();
         UserPrincipals userP = new UserPrincipals(userLogin);
         HttpHeaders loginHeader = getHeaders(userP);
         return new ResponseEntity<>(userLogin, loginHeader, HttpStatus.OK);

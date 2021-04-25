@@ -28,14 +28,18 @@ public class ProposalController {
         Collections.sort(proposalList);
         return proposalList;
     }
-    @PostMapping(path = "/proposals", params = {"checkBoxOn"})
-    public void addProposal(@RequestBody Proposal proposal, @RequestParam("checkBoxOn") boolean assignTrainer){
-
+    @PostMapping(path = "/proposals", params = {"assignAsTrainer"})
+    public void addProposal(@RequestBody Proposal proposal, @RequestParam("assignAsTrainer") boolean assign){
+        ProposalHost proposalHost;
         proposalRepository.save(proposal);
-        if(assignTrainer) { 
-            ProposalHost proposalHost = new ProposalHost(AppApplication.loggedUserID, proposal.getId());
+        if(assign){
+            proposalHost = new ProposalHost(proposal.getId(), proposal.getAuthorId(), proposal.getAuthorId());
+        } else
+            proposalHost = new ProposalHost(proposal.getId(), proposal.getAuthorId());
+
+
         proposalHostRepository.save(proposalHost);
-        }
+
 
     }
 }

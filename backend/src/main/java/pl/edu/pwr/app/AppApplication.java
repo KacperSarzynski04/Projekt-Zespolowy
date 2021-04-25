@@ -16,7 +16,6 @@ import java.util.Collections;
 
 @SpringBootApplication
 public class AppApplication {
-    public static long loggedUserID;
     public static void main(String[] args) {
         SpringApplication.run(AppApplication.class, args);
     }
