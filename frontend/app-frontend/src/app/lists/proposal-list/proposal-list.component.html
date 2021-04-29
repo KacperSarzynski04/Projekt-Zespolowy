@@ -4,16 +4,32 @@
       <table class="table table-bordered table-striped">
         <thead class="thead-dark">
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Proposal's topic</th>
-          <th scope="col">Proposal's description</th>
+          <th width="20%" scope="col">Temat</th>
+          <th width="20%" scope="col">Opis</th>
+          <th width="20%" scope="col">Ilość osób zainteresowanych poprowadzeniem szkolenia</th>
+          <th width="20%" scope="col">Ilość osób zainteresowanych szkoleniem</th>
+          <th width="10%" scope="col">Poprowadź szkolenie</th>
+          <th width="10%" scope="col">Wyraź zainteresowanie</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let proposal of proposals">
-          <td>{{ proposal.id }}</td>
           <td>{{ proposal.topic }}</td>
           <td>{{ proposal.description }}</td>
+          <td>{{ proposal.assigned }}</td>
+          <td>{{ proposal.votes }}</td>
+          <td>
+            <button type="submit"
+                    class="button"
+                    (click)="onAssignClicked(proposal)">
+              Poprowadź</button>
+          </td>
+          <td>
+            <button type="submit"
+                    class="button"
+                    (click)="onInterestedClicked(proposal)">
+              Zainteresowany</button>
+          </td>
         </tr>
         </tbody>
       </table>

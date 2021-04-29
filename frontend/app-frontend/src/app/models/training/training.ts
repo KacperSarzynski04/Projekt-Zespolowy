@@ -10,6 +10,8 @@ export class Training {
   durationInMinutes: number;
   date: Date;
   time: Time;
+  photo: File;
+  materials: File;
 
 }
 

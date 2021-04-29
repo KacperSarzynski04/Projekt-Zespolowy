@@ -71,6 +71,26 @@
                 required #dur="ngModel">
           <div [hidden]="!dur.pristine || dur.untouched" class="alert alert-danger">Training's duration is required</div>
         </div>
+
+        <div class="form-group">
+          <label class="image-upload-container btn btn-bwm">
+            <span>Wybierz zdjęcie  </span>
+            <input #imageInput
+                   type="file"
+                   accept="image/*"
+                   (change)="onFileSelected($event)">
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label class="image-upload-container btn btn-bwm">
+            <span>Dodaj materiały  </span>
+            <input #imageInput
+                   type="file"
+                   accept="image/*">
+          </label>
+        </div>
+
         <button type="submit" [disabled]="!trainingForm.form.valid"
                 class="btn btn-info">Submit</button>
       </form>

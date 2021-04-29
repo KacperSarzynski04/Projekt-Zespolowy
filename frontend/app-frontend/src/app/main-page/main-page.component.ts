@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Training} from "../models/training/training";
-import {TrainingService} from "../services/training-service/training-service.service";
-import {Router} from "@angular/router";
+import {Training} from '../models/training/training';
+import {TrainingService} from '../services/training-service/training-service.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'main-page',
@@ -22,4 +22,7 @@ export class MainPageComponent implements OnInit {
     });
   }
 
+  goToTraining(id: string): void{
+    this.router.navigateByUrl('find_training/' + id);
+  }
 }

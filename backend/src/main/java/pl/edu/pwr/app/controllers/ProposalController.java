@@ -39,7 +39,5 @@ public class ProposalController {
 
 
         proposalHostRepository.save(proposalHost);
-
-
     }
 }

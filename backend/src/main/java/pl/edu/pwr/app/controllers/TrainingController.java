@@ -2,6 +2,7 @@ package pl.edu.pwr.app.controllers;
 
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pwr.app.models.Training;
+import pl.edu.pwr.app.models.User;
 import pl.edu.pwr.app.repositories.TrainingRepository;
 
 import java.time.LocalDate;
@@ -34,6 +35,12 @@ public class TrainingController {
         return getTrainingsAsUser(3);
 
     }
+
+    @GetMapping("/find_training/{id}")
+    public Training getUser(@PathVariable("id") long id) {
+        return trainingRepository.findById(id);
+    }
+
     public List<Training> getSortedTrainings(){
         List<Training> trainingList = (List<Training>) trainingRepository.findAll();
         Collections.sort(trainingList);

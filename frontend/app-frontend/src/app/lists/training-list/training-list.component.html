@@ -5,7 +5,6 @@
       <table class="table table-bordered table-striped">
         <thead class="thead-dark">
         <tr>
-          <th scope="col">#</th>
           <th scope="col">Training's topic</th>
           <th scope="col">Training's description</th>
           <th scope="col">Training's trainer</th>
@@ -15,7 +14,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let training of trainings">
+        <tr (click)="goToTraining(training.id)" *ngFor="let training of trainings">
           <td>{{ training.topic }}</td>
           <td>{{ training.description }}</td>
           <td>{{ training.trainer }}</td>

@@ -11,6 +11,7 @@ import {ProposalFormComponent} from './forms/proposal-form/proposal-form.compone
 import {ProposalListComponent} from './lists/proposal-list/proposal-list.component';
 import {AuthGuard} from './guard/guard.guard';
 import {RoleGuard} from './guard/role-guard.guard';
+import {TrainingPageComponent} from './pages/training-page/training-page.component';
 
 const routes: Routes = [
   { path: 'register', component: UserFormComponent },
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'user/login', component: LoginFormComponent},
   { path: '', component: MainPageComponent},
   { path: 'proposals', component: ProposalListComponent},
-  { path: 'addproposal', component: ProposalFormComponent, canActivate: [AuthGuard]}
+  { path: 'addproposal', component: ProposalFormComponent, canActivate: [AuthGuard]},
+  { path: 'find_training/:id', component: TrainingPageComponent}
 ];
 
 @NgModule({

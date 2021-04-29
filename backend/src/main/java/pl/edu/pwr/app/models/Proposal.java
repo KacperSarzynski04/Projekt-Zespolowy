@@ -16,6 +16,11 @@ public class Proposal implements Comparable<Proposal>{
     private final String topic;
     @Column
     private final String description;
+    // assigned trainers?
+    @Column
+    private Integer assigned;
+    @Column
+    private Integer votes;
 
     public long getId() {
         return id;
@@ -29,10 +34,12 @@ public class Proposal implements Comparable<Proposal>{
         this.authorId = authorId;
         this.topic = topic;
         this.description = description;
+        this.votes = 0;
     }
     public Proposal(){
         this.topic = "no topic";
         this.description = "no description";
+        this.votes = 0;
     }
 
     public String getTopic() {

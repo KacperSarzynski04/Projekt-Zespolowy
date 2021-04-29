@@ -22,6 +22,7 @@ import {AuthInterceptor} from './intercept/auth.interceptor';
 import {AuthGuard} from './guard/guard.guard';
 import {NotificationModule} from './notification.module';
 import {NotificationsService} from './services/notifications.service';
+import {TrainingPageComponent} from "./pages/training-page/training-page.component";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {NotificationsService} from './services/notifications.service';
     TopicListComponent,
     UserFormComponent,
     ProposalFormComponent,
-    ProposalListComponent
+    ProposalListComponent,
+    TrainingPageComponent,
   ],
   imports: [
     BrowserModule,

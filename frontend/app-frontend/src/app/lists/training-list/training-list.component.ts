@@ -23,5 +23,8 @@ export class TrainingListComponent implements OnInit {
     });
   }
 
+  goToTraining(id: string): void{
+    this.router.navigateByUrl('find_training/' + id);
+  }
 }
 
