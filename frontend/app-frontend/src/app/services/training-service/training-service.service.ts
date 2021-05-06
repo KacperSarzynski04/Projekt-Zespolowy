@@ -32,4 +32,9 @@ export class TrainingService {
   public save(training: Training) {
     return this.http.post<Training>(this.trainingsUrl, training);
   }
+
+  // tslint:disable-next-line:ban-types
+  public postFile(fileToUpload: File): Observable<Object> {
+    return this.http.post<any>('http://localhost:8080/images', fileToUpload);
+  }
 }

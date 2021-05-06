@@ -12,7 +12,8 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class TrainingFormComponent implements OnInit {
 
   training: Training;
-  selectedFile = null;
+  selectedFile: File;
+  private localUrl: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,6 +36,7 @@ export class TrainingFormComponent implements OnInit {
 
   onSubmit() {
 
+    this.trainingService.postFile(this.selectedFile).subscribe();
     this.trainingService.save(this.training).subscribe(result => this.gotoTrainingList());
   }
 
@@ -42,7 +44,7 @@ export class TrainingFormComponent implements OnInit {
     this.router.navigate(['/trainings']);
   }
 
-  onFileSelected(event){
+  onFileSelected(event) {
     this.selectedFile = event.target.files[0];
   }
 }

@@ -23,7 +23,6 @@ export class ProposalService {
   }
 
   public updateVotes(id: number): Observable<any>{
-    console.log(this.proposalsUrl + '/' + id);
     return this.http.put<any>(this.proposalsUrl + '/' + id, '');
   }
 }

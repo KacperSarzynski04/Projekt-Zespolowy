@@ -73,10 +73,11 @@
         </div>
 
         <div class="form-group">
-          <label class="image-upload-container btn btn-bwm">
+          <label for="file" class="image-upload-container btn btn-bwm">
             <span>Wybierz zdjęcie  </span>
             <input #imageInput
                    type="file"
+                   id="file"
                    accept="image/*"
                    (change)="onFileSelected($event)">
           </label>

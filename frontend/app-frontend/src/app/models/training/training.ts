@@ -12,6 +12,7 @@ export class Training {
   time: Time;
   photo: File;
   materials: File;
+  imagePath: String;
 
 }
 
