@@ -3,73 +3,73 @@
     <div class="card-body">
       <form (ngSubmit)="onSubmit()" #trainingForm="ngForm">
         <div class="form-group">
-          <label for="topic">Topic</label>
+          <label for="topic">Temat</label>
           <input type="text" [(ngModel)]="training.topic"
                 class="form-control"
                 id="topic"
                 name="topic"
-                placeholder="Enter training's topic"
+                placeholder="wprowadź temat szkolenia"
                 required #name="ngModel">
         </div>
-        <div [hidden]="!name.pristine || name.untouched" class="alert alert-danger">Training's topic is required</div>
+        <div [hidden]="!name.pristine || name.untouched" class="alert alert-danger">Uzupełnij pole tematu</div>
 
         <div class="form-group">
-          <label for="description">Description</label>
+          <label for="description">Opis</label>
           <input type="text" [(ngModel)]="training.description"
                 class="form-control"
                 id="description"
                 name="description"
-                placeholder="Enter training's description"
+                placeholder="wprowadź opis szkolenia"
                 required #desc="ngModel">
         </div>
-        <div [hidden]="!desc.pristine || desc.untouched" class="alert alert-danger">Training's description is required</div>
+        <div [hidden]="!desc.pristine || desc.untouched" class="alert alert-danger">Uzupełnij pole opisu</div>
 
         <div class="form-group">
-          <label for="trainer">Trainer</label>
+          <label for="trainer">Prowadzący</label>
           <input type="text" [(ngModel)]="training.trainer"
                 class="form-control"
                 id="trainer"
                 name="trainer"
-                placeholder="Enter training's trainer"
+                placeholder="wprowadź prowadzącego/prowadzących"
                 required #trainer="ngModel">
         </div>
-        <div [hidden]="!trainer.pristine || trainer.untouched" class="alert alert-danger">Training's trainer is required</div>
+        <div [hidden]="!trainer.pristine || trainer.untouched" class="alert alert-danger">Uzupełnij pole prowadzącego</div>
 
         <div class="form-group">
-          <label for="date">Date</label>
+          <label for="date">Data</label>
           <input type="Date" [(ngModel)]="training.date"
                 class="form-control"
                 id="date"
                 name="date"
-                placeholder="Enter training's date"
+                placeholder="wprowadź datę szkolenia"
                 required #date="ngModel">
 
         </div>
 
-        <div [hidden]="!date.pristine || date.untouched" class="alert alert-danger">Training's date is required</div>
+        <div [hidden]="!date.pristine || date.untouched" class="alert alert-danger">Uzupełnij pole daty</div>
 
         <div class="form-group">
-          <label for="time">Time</label>
+          <label for="time">Godzina</label>
           <input type="Time" [(ngModel)]="training.time"
                 class="form-control"
                 id="time"
                 name="time"
-                placeholder="Enter training's time"
+                placeholder="wprowadź godzinę szkolenia"
                 required #time="ngModel">
 
         </div>
 
-        <div [hidden]="!time.pristine || time.untouched" class="alert alert-danger">Training's time is required</div>
+        <div [hidden]="!time.pristine || time.untouched" class="alert alert-danger">Uzupełnij pole godziny</div>
 
         <div class="form-group">
-          <label for="duration">Duration</label>
+          <label for="duration">Czas trwania</label>
           <input type="number" [(ngModel)]="training.durationInMinutes"
                 class="form-control"
                 id="duration"
                 name="duration"
-                placeholder="Enter training's duration"
+                placeholder="Wprowadź czas trwania szkolenia"
                 required #dur="ngModel">
-          <div [hidden]="!dur.pristine || dur.untouched" class="alert alert-danger">Training's duration is required</div>
+          <div [hidden]="!dur.pristine || dur.untouched" class="alert alert-danger">Uzupełnij pole czasu trwania</div>
         </div>
 
         <div class="form-group">
@@ -92,7 +92,7 @@
         </div>
 
         <button type="submit" [disabled]="!trainingForm.form.valid"
-                class="btn btn-info">Submit</button>
+                class="btn btn-info">Stwórz szkolenie</button>
       </form>
     </div>
   </div>

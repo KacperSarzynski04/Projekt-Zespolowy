@@ -3,32 +3,32 @@
     <div class="card-body">
       <form (ngSubmit)="onSubmit()" #proposalForm="ngForm">
         <div class="form-group">
-          <label for="topic">Topic</label>
+          <label for="topic">Temat</label>
           <input type="text" [(ngModel)]="proposal.topic"
                  class="form-control"
                  id="topic"
                  name="topic"
-                 placeholder="Enter proposal's topic"
+                 placeholder="Wprowadź temat szkolenia"
                  required #name="ngModel">
         </div>
-        <div [hidden]="!name.pristine || name.untouched" class="alert alert-danger">Proposals's topic is required</div>
+        <div [hidden]="!name.pristine || name.untouched" class="alert alert-danger">Uzupełnij pole tematu</div>
         <div class="form-group">
-          <label for="description">Description</label>
+          <label for="description">Opis</label>
           <input type="text" [(ngModel)]="proposal.description"
                  class="form-control"
                  id="description"
                  name="description"
-                 placeholder="Enter proposals's description"
+                 placeholder="Wprowadź krótki opis szkolenia"
                  required #name2="ngModel">
         </div>
-        <label for="assignTrainer">I would like to be the host of training
+        <label for="assignTrainer">Chciałbym poprowadzić to szkolenie
           <input id="assignTrainer" [checked]="assignTrainer" (change)="assign($event)" [hidden]="false" type="checkbox"
                  class="form-control"
                  name="assignTrainer">
         </label>
-        <div [hidden]="!name2.pristine || name2.untouched" class="alert alert-danger">Proposals's description is required</div>
+        <div [hidden]="!name2.pristine || name2.untouched" class="alert alert-danger">Uzupełnij pole opisu</div>
         <button type="submit" [disabled]="!proposalForm.form.valid"
-                class="btn btn-info">Submit
+                class="btn btn-info">Stwórz propozycję
         </button>
       </form>
     </div>
