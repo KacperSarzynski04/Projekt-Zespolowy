@@ -69,5 +69,9 @@
         </table>
       </div>
     </div>
+    <mat-paginator [pageSizeOptions]="[10, 25, 100]" [pageSize]="10" [length]="totalElements"
+                   (page)="nextPage($event)">
+
+    </mat-paginator>
   </div>
 </ng-template>
