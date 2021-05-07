@@ -19,6 +19,16 @@ public class ProposalHost {
 
     }
 
+    public ProposalHost() {
+    }
+
+    public ProposalHost(ProposalHost proposalHost) {
+        this.proposalID = proposalHost.getProposalID();
+        this.authorID = proposalHost.getAuthorID();
+        this.hostID = proposalHost.getHostID();
+        this.id = proposalHost.getId();
+    }
+
     public long getId() {
         return id;
     }

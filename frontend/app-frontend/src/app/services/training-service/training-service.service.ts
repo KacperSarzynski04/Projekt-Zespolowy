@@ -32,9 +32,14 @@ export class TrainingService {
   public save(training: Training) {
     return this.http.post<Training>(this.trainingsUrl, training);
   }
-
+  public listTrainings(request){
+    const endpoint = 'http://localhost:8080/trainings';
+    const params = request;
+    return this.http.get(endpoint, {params});
+  }
   // tslint:disable-next-line:ban-types
   public postFile(fileToUpload: File): Observable<Object> {
     return this.http.post<any>('http://localhost:8080/images', fileToUpload);
   }
+  
 }

@@ -50,6 +50,16 @@ public class Training implements Comparable<Training>{
         this.time = time;
     }
 
+    public Training(Training training) {
+        this.id = training.getId();
+        this.date = training.getDate();
+        this.description = training.getDescription();
+        this.durationInMinutes = training.getDurationInMinutes();
+        this.time = training.getTime();
+        this.topic = training.getTopic();
+        this.trainer = training.getTrainer();
+    }
+
     public long getId() {
         return id;
     }

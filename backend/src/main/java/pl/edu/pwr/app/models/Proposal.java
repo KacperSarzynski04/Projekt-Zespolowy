@@ -13,14 +13,48 @@ public class Proposal implements Comparable<Proposal>{
     @Column
     private long authorId;
     @Column
-    private final String topic;
+    private String topic;
     @Column
-    private final String description;
+    private String description;
     // assigned trainers?
     @Column
     private Integer assigned;
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setAuthorId(long authorId) {
+        this.authorId = authorId;
+    }
+
+    public Integer getAssigned() {
+        return assigned;
+    }
+
+    public void setAssigned(Integer assigned) {
+        this.assigned = assigned;
+    }
+
+    public Integer getVotes() {
+        return votes;
+    }
+
+    public void setVotes(Integer votes) {
+        this.votes = votes;
+    }
+
     @Column
     private Integer votes;
+
+    public Proposal(Proposal proposal) {
+        this.id = proposal.getId();
+        this.votes = proposal.getVotes();
+        this.description = proposal.getDescription();
+        this.authorId = proposal.getAuthorId();
+        this.assigned = proposal.getAssigned();
+        this.topic = proposal.getTopic();
+    }
 
     public long getId() {
         return id;

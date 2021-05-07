@@ -23,6 +23,9 @@ import {AuthGuard} from './guard/guard.guard';
 import {NotificationModule} from './notification.module';
 import {NotificationsService} from './services/notifications.service';
 import {TrainingPageComponent} from "./pages/training-page/training-page.component";
+import {  MatPaginatorModule } from '@angular/material/paginator';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -46,7 +49,8 @@ import {TrainingPageComponent} from "./pages/training-page/training-page.compone
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NotificationModule
+    NotificationModule,
+    MatPaginatorModule
   ],
   providers: [UserService, TrainingService, ProposalService, AuthGuard, NotificationsService, AuthenticationService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
