@@ -12,7 +12,11 @@ export class ProposalService {
   constructor(private http: HttpClient) {
     this.proposalsUrl = 'http://localhost:8080/topics';
   }
-
+  listProposals(request){
+    const endpoint = 'http://localhost:8080/topics';
+    const params = request;
+    return this.http.get(endpoint, {params});
+  }
   public findAll(): Observable<Proposal[]> {
     return this.http.get<Proposal[]>(this.proposalsUrl);
   }

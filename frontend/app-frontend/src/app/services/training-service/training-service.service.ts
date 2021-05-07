@@ -32,4 +32,9 @@ export class TrainingService {
   public save(training: Training) {
     return this.http.post<Training>(this.trainingsUrl, training);
   }
+  public listTrainings(request){
+    const endpoint = 'http://localhost:8080/trainings';
+    const params = request;
+    return this.http.get(endpoint, {params});
+  }
 }
