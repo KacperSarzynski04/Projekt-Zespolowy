@@ -3,17 +3,21 @@ package pl.edu.pwr.app.controllers;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.pwr.app.models.Proposal;
+import pl.edu.pwr.app.models.BlackListJwtToken;
 import pl.edu.pwr.app.models.Training;
-import pl.edu.pwr.app.models.User;
 import pl.edu.pwr.app.repositories.TrainingRepository;
+import pl.edu.pwr.app.service.TokenBlackListService;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -24,14 +28,18 @@ import static java.util.stream.Collectors.toList;
 public class TrainingController {
 
     private final TrainingRepository trainingRepository;
+    private final TokenBlackListService tokenBlackListService;
 
-    public TrainingController(TrainingRepository trainingRepository) {
+    public TrainingController(TrainingRepository trainingRepository, TokenBlackListService tokenBlackListService) {
         this.trainingRepository = trainingRepository;
+        this.tokenBlackListService = tokenBlackListService;
     }
+
+
 
     @GetMapping("/trainings")
     public Page<Training> list(@RequestParam(name = "page", defaultValue = "0") int page,
-        @RequestParam(name = "size", defaultValue = "10") int size) {
+                               @RequestParam(name = "size", defaultValue = "10") int size, Authentication authentication , HttpServletRequest request) throws ServletException {
             PageRequest pageRequest = PageRequest.of(page, size);
             Page<Training> pageResult = trainingRepository.findAll(pageRequest);
             List<Training> trainings = pageResult
@@ -59,6 +67,8 @@ public class TrainingController {
         Collections.sort(trainingList);
         return trainingList;
     }
+
+
     public List<Training> getTrainingsAsUser(int limit){
         List<Training> sortedTrainingList = getSortedTrainings();
         LocalDate localDate = null;

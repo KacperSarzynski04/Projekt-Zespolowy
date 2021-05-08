@@ -1,22 +1,29 @@
 package pl.edu.pwr.app.controllers;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.pwr.app.AppApplication;
 import pl.edu.pwr.app.exception.domain.EmailExistException;
 import pl.edu.pwr.app.exception.domain.UserNotFoundException;
 import pl.edu.pwr.app.exception.domain.UsernameExistException;
+import pl.edu.pwr.app.jwt.JwtFilter;
 import pl.edu.pwr.app.jwt.JwtTokenGenerator;
+import pl.edu.pwr.app.models.BlackListJwtToken;
 import pl.edu.pwr.app.models.UserPrincipals;
 import pl.edu.pwr.app.repositories.UserRepository;
 import pl.edu.pwr.app.models.User;
+import pl.edu.pwr.app.service.TokenBlackListService;
 import pl.edu.pwr.app.service.UserService;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -28,16 +35,18 @@ public class UserController {
     private UserService userService;
     private AuthenticationManager authenticationManager;
     private JwtTokenGenerator jwtTokenGenerator;
+    private TokenBlackListService tokenBlackListService;
 
     @Autowired
     public UserController(UserRepository userRepository,
                           UserService userService,
                           AuthenticationManager authenticationManager,
-                          JwtTokenGenerator jwtTokenGenerator) {
+                          JwtTokenGenerator jwtTokenGenerator, TokenBlackListService tokenBlackListService) {
         this.userRepository = userRepository;
         this.userService = userService;
         this.authenticationManager = authenticationManager;
         this.jwtTokenGenerator = jwtTokenGenerator;
+        this.tokenBlackListService = tokenBlackListService;
     }
 
     public UserController(UserRepository userRepository) {
@@ -85,6 +94,15 @@ public class UserController {
         headers.add("Jwt-Token", jwtTokenGenerator.createToken(userP));
         return headers;
 
+    }
+
+    @ApiOperation(value = "", authorizations = { @Authorization(value="Bearer") })
+    @GetMapping("/logout")
+    public ResponseEntity<Void> logoutUser(BlackListJwtToken tokenBlacklist, HttpServletRequest request, Authentication authentication) throws ServletException {
+        String token = JwtFilter.getToken(request);
+        tokenBlackListService.addTokenToBlacklist(token, tokenBlacklist);
+        System.out.println("User logged out");
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     private void getAuthenticaton(String email, String password) {
