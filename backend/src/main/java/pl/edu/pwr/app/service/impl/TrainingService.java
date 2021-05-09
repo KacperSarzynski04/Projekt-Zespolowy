@@ -1,0 +1,74 @@
+package pl.edu.pwr.app.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import pl.edu.pwr.app.exception.domain.NotAnImageFileException;
+import pl.edu.pwr.app.models.Training;
+import pl.edu.pwr.app.repositories.TrainingRepository;
+import static pl.edu.pwr.app.constant.FileConstants.*;
+import pl.edu.pwr.app.constant.FileConstants.*;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.util.Arrays;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import static org.springframework.http.MediaType.*;
+
+@Service
+public class TrainingService {
+
+    private TrainingRepository trainingRepository;
+    private Logger LOGGER = LoggerFactory.getLogger(getClass());
+
+    @Autowired
+    public TrainingService(TrainingRepository trainingRepository) {
+        this.trainingRepository = trainingRepository;
+    }
+
+
+    public Training addNewTraining(String topic, String description,
+                                   String trainer, int durationInMinutes,
+                                   MultipartFile trainingImage) throws IOException, NotAnImageFileException {
+        Training tempTraining = new Training(topic, description, trainer, durationInMinutes, null);
+        Training training = trainingRepository.saveAndFlush(tempTraining);
+        saveTrainingImage(training, trainingImage);
+        LOGGER.info("New picture added");
+
+        return training;
+    }
+
+    private void saveTrainingImage(Training training, MultipartFile trainingImage) throws IOException, NotAnImageFileException {
+        if (trainingImage != null) {
+            if(!Arrays.asList(IMAGE_JPEG_VALUE, IMAGE_PNG_VALUE, IMAGE_GIF_VALUE).contains(trainingImage.getContentType())) {
+                throw new NotAnImageFileException(trainingImage.getOriginalFilename() + NOT_AN_IMAGE_FILE);
+            }
+            Path userFolder = Paths.get(USER_FOLDER + training.getId()).toAbsolutePath().normalize();
+            if(!Files.exists(userFolder)) {
+                Files.createDirectories(userFolder);
+                LOGGER.info(DIRECTORY_CREATED + userFolder);
+            }
+            Files.deleteIfExists(Paths.get(userFolder + String.valueOf(training.getId()) + DOT + JPG_EXTENSION));
+            Files.copy(trainingImage.getInputStream(), userFolder.resolve(String.valueOf(training.getId()) + DOT + JPG_EXTENSION), REPLACE_EXISTING);
+            training.setTrainingImageUrl(setTrainingImageUrl(String.valueOf(training.getId())));
+            trainingRepository.save(training);
+            LOGGER.info(FILE_SAVED_IN_FILE_SYSTEM + trainingImage.getOriginalFilename());
+        }
+    }
+
+    private String setTrainingImageUrl(String trainingId) {
+        return ServletUriComponentsBuilder.fromCurrentContextPath().path(USER_IMAGE_PATH + trainingId + FORWARD_SLASH
+                + trainingId + DOT + JPG_EXTENSION).toUriString();
+    }
+
+    private String getTemporarytrainingImageUrl(String trainingId) {
+        return ServletUriComponentsBuilder.fromCurrentContextPath().path(DEFAULT_USER_IMAGE_PATH + trainingId).toUriString();
+    }
+}
+

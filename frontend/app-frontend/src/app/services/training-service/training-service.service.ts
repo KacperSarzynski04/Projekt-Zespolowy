@@ -32,6 +32,10 @@ export class TrainingService {
   public save(training: Training) {
     return this.http.post<Training>(this.trainingsUrl, training);
   }
+
+  public addUser(formData: FormData): Observable<Training> {
+    return this.http.post<Training>(`http://localhost:8080/trainings`, formData);
+  }
   public listTrainings(request){
     const endpoint = 'http://localhost:8080/trainings';
     const params = request;
@@ -41,5 +45,17 @@ export class TrainingService {
   public postFile(fileToUpload: File): Observable<Object> {
     return this.http.post<any>('http://localhost:8080/images', fileToUpload);
   }
-  
+
+  public createTrainingFormDate(loggedInUsername: string, training: Training, trainingImage: File): FormData {
+    const formData = new FormData();
+    formData.append('topic', training.topic);
+    formData.append('description', training.description);
+    formData.append('trainer', training.trainer);
+    formData.append('durationInMinutes', JSON.stringify(training.durationInMinutes));
+    formData.append('date', JSON.stringify(training.date));
+    formData.append('time', JSON.stringify(training.time));
+    formData.append('trainingImage', trainingImage);
+    return formData;
+  }
+
 }

@@ -4,15 +4,15 @@ import {Time} from "@angular/common";
 export class Training {
 
   id: string;
-  topic: String;
-  description: String;
-  trainer: String;
+  topic: string;
+  description: string;
+  trainer: string;
   durationInMinutes: number;
   date: Date;
   time: Time;
-  photo: File;
+  trainingImageUrl: string;
   materials: File;
-  imagePath: String;
+  imagePath: string;
 
 }
 

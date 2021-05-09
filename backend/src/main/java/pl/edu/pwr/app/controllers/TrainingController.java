@@ -7,13 +7,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.pwr.app.models.BlackListJwtToken;
+import org.springframework.web.multipart.MultipartFile;
+import pl.edu.pwr.app.constant.FileConstants;
+import pl.edu.pwr.app.exception.domain.NotAnImageFileException;
 import pl.edu.pwr.app.models.Training;
 import pl.edu.pwr.app.repositories.TrainingRepository;
 import pl.edu.pwr.app.service.TokenBlackListService;
+import pl.edu.pwr.app.service.impl.TrainingService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -21,18 +25,23 @@ import java.util.Collections;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
+import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping(path = { "/"})
+@RequestMapping(path = { "/", "/trainingImages"})
 public class TrainingController {
 
     private final TrainingRepository trainingRepository;
     private final TokenBlackListService tokenBlackListService;
+    private final TrainingService trainingService;
 
-    public TrainingController(TrainingRepository trainingRepository, TokenBlackListService tokenBlackListService) {
+    public TrainingController(TrainingRepository trainingRepository, TokenBlackListService tokenBlackListService, TrainingService trainingService) {
         this.trainingRepository = trainingRepository;
         this.tokenBlackListService = tokenBlackListService;
+        this.trainingService = trainingService;
     }
 
 
@@ -109,8 +118,23 @@ public class TrainingController {
     public List<Training> getTrainingAsAdmin(){
         return (List<Training>) trainingRepository.findAll();
     }
-    @PostMapping("/trainings")
-    void addTraining(@RequestBody Training training) {
-        trainingRepository.save(training);
+
+    @GetMapping(path = "/image/{id}/{fileName}", produces = IMAGE_JPEG_VALUE)
+    public byte[] getTrainingImage(@PathVariable("id") String trainingId, @PathVariable("fileName") String fileName) throws IOException {
+        return Files.readAllBytes(Paths.get(FileConstants.USER_FOLDER + trainingId + FileConstants.FORWARD_SLASH + fileName));
     }
+
+    @PostMapping("/trainings")
+    ResponseEntity<Training> addTraining(@RequestParam("topic") String topic,
+                                         @RequestParam("description") String description,
+                                         @RequestParam("trainer") String trainer,
+                                         @RequestParam("durationInMinutes") int durationInMinutes,
+                                         @RequestParam(value = "trainingImage", required = false) MultipartFile trainingImage) throws IOException, NotAnImageFileException {
+        Training training = trainingService.addNewTraining(topic, description, trainer, durationInMinutes, trainingImage);
+
+        return new ResponseEntity<>(training, HttpStatus.OK);
+
+    }
+
+    
 }

@@ -19,6 +19,7 @@ public class Training implements Comparable<Training>{
     private final int durationInMinutes;
     private final LocalDate date;
     private final LocalTime time;
+    private String trainingImageUrl;
 
     public Training(){
 
@@ -28,26 +29,35 @@ public class Training implements Comparable<Training>{
         durationInMinutes = 0;
         date = LocalDate.now();
         time = LocalTime.now();
+        trainingImageUrl = null;
     }
 
-    public Training(String topic, String description, String trainer, int durationInMinutes) {
+    public Training(String topic, String description, String trainer, int durationInMinutes, String trainingImageUrl) {
         this.topic = topic;
         this.description = description;
         this.trainer = trainer;
         this.durationInMinutes = durationInMinutes;
+        this.trainingImageUrl = trainingImageUrl;
         this.date = LocalDate.now();
         this.time = LocalTime.now();
     }
 
 
+
+
     public Training(String topic, String description, String trainer, int durationInMinutes, LocalDate date,
-                    LocalTime time) {
+                    LocalTime time, String trainingImageUrl) {
         this.topic = topic;
         this.description = description;
         this.trainer = trainer;
         this.durationInMinutes = durationInMinutes;
+        this.trainingImageUrl = trainingImageUrl;
         this.date = date;
         this.time = time;
+    }
+
+    public String getTrainingImageUrl() {
+        return trainingImageUrl;
     }
 
     public Training(Training training) {
@@ -58,6 +68,7 @@ public class Training implements Comparable<Training>{
         this.time = training.getTime();
         this.topic = training.getTopic();
         this.trainer = training.getTrainer();
+        this.trainingImageUrl = training.trainingImageUrl;
     }
 
     public long getId() {
@@ -88,6 +99,9 @@ public class Training implements Comparable<Training>{
         return time;
     }
 
+    public void setTrainingImageUrl(String trainingImageUrl) {
+        this.trainingImageUrl = trainingImageUrl;
+    }
     @Override
     public String toString() {
         return "Training{" +

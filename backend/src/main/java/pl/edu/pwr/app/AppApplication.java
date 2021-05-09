@@ -13,11 +13,15 @@ import pl.edu.pwr.app.repositories.ProposalHostRepository;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.io.File;
+
+import static pl.edu.pwr.app.constant.FileConstants.USER_FOLDER;
 
 @SpringBootApplication
 public class AppApplication {
     public static void main(String[] args) {
         SpringApplication.run(AppApplication.class, args);
+        new File(USER_FOLDER).mkdirs();
     }
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
