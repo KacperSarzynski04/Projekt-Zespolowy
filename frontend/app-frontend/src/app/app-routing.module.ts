@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'register', component: UserFormComponent },
   { path: 'trainings', component: TrainingListComponent },
   { path: 'addtraining', component: TrainingFormComponent , canActivate: [RoleGuard, AuthGuard]},
-  { path: 'topics', component: ProposalListComponent},
+  { path: 'topics', component: ProposalListComponent, canActivate: [AuthGuard]},
   { path: 'home', component: MainPageComponent},
   { path: 'login', component: LoginFormComponent},
   { path: 'register', component: UserFormComponent},
@@ -27,7 +27,8 @@ const routes: Routes = [
   { path: '', component: MainPageComponent},
   { path: 'proposals', component: ProposalListComponent},
   { path: 'addproposal', component: ProposalFormComponent, canActivate: [AuthGuard]},
-  { path: 'find_training/:id', component: TrainingPageComponent}
+  { path: 'find_training/:id', component: TrainingPageComponent},
+  { path: 'logout', component: MainPageComponent}
 ];
 
 @NgModule({

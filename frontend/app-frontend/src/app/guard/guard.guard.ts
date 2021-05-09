@@ -18,7 +18,9 @@ export class AuthGuard implements CanActivate {
     if (this.authenticationService.isLogged()) {
       return true;
     }
+    console.log("Guard");
     this.router.navigate(['/login']);
+
     this.notificationsService.showMessage(NotificationsEnum.WARNING, "Login first");
     return false;
   }

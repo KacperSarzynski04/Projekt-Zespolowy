@@ -3,6 +3,12 @@ import { NavigationStart, Router, RouterEvent } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import {NotificationsEnum} from '../enum/notifications.enum';
 import {NotificationsService} from '../services/notifications.service';
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor
+} from '@angular/common/http';
 
 @Component({
   selector: 'navbar',
@@ -23,16 +29,25 @@ export class NavbarComponent implements OnInit {
     item : true
   };
 
-  
 
-  public logout(){
-    this.authenticationService.logOut();
-    this.notificationsService.showMessage(NotificationsEnum.DEFAULT, "Logged out");
-    this.router.navigate(['/home']);
+
+  public logout(): void{
+    this.authenticationService.logOut().subscribe(
+      res => {
+        console.log('Logging out');
+      },
+      err => {
+        console.log(err);
+      },
+      () => {
+        this.gotoHome();
+      });
+
+
   }
 
   public isAdmin(){
-      let role = this.authenticationService.getUser().role; 
+      let role = this.authenticationService.getUser().role;
       return role == "ROLE_ADMIN";
   }
 
@@ -43,5 +58,12 @@ export class NavbarComponent implements OnInit {
   public getName(){
     return this.authenticationService.getUser().firstName;
   }
-  
+
+  gotoHome(): void {
+    this.authenticationService.clearCache();
+    console.log("Going to home");
+    this.router.navigate(['/home']);
+    this.notificationsService.showMessage(NotificationsEnum.DEFAULT, "Logged out");
+  }
+
 }

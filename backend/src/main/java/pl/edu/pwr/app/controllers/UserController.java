@@ -96,8 +96,8 @@ public class UserController {
 
     }
 
-    @ApiOperation(value = "", authorizations = { @Authorization(value="Bearer") })
-    @GetMapping("/logout")
+    //@ApiOperation(value = "", authorizations = { @Authorization(value="Bearer ") })
+    @RequestMapping(value = "logout",  method = RequestMethod.POST)
     public ResponseEntity<Void> logoutUser(BlackListJwtToken tokenBlacklist, HttpServletRequest request, Authentication authentication) throws ServletException {
         String token = JwtFilter.getToken(request);
         tokenBlackListService.addTokenToBlacklist(token, tokenBlacklist);

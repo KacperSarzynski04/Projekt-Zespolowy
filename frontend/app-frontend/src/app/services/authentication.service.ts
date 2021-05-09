@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment.prod';
-import {HttpClient, HttpErrorResponse, HttpResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpResponse, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {User} from '../models/user/user';
 import {Observable} from 'rxjs';
 import {JwtHelperService} from '@auth0/angular-jwt';
@@ -14,9 +14,12 @@ import {NotificationsEnum} from '../enum/notifications.enum';
 export class AuthenticationService {
 
   public host = environment.apiUrl;
+  private logoutsUrl: string;
   private token: string;
   private loggedInUserEmail: string;
-  private  jwtHelperService = new JwtHelperService(); constructor(private http: HttpClient,) {}
+  private  jwtHelperService = new JwtHelperService(); constructor(private http: HttpClient) {
+    this.logoutsUrl = `http://localhost:8080/user/logout`;
+  }
 
 
   public login(user: User): Observable<HttpResponse<User>> {
@@ -28,18 +31,22 @@ export class AuthenticationService {
     (`${this.host}/register`, user);
   }
 
-  public logOut(): Observable<string> {
+
+  // tslint:disable-next-line:typedef
+  public logOut(): Observable<unknown>{
+
+
+    return this.http.post(this.logoutsUrl, ' ');
+  }
+
+  // tslint:disable-next-line:typedef
+  public clearCache() {
+    console.log('Done');
     this.token = null;
     this.loggedInUserEmail = null;
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     localStorage.removeItem('users');
-    const url = `${this.host}/logout`;
-    const headers = new HttpHeaders()
-      .set('Jwt-Token', localStorage.getItem('token'));
-
-    return this.http.post(url, '' , {headers, responseType: 'text'});
-
   }
 
   public saveToken(token: string): void {
@@ -78,7 +85,6 @@ export class AuthenticationService {
         }
       }
     } else {
-      this.logOut();
       return false;
     }
   }
