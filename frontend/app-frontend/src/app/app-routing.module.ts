@@ -12,6 +12,7 @@ import {ProposalListComponent} from './lists/proposal-list/proposal-list.compone
 import {AuthGuard} from './guard/guard.guard';
 import {RoleGuard} from './guard/role-guard.guard';
 import {TrainingPageComponent} from './pages/training-page/training-page.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   { path: 'register', component: UserFormComponent },
@@ -25,7 +26,7 @@ const routes: Routes = [
   { path: '*', component: MainPageComponent},
   { path: 'user/login', component: LoginFormComponent},
   { path: '', component: MainPageComponent},
-  { path: 'proposals', component: ProposalListComponent},
+  { path: 'proposals', component: ProposalListComponent, canActivate :[BrowserAnimationsModule]},
   { path: 'addproposal', component: ProposalFormComponent, canActivate: [AuthGuard]},
   { path: 'find_training/:id', component: TrainingPageComponent},
   { path: 'logout', component: MainPageComponent}

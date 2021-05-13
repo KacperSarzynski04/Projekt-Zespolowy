@@ -22,16 +22,22 @@
             <td>{{ proposal.assigned }}</td>
             <td>{{ proposal.votes }}</td>
             <td>
-              <button type="submit"
+              <div *ngIf = "proposalMapping.get(proposal)">
+              <button
+                type="submit"
                       class="button"
                       (click)="onAssignClicked(proposal)">
                 Poprowadź</button>
+              </div>
             </td>
             <td>
-              <button type="submit"
+              <div *ngIf = "proposalVoted.get(proposal)">
+              <button
+                type="submit"
                       class="button"
                       (click)="onInterestedClicked(proposal.id)">
                 Zainteresowany</button>
+              </div>
             </td>
           </tr>
           </tbody>

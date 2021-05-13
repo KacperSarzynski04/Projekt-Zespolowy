@@ -45,7 +45,26 @@ public class ProposalController {
                 .map(Proposal::new)
                 .collect(toList());
         return new PageImpl<>(proposals, pageRequest, pageResult.getTotalElements());
-
+    }
+    @GetMapping(path = "/assigned", params ={"userId","proposalId"})
+    public boolean checkVisibleAssignButton(@RequestParam("userId") String userId, @RequestParam("proposalId") String proposalId){
+        List<ProposalHost> proposalHosts= (List<ProposalHost>) proposalHostRepository.findAll();
+        for (ProposalHost proposalHost:proposalHosts) {
+            if (proposalHost.getProposalID() == Long.parseLong(proposalId) && proposalHost.getHostID() == Long.parseLong(userId)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    @GetMapping(path = "/voted", params ={"userId","proposalId"})
+    public boolean checkVisibleVoteButton(@RequestParam("userId") String userId, @RequestParam("proposalId") String proposalId){
+        List<ProposalHost> proposalHosts= (List<ProposalHost>) proposalHostRepository.findAll();
+        for (ProposalHost proposalHost:proposalHosts) {
+            if (proposalHost.getProposalID() == Long.parseLong(proposalId) && proposalHost.getVotedUserID() == Long.parseLong(userId)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 
@@ -61,4 +80,6 @@ public class ProposalController {
 
         proposalHostRepository.save(proposalHost);
     }
+
+
 }

@@ -12,6 +12,7 @@ public class ProposalHost {
     private long proposalID;
     private long authorID;
     private long hostID;
+    private long votedUserID;
 
     public ProposalHost(long proposalId, long authorId) {
         this.proposalID = proposalId;
@@ -27,6 +28,11 @@ public class ProposalHost {
         this.authorID = proposalHost.getAuthorID();
         this.hostID = proposalHost.getHostID();
         this.id = proposalHost.getId();
+        this.votedUserID = proposalHost.getVotedUserID();
+    }
+
+    public long getVotedUserID() {
+        return votedUserID;
     }
 
     public long getId() {

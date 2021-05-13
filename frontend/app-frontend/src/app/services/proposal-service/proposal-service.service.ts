@@ -29,4 +29,10 @@ export class ProposalService {
   public updateVotes(id: number): Observable<any>{
     return this.http.put<any>(this.proposalsUrl + '/' + id, '');
   }
+  public checkAssign(proposalId: string, userId: string): Observable<boolean>{
+    return this.http.get<boolean>('http://localhost:8080/assigned' + '?userId=' + userId + '&proposalId=' + proposalId);
+  }
+  public checkVote(proposalId: string, userId: string): Observable<boolean>{
+    return this.http.get<boolean>('http://localhost:8080/voted' + '?userId=' + userId + '&proposalId=' + proposalId);
+  }
 }
