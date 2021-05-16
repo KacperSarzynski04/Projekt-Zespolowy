@@ -9,6 +9,8 @@ export class User {
   public notLocked: boolean;
   public role: string;
   public authorities: [];
+  public countTrainingsAssigned: number;
+  public countProposalsAssigned: number;
 
   constructor() {
     this.id = '';
@@ -21,6 +23,8 @@ export class User {
     this.notLocked = false;
     this.role = '';
     this.authorities = [];
+    this.countTrainingsAssigned = 0;
+    this.countProposalsAssigned = 0;
   }
 
 }

@@ -24,13 +24,29 @@ public class User implements Serializable {
     private Date lastLoginDate;
     private String role;
     private String[] authorities;
-    private int countProposalsAssigned;
     private int countTrainingsAssigned;
+    private int countProposalsAssigned;
     private boolean isActive;
     private boolean isNotLocked;
 
     public Long getId() {
         return id;
+    }
+
+    public int getCountProposalsAssigned() {
+        return countProposalsAssigned;
+    }
+
+    public void setCountProposalsAssigned(int countProposalsAssigned) {
+        this.countProposalsAssigned = countProposalsAssigned;
+    }
+
+    public int getCountTrainingsAssigned() {
+        return countTrainingsAssigned;
+    }
+
+    public void setCountTrainingsAssigned(int countTrainingsAssigned) {
+        this.countTrainingsAssigned = countTrainingsAssigned;
     }
 }
 

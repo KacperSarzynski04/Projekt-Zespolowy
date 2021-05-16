@@ -14,6 +14,7 @@ public class ProposalHost {
     private long hostID;
     private long votedUserID;
 
+
     public ProposalHost(long proposalId, long authorId) {
         this.proposalID = proposalId;
         this.authorID = authorId;
@@ -71,6 +72,8 @@ public class ProposalHost {
     public long getProposalID() {
         return proposalID;
     }
+
+
 
     public void setProposalID(long proposalID) {
         this.proposalID = proposalID;

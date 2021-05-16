@@ -20,6 +20,7 @@ public class Training implements Comparable<Training>{
     private final LocalDate date;
     private final LocalTime time;
     private String trainingImageUrl;
+    private String userId;
 
     public Training(){
 
@@ -30,6 +31,11 @@ public class Training implements Comparable<Training>{
         date = LocalDate.now();
         time = LocalTime.now();
         trainingImageUrl = null;
+        userId = null;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public Training(String topic, String description, String trainer, int durationInMinutes, String trainingImageUrl) {

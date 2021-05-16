@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Proposal} from '../../models/proposal/proposal';
 import {Observable, Subscription} from 'rxjs';
+import {User} from '../../models/user/user';
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +35,10 @@ export class ProposalService {
   }
   public checkVote(proposalId: string, userId: string): Observable<boolean>{
     return this.http.get<boolean>('http://localhost:8080/voted' + '?userId=' + userId + '&proposalId=' + proposalId);
+  }
+
+  public showAssignedUsers(proposalID: number) {
+    return this.http.get<User[]>('http://localhost:8080/assignedUsers' + '?proposalId=' + proposalID);
+
   }
 }

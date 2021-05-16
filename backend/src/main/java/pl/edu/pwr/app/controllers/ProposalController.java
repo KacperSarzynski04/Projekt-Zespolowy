@@ -6,9 +6,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pwr.app.models.Proposal;
 import pl.edu.pwr.app.models.ProposalHost;
+import pl.edu.pwr.app.models.Training;
 import pl.edu.pwr.app.models.User;
 import pl.edu.pwr.app.repositories.ProposalHostRepository;
 import pl.edu.pwr.app.repositories.ProposalRepository;
+import pl.edu.pwr.app.repositories.TrainingRepository;
 import pl.edu.pwr.app.repositories.UserRepository;
 
 import java.util.ArrayList;
@@ -23,19 +25,13 @@ public class ProposalController {
     private final ProposalRepository proposalRepository;
     private final ProposalHostRepository proposalHostRepository;
     private final UserRepository userRepository;
-    public ProposalController(ProposalRepository proposalRepository, ProposalHostRepository proposalHostRepository, UserRepository userRepository) {
+    private final TrainingRepository trainingRepository;
+    public ProposalController(ProposalRepository proposalRepository, ProposalHostRepository proposalHostRepository, UserRepository userRepository, TrainingRepository trainingRepository) {
         this.proposalRepository = proposalRepository;
         this.proposalHostRepository = proposalHostRepository;
         this.userRepository = userRepository;
+        this.trainingRepository = trainingRepository;
     }
-    /*
-    @GetMapping("/topics")
-    public List<Proposal> getProposals(){
-        List<Proposal> proposalList = (List<Proposal>) proposalRepository.findAll();
-        Collections.sort(proposalList);
-        return proposalList;
-    }
-    */
     @GetMapping("/topics")
     public Page<Proposal> list(@RequestParam(name = "page", defaultValue = "0") int page,
                                    @RequestParam(name = "size", defaultValue = "10") int size) {
@@ -81,10 +77,11 @@ public class ProposalController {
 
         proposalHostRepository.save(proposalHost);
     }
-    @PostMapping(path = "/assignedUsers",params={"proposalId"})
-    public List<User> showAssignedUsers(@RequestParam("proposalId") long proposalId){
+    @GetMapping(path = "/assignedUsers",params={"proposalId"})
+    public List<User> showAssignedUsers(@RequestParam("proposalId") int proposalId){
         List<Long> listUserId = new ArrayList<Long>();
         List<ProposalHost> proposalHostList =(List<ProposalHost>) proposalHostRepository.findAll();
+        List<Training> trainingList = (List<Training>) trainingRepository.findAll();
         for (ProposalHost proposalHost:proposalHostList) {
             if(proposalHost.getProposalID()==proposalId){
                 Long userId = proposalHost.getHostID();
@@ -98,6 +95,22 @@ public class ProposalController {
         for (Long userId: listUserId) {
             for(User user: userList){
                 if(userId==user.getId()){
+                    int countAssignedTraining = 0;
+                    int countAssignedProposal = 0;
+                    for (ProposalHost proposalHost:proposalHostList) {
+                        if(proposalHost.getHostID()==userId){
+                            countAssignedProposal++;
+                        }
+                    }
+                    for(Training training:trainingList){
+                        if(training.getUserId()!=null){
+                            if(Integer.parseInt(training.getUserId())==userId){
+                                countAssignedTraining++;
+                            }
+                        }
+                    }
+                    user.setCountProposalsAssigned(countAssignedProposal);
+                    user.setCountTrainingsAssigned(countAssignedTraining);
                     resultList.add(user);
                 }
             }

@@ -25,6 +25,7 @@ import {NotificationsService} from './services/notifications.service';
 import {TrainingPageComponent} from "./pages/training-page/training-page.component";
 import {  MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModalModule } from './_modal';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     NotificationModule,
     MatPaginatorModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ModalModule
   ],
   providers: [UserService, TrainingService, ProposalService, AuthGuard, NotificationsService, AuthenticationService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],

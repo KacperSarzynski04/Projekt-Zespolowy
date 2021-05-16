@@ -39,11 +39,46 @@
                 Zainteresowany</button>
               </div>
             </td>
+            <td>
+              <button
+                type="submit"
+                class="button"
+                (click)="onShowAssignedUsers(proposal.id)"
+                (click)="openModal('custom-modal-1')">
+                Pokaż zgłoszonych uzytkowników</button>
+            </td>
           </tr>
           </tbody>
         </table>
       </div>
     </div>
+  </div>
+    <div *ngIf = "isAdmin()">
+  <jw-modal id="custom-modal-1">
+    <h1>Użytkownicy związani ze szkoleniem</h1>
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th width="20%" scope="col">Imię</th>
+        <th width="20%" scope="col">Nazwisko</th>
+        <th width="20%" scope="col">Adres Mail</th>
+        <th width="20%" scope="col">Ilość szkoleń do których jest zapisany</th>
+        <th width="20%" scope="col">Ilość tematów do których jest zgłoszony</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.countTrainingsAssigned }}</td>
+        <td>{{user.countProposalsAssigned}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <button (click)="closeModal('custom-modal-1');">Zamknij</button>
+  </jw-modal>
   </div>
   <mat-paginator [pageSizeOptions]="[10, 25, 100]" [pageSize]="10" [length]="totalElements"
                  (page)="nextPage($event)">
