@@ -1,18 +1,17 @@
 package pl.edu.pwr.app.controllers;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.pwr.app.AppApplication;
 import pl.edu.pwr.app.models.Proposal;
 import pl.edu.pwr.app.models.ProposalHost;
 import pl.edu.pwr.app.models.User;
 import pl.edu.pwr.app.repositories.ProposalHostRepository;
 import pl.edu.pwr.app.repositories.ProposalRepository;
+import pl.edu.pwr.app.repositories.UserRepository;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -23,9 +22,11 @@ import static java.util.stream.Collectors.toList;
 public class ProposalController {
     private final ProposalRepository proposalRepository;
     private final ProposalHostRepository proposalHostRepository;
-    public ProposalController(ProposalRepository proposalRepository, ProposalHostRepository proposalHostRepository) {
+    private final UserRepository userRepository;
+    public ProposalController(ProposalRepository proposalRepository, ProposalHostRepository proposalHostRepository, UserRepository userRepository) {
         this.proposalRepository = proposalRepository;
         this.proposalHostRepository = proposalHostRepository;
+        this.userRepository = userRepository;
     }
     /*
     @GetMapping("/topics")
@@ -80,6 +81,28 @@ public class ProposalController {
 
         proposalHostRepository.save(proposalHost);
     }
-
+    @PostMapping(path = "/assignedUsers",params={"proposalId"})
+    public List<User> showAssignedUsers(@RequestParam("proposalId") long proposalId){
+        List<Long> listUserId = new ArrayList<Long>();
+        List<ProposalHost> proposalHostList =(List<ProposalHost>) proposalHostRepository.findAll();
+        for (ProposalHost proposalHost:proposalHostList) {
+            if(proposalHost.getProposalID()==proposalId){
+                Long userId = proposalHost.getHostID();
+                if(userId!=null){
+                    listUserId.add(userId);
+                }
+            }
+        }
+        List<User> userList = (List<User>) userRepository.findAll();
+        List<User> resultList = new ArrayList<>();
+        for (Long userId: listUserId) {
+            for(User user: userList){
+                if(userId==user.getId()){
+                    resultList.add(user);
+                }
+            }
+        }
+        return resultList;
+    }
 
 }

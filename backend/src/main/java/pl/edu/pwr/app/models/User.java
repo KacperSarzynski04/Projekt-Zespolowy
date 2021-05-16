@@ -24,8 +24,13 @@ public class User implements Serializable {
     private Date lastLoginDate;
     private String role;
     private String[] authorities;
+    private int countProposalsAssigned;
+    private int countTrainingsAssigned;
     private boolean isActive;
     private boolean isNotLocked;
 
+    public Long getId() {
+        return id;
+    }
 }
 
