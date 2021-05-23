@@ -63,8 +63,22 @@ public class ProposalController {
         }
         return true;
     }
-
-
+    @GetMapping(path = "/assign", params ={"userId","proposalId"})
+    public void assignUser(@RequestParam("userId") long userId, @RequestParam("proposalId") long proposalId){
+        ProposalHost proposalhost = new ProposalHost();
+        proposalhost.setId(47);
+        proposalhost.setHostID(15);
+        proposalhost.setProposalID(proposalId);
+        proposalhost.setHostID(userId);
+        proposalHostRepository.save(proposalhost);
+    }
+    @GetMapping(path = "/vote", params ={"userId","proposalId"})
+    public void voteUser(@RequestParam("userId") long userId, @RequestParam("proposalId") long proposalId){
+        ProposalHost proposalhost = new ProposalHost();
+        proposalhost.setProposalID(proposalId);
+        proposalhost.setVotedUserID(userId);
+        proposalHostRepository.save(proposalhost);
+    }
     @PostMapping(path = "/topics", params = {"assignAsTrainer"})
     public void addProposal(@RequestBody Proposal proposal, @RequestParam("assignAsTrainer") boolean assign){
         ProposalHost proposalHost;
@@ -77,6 +91,7 @@ public class ProposalController {
 
         proposalHostRepository.save(proposalHost);
     }
+
     @GetMapping(path = "/assignedUsers",params={"proposalId"})
     public List<User> showAssignedUsers(@RequestParam("proposalId") int proposalId){
         List<Long> listUserId = new ArrayList<Long>();

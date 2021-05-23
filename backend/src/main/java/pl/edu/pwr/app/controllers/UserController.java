@@ -16,6 +16,7 @@ import pl.edu.pwr.app.exception.domain.UsernameExistException;
 import pl.edu.pwr.app.jwt.JwtFilter;
 import pl.edu.pwr.app.jwt.JwtTokenGenerator;
 import pl.edu.pwr.app.models.BlackListJwtToken;
+import pl.edu.pwr.app.models.ProposalHost;
 import pl.edu.pwr.app.models.UserPrincipals;
 import pl.edu.pwr.app.repositories.UserRepository;
 import pl.edu.pwr.app.models.User;
@@ -53,6 +54,28 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
+    public User findUserID(int id){
+        List<User> userList = (List<User>) userRepository.findAll();
+        User resultUser = null;
+        for (User user : userList) {
+            if(user.getId()==id){
+                resultUser=user;
+                return resultUser;
+            }
+        }
+        return resultUser;
+    }
+
+    @GetMapping(path = "/makeAdmin",params={"userId","admin"})
+    public void makeAdmins(@RequestParam("userId") int userId,@RequestParam("admin") boolean admin){
+        User user = findUserID(userId);
+        if(admin){
+            user.setRole("ROLE_ADMIN");
+        }else{
+            user.setRole("ROLE_USER");
+        }
+        userRepository.save(user);
+    }
     @GetMapping("/users")
     public List<User> getUsers() {
         return (List<User>) userRepository.findAll();

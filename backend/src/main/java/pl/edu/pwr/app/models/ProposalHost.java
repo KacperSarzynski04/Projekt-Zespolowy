@@ -44,6 +44,10 @@ public class ProposalHost {
         this.id = id;
     }
 
+    public void setVotedUserID(long votedUserID) {
+        this.votedUserID = votedUserID;
+    }
+
     public long getAuthorID() {
         return authorID;
     }
