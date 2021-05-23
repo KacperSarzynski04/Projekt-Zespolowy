@@ -2,6 +2,7 @@ package pl.edu.pwr.app.constant;
 
 public class FileConstants {
     public static final String USER_IMAGE_PATH = "/trainingImages/image/";
+    public static final String USER_FILE_PATH = "/trainingImages/file/";
     public static final String JPG_EXTENSION = "jpg";
     public static final String USER_FOLDER = System.getProperty("user.home") + "/portal/trainingImages/";
     public static final String DIRECTORY_CREATED = "Created directory for: ";
@@ -10,5 +11,5 @@ public class FileConstants {
     public static final String DOT = ".";
     public static final String FORWARD_SLASH = "/";
     public static final String NOT_AN_IMAGE_FILE = " is not an image file. Please upload an image file";
-    public static final String TEMP_PROFILE_IMAGE_BASE_URL = "https://robohash.org/";
+    public static final String INCORRECT_FILE_TYPE = " incorrect file type, Please upload txt, pdf, csv, word files";
 }

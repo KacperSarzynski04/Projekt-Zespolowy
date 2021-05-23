@@ -79,16 +79,19 @@
                    type="file"
                    id="file"
                    accept="image/*"
-                   (change)="onFileSelected($event)">
+                   (change)="onImageSelected($event)">
           </label>
         </div>
 
         <div class="form-group">
-          <label class="image-upload-container btn btn-bwm">
+          <label class="file-upload-container btn btn-bwm">
             <span>Dodaj materiały  </span>
-            <input #imageInput
+            <input #fileInput
                    type="file"
-                   accept="image/*">
+                   accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+                    text/plain, application/pdf, image/*"
+                   (change)="onFileSelected($event)">>
+
           </label>
         </div>
 

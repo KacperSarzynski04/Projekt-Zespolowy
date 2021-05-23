@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import pl.edu.pwr.app.exception.domain.IncorrectFileTypeException;
 import pl.edu.pwr.app.exception.domain.NotAnImageFileException;
 import pl.edu.pwr.app.models.Training;
 import pl.edu.pwr.app.repositories.TrainingRepository;
@@ -17,6 +18,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Objects;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import static org.springframework.http.MediaType.*;
@@ -35,10 +38,11 @@ public class TrainingService {
 
     public Training addNewTraining(String topic, String description,
                                    String trainer, int durationInMinutes,
-                                   MultipartFile trainingImage) throws IOException, NotAnImageFileException {
-        Training tempTraining = new Training(topic, description, trainer, durationInMinutes, null);
+                                   MultipartFile trainingImage, MultipartFile trainingFile) throws IOException, NotAnImageFileException, IncorrectFileTypeException {
+        Training tempTraining = new Training(topic, description, trainer, durationInMinutes, null, null);
         Training training = trainingRepository.saveAndFlush(tempTraining);
         saveTrainingImage(training, trainingImage);
+        saveTrainingFile(training, trainingFile);
         LOGGER.info("New picture added");
 
         return training;
@@ -62,9 +66,40 @@ public class TrainingService {
         }
     }
 
+    private void saveTrainingFile(Training training, MultipartFile trainingFile) throws IOException, IncorrectFileTypeException {
+        if (trainingFile != null) {
+            if(!Arrays.asList("text/plain", "application/pdf", "text/csv",
+                    "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                    "application/vnd.ms-powerpoint",
+                    "application/vnd.oasis.opendocument.text",
+                    "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document").contains(trainingFile.getContentType())) {
+                throw new IncorrectFileTypeException(trainingFile.getOriginalFilename() + INCORRECT_FILE_TYPE);
+            }
+            Path userFolder = Paths.get(USER_FOLDER + training.getId()).toAbsolutePath().normalize();
+            if(!Files.exists(userFolder)) {
+                Files.createDirectories(userFolder);
+                LOGGER.info(DIRECTORY_CREATED + userFolder);
+            }
+            String fileType = Objects.requireNonNull(trainingFile.getOriginalFilename()).split("\\.")[1];
+            Files.deleteIfExists(Paths.get(userFolder + String.valueOf(training.getId()) + DOT + trainingFile.getContentType()));
+            Files.copy(trainingFile.getInputStream(), userFolder.resolve(String.valueOf(training.getId()) + DOT + fileType), REPLACE_EXISTING);
+
+            LOGGER.info("Filetype : " + fileType);
+            training.setTrainingFileUrl(setTrainingFileUrl(String.valueOf(training.getId()), fileType));
+            trainingRepository.save(training);
+            LOGGER.info(FILE_SAVED_IN_FILE_SYSTEM + trainingFile.getOriginalFilename());
+        }
+    }
+
+
     private String setTrainingImageUrl(String trainingId) {
         return ServletUriComponentsBuilder.fromCurrentContextPath().path(USER_IMAGE_PATH + trainingId + FORWARD_SLASH
                 + trainingId + DOT + JPG_EXTENSION).toUriString();
+    }
+
+    private String setTrainingFileUrl(String trainingId, String fileType) {
+        return ServletUriComponentsBuilder.fromCurrentContextPath().path(USER_FILE_PATH + trainingId + FORWARD_SLASH
+                + trainingId + DOT + fileType).toUriString();
     }
 
     private String getTemporarytrainingImageUrl(String trainingId) {

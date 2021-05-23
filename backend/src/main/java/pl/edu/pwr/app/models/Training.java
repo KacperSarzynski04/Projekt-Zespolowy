@@ -20,7 +20,12 @@ public class Training implements Comparable<Training>{
     private final LocalDate date;
     private final LocalTime time;
     private String trainingImageUrl;
+    private String trainingFileUrl;
     private String userId;
+
+    public String getTrainingFileUrl() {
+        return trainingFileUrl;
+    }
 
     public Training(){
 
@@ -31,6 +36,7 @@ public class Training implements Comparable<Training>{
         date = LocalDate.now();
         time = LocalTime.now();
         trainingImageUrl = null;
+        trainingFileUrl = null;
         userId = null;
     }
 
@@ -38,12 +44,14 @@ public class Training implements Comparable<Training>{
         return userId;
     }
 
-    public Training(String topic, String description, String trainer, int durationInMinutes, String trainingImageUrl) {
+    public Training(String topic, String description, String trainer, int durationInMinutes, String trainingImageUrl,
+                    String trainingFileUrl) {
         this.topic = topic;
         this.description = description;
         this.trainer = trainer;
         this.durationInMinutes = durationInMinutes;
         this.trainingImageUrl = trainingImageUrl;
+        this.trainingFileUrl = trainingFileUrl;
         this.date = LocalDate.now();
         this.time = LocalTime.now();
     }
@@ -52,12 +60,13 @@ public class Training implements Comparable<Training>{
 
 
     public Training(String topic, String description, String trainer, int durationInMinutes, LocalDate date,
-                    LocalTime time, String trainingImageUrl) {
+                    LocalTime time, String trainingImageUrl, String trainingFileUrl){
         this.topic = topic;
         this.description = description;
         this.trainer = trainer;
         this.durationInMinutes = durationInMinutes;
         this.trainingImageUrl = trainingImageUrl;
+        this.trainingFileUrl = trainingFileUrl;
         this.date = date;
         this.time = time;
     }
@@ -75,6 +84,7 @@ public class Training implements Comparable<Training>{
         this.topic = training.getTopic();
         this.trainer = training.getTrainer();
         this.trainingImageUrl = training.trainingImageUrl;
+        this.trainingFileUrl = training.trainingFileUrl;
     }
 
     public long getId() {
@@ -103,6 +113,10 @@ public class Training implements Comparable<Training>{
 
     public LocalTime getTime() {
         return time;
+    }
+
+    public void setTrainingFileUrl(String trainingFileUrl) {
+        this.trainingFileUrl = trainingFileUrl;
     }
 
     public void setTrainingImageUrl(String trainingImageUrl) {

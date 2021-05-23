@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.edu.pwr.app.constant.FileConstants;
+import pl.edu.pwr.app.exception.domain.IncorrectFileTypeException;
 import pl.edu.pwr.app.exception.domain.NotAnImageFileException;
 import pl.edu.pwr.app.models.Training;
 import pl.edu.pwr.app.repositories.TrainingRepository;
@@ -25,7 +26,8 @@ import java.util.Collections;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
-import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
+import static org.springframework.http.MediaType.*;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -124,13 +126,19 @@ public class TrainingController {
         return Files.readAllBytes(Paths.get(FileConstants.USER_FOLDER + trainingId + FileConstants.FORWARD_SLASH + fileName));
     }
 
+    @GetMapping(path = "/file/{id}/{fileName}", produces = ALL_VALUE)
+    public byte[] getTrainingFile(@PathVariable("id") String trainingId, @PathVariable("fileName") String fileName) throws IOException {
+        return Files.readAllBytes(Paths.get(FileConstants.USER_FOLDER + trainingId + FileConstants.FORWARD_SLASH + fileName));
+    }
+
     @PostMapping("/trainings")
     ResponseEntity<Training> addTraining(@RequestParam("topic") String topic,
                                          @RequestParam("description") String description,
                                          @RequestParam("trainer") String trainer,
                                          @RequestParam("durationInMinutes") int durationInMinutes,
-                                         @RequestParam(value = "trainingImage", required = false) MultipartFile trainingImage) throws IOException, NotAnImageFileException {
-        Training training = trainingService.addNewTraining(topic, description, trainer, durationInMinutes, trainingImage);
+                                         @RequestParam(value = "trainingImage", required = false) MultipartFile trainingImage,
+                                         @RequestParam(value = "trainingFile", required = false) MultipartFile trainingFile ) throws IOException, NotAnImageFileException, IncorrectFileTypeException {
+        Training training = trainingService.addNewTraining(topic, description, trainer, durationInMinutes, trainingImage, trainingFile);
 
         return new ResponseEntity<>(training, HttpStatus.OK);
 
