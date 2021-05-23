@@ -7,6 +7,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import pl.edu.pwr.app.controllers.ProposalController;
+import pl.edu.pwr.app.controllers.UserController;
 import pl.edu.pwr.app.models.ProposalHost;
 import pl.edu.pwr.app.models.User;
 import pl.edu.pwr.app.repositories.ProposalHostRepository;
