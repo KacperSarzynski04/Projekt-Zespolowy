@@ -29,7 +29,8 @@ const routes: Routes = [
   { path: 'proposals', component: ProposalListComponent, canActivate :[BrowserAnimationsModule]},
   { path: 'addproposal', component: ProposalFormComponent, canActivate: [AuthGuard]},
   { path: 'find_training/:id', component: TrainingPageComponent},
-  { path: 'logout', component: MainPageComponent}
+  { path: 'logout', component: MainPageComponent},
+  { path: 'users', component: UserListComponent}
 ];
 
 @NgModule({

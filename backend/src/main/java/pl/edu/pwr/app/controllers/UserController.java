@@ -67,7 +67,7 @@ public class UserController {
     }
 
     @GetMapping(path = "/makeAdmin",params={"userId","admin"})
-    public void makeAdmins(@RequestParam("userId") int userId,@RequestParam("admin") boolean admin){
+    public boolean makeAdmins(@RequestParam("userId") int userId,@RequestParam("admin") boolean admin){
         User user = findUserID(userId);
         if(admin){
             user.setRole("ROLE_ADMIN");
@@ -75,6 +75,17 @@ public class UserController {
             user.setRole("ROLE_USER");
         }
         userRepository.save(user);
+        return true;
+    }
+    @GetMapping(path = "/checkAdmin",params={"userId"})
+    public boolean checkAdmins(@RequestParam("userId") int userId){
+        User user = findUserID(userId);
+        String adminString = "ROLE_ADMIN";
+        if(user.getRole().equals(adminString))
+        {
+            return true;
+        }
+        return false;
     }
     @GetMapping("/users")
     public List<User> getUsers() {
