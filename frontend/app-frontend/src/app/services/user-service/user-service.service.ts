@@ -19,4 +19,12 @@ export class UserService {
   public save(user: User) {
     return this.http.post<User>(this.usersUrl, user);
   }
+
+  public checkAdmin(id: string): Observable<boolean> {
+    return this.http.get<boolean>('http://localhost:8080/checkAdmin' + '?userId=' + id);
+  }
+
+  public makeAdmin(id: string, admin: boolean): Observable<boolean> {
+    return this.http.get<boolean>('http://localhost:8080/makeAdmin' + '?userId=' + id + '&admin=' + admin);
+  }
 }

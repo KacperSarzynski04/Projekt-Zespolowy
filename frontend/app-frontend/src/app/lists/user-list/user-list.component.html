@@ -1,6 +1,13 @@
 <div class="container">
   <div class="card my-5">
     <div class="card-body">
+      <div>
+      <button
+        type="submit"
+        class="button"
+        (click)="save()">
+        Zapisz</button>
+    </div>
       <table class="table table-bordered table-striped">
         <thead class="thead-dark">
         <tr>
@@ -12,8 +19,15 @@
         <tbody>
         <tr *ngFor="let user of users">
           <td>{{ user.id }}</td>
-          <td>{{ user.name }}</td>
+          <td>{{ user.firstName }}</td>
           <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+          <td>
+            <label for="assignTrainer">Admin
+              <input id="assignTrainer" [checked]="isAdmin" [checked]=admins.get(user)  (change)="assign($event,user)" [hidden]="false" type="checkbox"
+                     class="form-control"
+                     name="assignTrainer">
+            </label>
+          </td>
         </tr>
         </tbody>
       </table>

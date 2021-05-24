@@ -8,8 +8,9 @@ import { UserService } from '../../services/user-service/user-service.service';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-
+  admins = new Map();
   users: User[];
+  isAdmin: boolean;
 
   constructor(private userService: UserService) {
   }
@@ -18,6 +19,20 @@ export class UserListComponent implements OnInit {
     this.userService.findAll().subscribe(data => {
       this.users = data;
       console.log(data);
+      this.users.forEach(user => {
+        this.userService.checkAdmin(user.id).subscribe(answer2 => {
+          this.admins.set(user, answer2);
+        });
+      });
     });
+  }
+
+  save() {
+  this.users.forEach(user => {
+      this.userService.makeAdmin( user.id, this.admins.get(user)).subscribe();
+  });
+  }
+    assign(event, user): void{
+    this.admins.set(user , event.target.checked);
   }
 }

@@ -18,9 +18,10 @@
 <ng-template #logoutSection>
   <a class=item routerLink="/trainings">Lista Szkoleń</a>
   <a *ngIf="isAdmin()" class=item routerLink="/addtraining">Dodaj szkolenie</a>
+  <a *ngIf="isAdmin()" class=item routerLink="/users">Zarządzaj użytkownikami</a>
   <a class=item routerLink="/addproposal">Zaproponuj temat</a>
   <div class="loginSection">
-      <h3>Witaj, {{getName()}} </h3> 
-      <a (click)="logout()" class=item>Wyloguj</a>  
+      <h3>Witaj, {{getName()}} </h3>
+      <a (click)="logout()" class=item>Wyloguj</a>
   </div>
 </ng-template>
