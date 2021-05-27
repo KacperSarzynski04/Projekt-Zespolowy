@@ -80,14 +80,13 @@ public class TrainingService {
                 Files.createDirectories(userFolder);
                 LOGGER.info(DIRECTORY_CREATED + userFolder);
             }
-            String fileType = Objects.requireNonNull(trainingFile.getOriginalFilename()).split("\\.")[1];
-            Files.deleteIfExists(Paths.get(userFolder + String.valueOf(training.getId()) + DOT + trainingFile.getContentType()));
-            Files.copy(trainingFile.getInputStream(), userFolder.resolve(String.valueOf(training.getId()) + DOT + fileType), REPLACE_EXISTING);
+            String fileName = trainingFile.getOriginalFilename();
+            Files.deleteIfExists(Paths.get(userFolder + fileName));
+            Files.copy(trainingFile.getInputStream(), userFolder.resolve(fileName), REPLACE_EXISTING);
 
-            LOGGER.info("Filetype : " + fileType);
-            training.setTrainingFileUrl(setTrainingFileUrl(String.valueOf(training.getId()), fileType));
+            training.setTrainingFileUrl(setTrainingFileUrl(String.valueOf(training.getId()), fileName));
             trainingRepository.save(training);
-            LOGGER.info(FILE_SAVED_IN_FILE_SYSTEM + trainingFile.getOriginalFilename());
+            LOGGER.info(FILE_SAVED_IN_FILE_SYSTEM + fileName);
         }
     }
 
@@ -97,9 +96,9 @@ public class TrainingService {
                 + trainingId + DOT + JPG_EXTENSION).toUriString();
     }
 
-    private String setTrainingFileUrl(String trainingId, String fileType) {
+    private String setTrainingFileUrl(String trainingId, String fileName) {
         return ServletUriComponentsBuilder.fromCurrentContextPath().path(USER_FILE_PATH + trainingId + FORWARD_SLASH
-                + trainingId + DOT + fileType).toUriString();
+                + fileName).toUriString();
     }
 
     private String getTemporarytrainingImageUrl(String trainingId) {

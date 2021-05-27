@@ -75,3 +75,21 @@
   padding: 20px;
   background-color: #DBC49E;
 }
+
+span.file a {
+  padding: 1px 0 1px 20px;
+  display: block;
+}
+span.file a[href$=".docx"] {
+  /* Overwrite background */
+  background: url('http://image.chromefans.org/fileicons/format/docx.png') 0 0 no-repeat;
+}
+
+span.file a[href$=".pdf"] {
+  background: url('https://static.spiceworks.com/images/how_to_steps/0005/9590/8a544ad4a4ee8c8b164ff38a3f700f5a35f3805cbf7f27d8ec0bb4e455e5dab1_icpdf.gif') 0 0 no-repeat;
+}
+
+span.file a[href$=".xls"] {
+  /* Overwrite background */
+  background: url('http://image.chromefans.org/fileicons/format/xls.png') 0 0 no-repeat;
+}
