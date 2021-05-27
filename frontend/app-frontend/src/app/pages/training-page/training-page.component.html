@@ -28,8 +28,24 @@
     Data: {{training.date}}<br>
     Godzina: {{training.time}}<br>
     Czas trwania: {{training.durationInMinutes}}
+
+
+    <span class="file">
+  <a [href]="training.trainingFileUrl" [download]="">Download Attached file</a>
+
+</span>
+
+
+
   </div>
+
+
+
 </div>
+
+
+
+
 <div class="float-container">
   <div class="float-child">
     <button type="submit" name="button"  class="left_btn">

@@ -11,6 +11,7 @@ export class Training {
   date: Date;
   time: Time;
   trainingImageUrl: string;
+  trainingFileUrl: string;
   materials: File;
   imagePath: string;
 

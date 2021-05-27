@@ -46,7 +46,7 @@ export class TrainingService {
     return this.http.post<any>('http://localhost:8080/images', fileToUpload);
   }
 
-  public createTrainingFormDate(loggedInUsername: string, training: Training, trainingImage: File): FormData {
+  public createTrainingFormDate(loggedInUsername: string, training: Training, trainingImage: File, trainingFile: File): FormData {
     const formData = new FormData();
     formData.append('topic', training.topic);
     formData.append('description', training.description);
@@ -55,6 +55,7 @@ export class TrainingService {
     formData.append('date', JSON.stringify(training.date));
     formData.append('time', JSON.stringify(training.time));
     formData.append('trainingImage', trainingImage);
+    formData.append('trainingFile', trainingFile);
     return formData;
   }
 

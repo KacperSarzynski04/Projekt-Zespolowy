@@ -17,6 +17,7 @@ export class TrainingFormComponent implements OnInit {
 
   training: Training;
   selectedFile: File;
+  selectedAttachment: File;
   private localUrl: string;
   private subscriptions: Subscription[] = [];
 
@@ -42,10 +43,11 @@ export class TrainingFormComponent implements OnInit {
 
   onSubmit() {
     console.log(this.selectedFile);
+    console.log(this.selectedAttachment);
     // this.trainingService.postFile(this.selectedFile).subscribe();
     // this.trainingService.save(this.training).subscribe(result => this.gotoTrainingList());
 
-    const formData = this.trainingService.createTrainingFormDate(null, this.training, this.selectedFile);
+    const formData = this.trainingService.createTrainingFormDate(null, this.training, this.selectedFile, this.selectedAttachment);
     this.subscriptions.push(
       this.trainingService.addUser(formData).subscribe(
         (response: Training) => {
@@ -74,7 +76,11 @@ export class TrainingFormComponent implements OnInit {
     this.router.navigate(['/trainings']);
   }
 
-  onFileSelected(event) {
+  onImageSelected(event) {
     this.selectedFile = event.target.files[0];
+  }
+
+  onFileSelected(event) {
+    this.selectedAttachment = event.target.files[0];
   }
 }
