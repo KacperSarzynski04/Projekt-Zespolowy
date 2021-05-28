@@ -27,4 +27,10 @@ export class UserService {
   public makeAdmin(id: string, admin: boolean): Observable<boolean> {
     return this.http.get<boolean>('http://localhost:8080/makeAdmin' + '?userId=' + id + '&admin=' + admin);
   }
+
+  public listUsers(request){
+    const endpoint = 'http://localhost:8080/users';
+    const params = request;
+    return this.http.get(endpoint, {params});
+  }
 }

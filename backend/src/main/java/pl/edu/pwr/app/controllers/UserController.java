@@ -3,6 +3,9 @@ package pl.edu.pwr.app.controllers;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,17 +18,17 @@ import pl.edu.pwr.app.exception.domain.UserNotFoundException;
 import pl.edu.pwr.app.exception.domain.UsernameExistException;
 import pl.edu.pwr.app.jwt.JwtFilter;
 import pl.edu.pwr.app.jwt.JwtTokenGenerator;
-import pl.edu.pwr.app.models.BlackListJwtToken;
-import pl.edu.pwr.app.models.ProposalHost;
-import pl.edu.pwr.app.models.UserPrincipals;
+import pl.edu.pwr.app.models.*;
 import pl.edu.pwr.app.repositories.UserRepository;
-import pl.edu.pwr.app.models.User;
 import pl.edu.pwr.app.service.TokenBlackListService;
 import pl.edu.pwr.app.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -88,11 +91,20 @@ public class UserController {
         return false;
     }
     @GetMapping("/users")
-    public List<User> getUsers() {
-        return (List<User>) userRepository.findAll();
+    public Page<User> list(@RequestParam(name = "page", defaultValue = "0") int page,
+                               @RequestParam(name = "size", defaultValue = "10") int size){
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<User> pageResult = userRepository.findAll(pageRequest);
+        List<User> users = pageResult
+                .stream()
+                .map(User::new)
+                .collect(toList());
+        return new PageImpl<>(users, pageRequest, pageResult.getTotalElements());
     }
 
-    @GetMapping("/find/{email}")
+
+
+        @GetMapping("/find/{email}")
     public String getUser(@PathVariable("email") String email) {
         User user = userRepository.findByEmail(email);
         return user.toString();

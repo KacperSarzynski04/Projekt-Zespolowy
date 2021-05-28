@@ -29,14 +29,13 @@ export class ProposalListComponent implements OnInit {
     this.proposals;
   }
 
-  onAssignClicked(proposal: Proposal): void{
-    proposal.assignedUsers.push(this.authenticationService.getUser().id);
-    proposal.assigned++;
-    this.proposals.push(proposal);
+  onAssignClicked(id: string): void{
+    this.proposalService.updateAssign( this.authenticationService.getUser().id , Number.parseFloat(id)).subscribe();
+    window.location.reload();
   }
 
   onInterestedClicked(id: string): void{
-    this.proposalService.updateVotes(Number.parseFloat(id)).subscribe(response => {});
+    this.proposalService.updateVotes( this.authenticationService.getUser().id , Number.parseFloat(id)).subscribe();
     window.location.reload();
   }
   onShowAssignedUsers(id: string): void{
