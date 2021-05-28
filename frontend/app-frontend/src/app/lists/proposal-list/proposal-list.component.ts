@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Proposal } from '../../models/proposal/proposal';
 import {ProposalService} from '../../services/proposal-service/proposal-service.service';
-import {AuthenticationService} from '../../services/authentication.service';
+import {AuthenticationService} from '../../services/authentication-service/authentication.service';
 import {PageEvent} from '@angular/material/paginator';
 import { ModalService } from 'src/app/_modal';
 import {User} from "../../models/user/user";
@@ -84,5 +84,9 @@ export class ProposalListComponent implements OnInit {
   }
   openModal(id: string) {
     this.modalService.open(id);
+  }
+
+  delete(id: string){
+    this.proposalService.deleteProposal(id);
   }
 }

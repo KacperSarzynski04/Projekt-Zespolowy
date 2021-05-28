@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
-import {AuthenticationService} from '../services/authentication.service';
-import {NotificationsService} from '../services/notifications.service';
+import {AuthenticationService} from '../services/authentication-service/authentication.service';
+import {NotificationsService} from '../services/notifications-service/notifications.service';
 import {NotificationsEnum} from '../enum/notifications.enum';
 
 @Injectable({

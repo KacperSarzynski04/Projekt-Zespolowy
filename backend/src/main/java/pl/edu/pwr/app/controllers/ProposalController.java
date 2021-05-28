@@ -101,6 +101,13 @@ public class ProposalController {
         proposalhost.setVotedUserID(userId);
         proposalHostRepository.save(proposalhost);
     }
+
+    @DeleteMapping(path = "/topics", params ={"proposalId"})
+    public void delete(@RequestParam("proposalId") long proposalId){
+        System.out.println("works");
+        proposalRepository.deleteById(proposalId);
+    }
+
     @PostMapping(path = "/topics", params = {"assignAsTrainer"})
     public void addProposal(@RequestBody Proposal proposal, @RequestParam("assignAsTrainer") boolean assign){
         ProposalHost proposalHost;

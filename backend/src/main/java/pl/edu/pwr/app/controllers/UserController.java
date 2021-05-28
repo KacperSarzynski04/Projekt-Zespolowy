@@ -1,7 +1,5 @@
 package pl.edu.pwr.app.controllers;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -25,7 +23,6 @@ import pl.edu.pwr.app.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collections;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -128,7 +125,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody User user) {
-        getAuthenticaton(user.getEmail(), user.getPassword());
+        getAuthentication(user.getEmail(), user.getPassword());
         User userLogin = userService.findUserByEmail(user.getEmail());
         UserPrincipals userP = new UserPrincipals(userLogin);
         HttpHeaders loginHeader = getHeaders(userP);
@@ -146,12 +143,13 @@ public class UserController {
     @RequestMapping(value = "logout",  method = RequestMethod.POST)
     public ResponseEntity<Void> logoutUser(BlackListJwtToken tokenBlacklist, HttpServletRequest request, Authentication authentication) throws ServletException {
         String token = JwtFilter.getToken(request);
+        // blad
         tokenBlackListService.addTokenToBlacklist(token, tokenBlacklist);
         System.out.println("User logged out");
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-    private void getAuthenticaton(String email, String password) {
+    private void getAuthentication(String email, String password) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
     }
 }

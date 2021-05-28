@@ -4,10 +4,10 @@ import {User} from '../../models/user/user';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../services/user-service/user-service.service';
 import {Router} from '@angular/router';
-import {AuthenticationService} from '../../services/authentication.service';
+import {AuthenticationService} from '../../services/authentication-service/authentication.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {NotificationsEnum} from '../../enum/notifications.enum';
-import {NotificationsService} from '../../services/notifications.service';
+import {NotificationsService} from '../../services/notifications-service/notifications.service';
 
 
 @Component({

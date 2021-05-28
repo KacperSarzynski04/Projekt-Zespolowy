@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Training } from '../../models/training/training';
 import {ActivatedRoute, NavigationEnd, NavigationStart, Router} from "@angular/router";
 import {TrainingService} from "../../services/training-service/training-service.service";
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthenticationService } from 'src/app/services/authentication-service/authentication.service';
 import {Subscription} from "rxjs";
 import {NotificationsEnum} from '../../enum/notifications.enum';
-import { NotificationsService} from "../../services/notifications.service";
+import { NotificationsService} from "../../services/notifications-service/notifications.service";
 import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({

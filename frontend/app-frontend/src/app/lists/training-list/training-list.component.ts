@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthenticationService } from 'src/app/services/authentication-service/authentication.service';
 import { Training } from '../../models/training/training';
 import {TrainingService} from '../../services/training-service/training-service.service';
 import {PageEvent} from "@angular/material/paginator";

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationStart, Router, RouterEvent } from '@angular/router';
-import { AuthenticationService } from '../services/authentication.service';
+import { AuthenticationService } from '../services/authentication-service/authentication.service';
 import {NotificationsEnum} from '../enum/notifications.enum';
-import {NotificationsService} from '../services/notifications.service';
+import {NotificationsService} from '../services/notifications-service/notifications.service';
 import {
   HttpRequest,
   HttpHandler,

@@ -1,4 +1,5 @@
-<div *ngIf="!isLoggedIn(); then notLogged else logged"></div>
+<div *ngIf="!isLoggedIn(); then notLogged"></div>
+<div *ngIf="isAdmin(); then admin else logged"></div>
 
 <ng-template #logged>
   <div class="myContainer">
@@ -6,14 +7,13 @@
       <div class="card-body">
         <table class="table table-bordered table-striped">
           <thead class="thead-dark">
-          <tr>
-            <th width="20%" scope="col">Temat</th>
-            <th width="20%" scope="col">Opis</th>
-            <th width="20%" scope="col">Ilość osób zainteresowanych poprowadzeniem szkolenia</th>
-            <th width="20%" scope="col">Ilość osób zainteresowanych szkoleniem</th>
-            <th width="10%" scope="col">Poprowadź szkolenie</th>
-            <th width="10%" scope="col">Wyraź zainteresowanie</th>
-          </tr>
+            <tr>
+              <th width="20%" scope="col">Temat</th>
+              <th width="20%" scope="col">Opis</th>
+              <th width="20%" scope="col">Liczba osób zainteresowanych poprowadzeniem szkolenia</th>
+              <th width="20%" scope="col">Liczba osób zainteresowanych szkoleniem</th>
+              <th width="20%" scope="col">opcje</th>
+            </tr>
           </thead>
           <tbody>
           <tr *ngFor="let proposal of proposals">
@@ -22,30 +22,12 @@
             <td>{{ proposal.assigned }}</td>
             <td>{{ proposal.votes }}</td>
             <td>
-              <div *ngIf = "proposalMapping.get(proposal)">
-              <button
-                type="submit"
-                      class="button"
-                      (click)="onAssignClicked(proposal.id)">
-                Poprowadź</button>
-              </div>
-            </td>
-            <td>
-              <div *ngIf = "proposalVoted.get(proposal)">
-              <button
-                type="submit"
-                      class="button"
-                      (click)="onInterestedClicked(proposal.id)">
-                Zainteresowany</button>
-              </div>
-            </td>
-            <td>
-              <button
-                type="submit"
-                class="button"
-                (click)="onShowAssignedUsers(proposal.id)"
-                (click)="openModal('custom-modal-1')">
-                Pokaż zgłoszonych uzytkowników</button>
+              <button mat-button>
+                <mat-icon title="poprowadź szkolenie" (click)="onAssignClicked(proposal.id)">face</mat-icon>
+              </button>
+              <button mat-button>
+                <mat-icon title="wyraź zainteresowanie" (click)="onInterestedClicked(proposal.id)">stars</mat-icon>
+              </button>
             </td>
           </tr>
           </tbody>
@@ -53,36 +35,8 @@
       </div>
     </div>
   </div>
-    <div *ngIf = "isAdmin()">
-  <jw-modal id="custom-modal-1">
-    <h1>Użytkownicy związani ze szkoleniem</h1>
-    <table class="table table-bordered table-striped">
-      <thead class="thead-dark">
-      <tr>
-        <th width="20%" scope="col">Imię</th>
-        <th width="20%" scope="col">Nazwisko</th>
-        <th width="20%" scope="col">Adres Mail</th>
-        <th width="20%" scope="col">Ilość szkoleń do których jest zapisany</th>
-        <th width="20%" scope="col">Ilość tematów do których jest zgłoszony</th>
-
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{ user.firstName }}</td>
-        <td>{{ user.lastName }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.countTrainingsAssigned }}</td>
-        <td>{{user.countProposalsAssigned}}</td>
-      </tr>
-      </tbody>
-    </table>
-    <button (click)="closeModal('custom-modal-1');">Zamknij</button>
-  </jw-modal>
-  </div>
   <mat-paginator [pageSizeOptions]="[10, 25, 100]" [pageSize]="10" [length]="totalElements"
                  (page)="nextPage($event)">
-
   </mat-paginator>
 </ng-template>
 
@@ -115,4 +69,83 @@
 
     </mat-paginator>
   </div>
+</ng-template>
+
+<ng-template #admin>
+  <div class="myContainer">
+    <div class="card my-5" id="proposal_list_admin">
+      <div class="card-body">
+        <table class="table table-bordered table-striped">
+          <thead class="thead-dark">
+          <tr>
+            <th width="20%" scope="col">Temat</th>
+            <th width="20%" scope="col">Opis</th>
+            <th width="20%" scope="col">Ilość osób zainteresowanych poprowadzeniem szkolenia</th>
+            <th width="20%" scope="col">Ilość osób zainteresowanych szkoleniem</th>
+            <th width="20%" scope="col">opcje</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let proposal of proposals">
+            <td>{{ proposal.topic }}</td>
+            <td>{{ proposal.description }}</td>
+            <td>{{ proposal.assigned }}</td>
+            <td>{{ proposal.votes }}</td>
+            <td>
+              <button mat-button>
+                <mat-icon title="poprowadź szkolenie" (click)="onAssignClicked(proposal.id)">face</mat-icon>
+              </button>
+              <button mat-button>
+                <mat-icon title="wyraź zainteresowanie" (click)="onInterestedClicked(proposal.id)">stars</mat-icon>
+              </button>
+              <button>
+                <mat-icon title="pokaż chętnych na poprowadzenie"
+                          (click)="onShowAssignedUsers(proposal.id)"
+                          (click)="openModal('custom-modal-1')">list
+                </mat-icon>
+              </button>
+              <button>
+                <mat-icon title="usuń" (click)="delete(proposal.id)">delete</mat-icon>
+              </button>
+              <button>
+                <mat-icon title="edytuj">settings</mat-icon>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div *ngIf = "isAdmin()">
+    <jw-modal id="custom-modal-1">
+      <h1>Użytkownicy związani ze szkoleniem</h1>
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+          <th width="20%" scope="col">Imię</th>
+          <th width="20%" scope="col">Nazwisko</th>
+          <th width="20%" scope="col">Adres Mail</th>
+          <th width="20%" scope="col">Ilość szkoleń do których jest zapisany</th>
+          <th width="20%" scope="col">Ilość tematów do których jest zgłoszony</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.countTrainingsAssigned }}</td>
+          <td>{{user.countProposalsAssigned}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <button (click)="closeModal('custom-modal-1');">Zamknij</button>
+    </jw-modal>
+  </div>
+  <mat-paginator [pageSizeOptions]="[10, 25, 100]" [pageSize]="10" [length]="totalElements"
+                 (page)="nextPage($event)">
+
+  </mat-paginator>
 </ng-template>

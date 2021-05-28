@@ -10,7 +10,7 @@ public class BlackListJwtToken {
     private Long tokenId;
 
 
-    @Column(name = "token")
+    @Column(name = "token", columnDefinition = "LONGTEXT")
     private String token;
 
 

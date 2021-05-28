@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {environment} from '../../environments/environment.prod';
+import {environment} from '../../../environments/environment.prod';
 import {HttpClient, HttpErrorResponse, HttpResponse, HttpHeaders, HttpRequest} from '@angular/common/http';
-import {User} from '../models/user/user';
+import {User} from '../../models/user/user';
 import {Observable} from 'rxjs';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {NotificationsService} from './notifications.service';
-import {NotificationsEnum} from '../enum/notifications.enum';
+import {NotificationsService} from '../notifications-service/notifications.service';
+import {NotificationsEnum} from '../../enum/notifications.enum';
 
 
 @Injectable({
@@ -21,7 +21,6 @@ export class AuthenticationService {
     this.logoutsUrl = `http://localhost:8080/user/logout`;
   }
 
-
   public login(user: User): Observable<HttpResponse<User>> {
     return this.http.post<User>(`${this.host}/login`, user, { observe: 'response' });
   }
@@ -31,11 +30,8 @@ export class AuthenticationService {
     (`${this.host}/register`, user);
   }
 
-
   // tslint:disable-next-line:typedef
   public logOut(): Observable<unknown>{
-
-
     return this.http.post(this.logoutsUrl, ' ');
   }
 

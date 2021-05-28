@@ -1,4 +1,4 @@
-package pl.edu.pwr.app.responce;
+package pl.edu.pwr.app.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

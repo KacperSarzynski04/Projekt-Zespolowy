@@ -1,12 +1,12 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
-import {AuthenticationService} from '../../services/authentication.service';
+import {AuthenticationService} from '../../services/authentication-service/authentication.service';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {User} from '../../models/user/user';
 import {HeadersPrefix} from '../../enum/headers.enum';
 import {NotificationsEnum} from '../../enum/notifications.enum';
-import {NotificationsService} from '../../services/notifications.service';
+import {NotificationsService} from '../../services/notifications-service/notifications.service';
 
 @Component({
   selector: 'app-login-form',

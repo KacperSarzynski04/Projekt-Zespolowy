@@ -17,15 +17,17 @@ import { TopicListComponent } from './lists/topic-list/topic-list.component';
 import { ProposalFormComponent } from './forms/proposal-form/proposal-form.component';
 import { ProposalListComponent } from './lists/proposal-list/proposal-list.component';
 import {ProposalService} from './services/proposal-service/proposal-service.service';
-import {AuthenticationService} from './services/authentication.service';
+import {AuthenticationService} from './services/authentication-service/authentication.service';
 import {AuthInterceptor} from './intercept/auth.interceptor';
 import {AuthGuard} from './guard/guard.guard';
 import {NotificationModule} from './notification.module';
-import {NotificationsService} from './services/notifications.service';
+import {NotificationsService} from './services/notifications-service/notifications.service';
 import {TrainingPageComponent} from "./pages/training-page/training-page.component";
 import {  MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from './_modal';
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
 
 
 @NgModule({
@@ -44,17 +46,19 @@ import { ModalModule } from './_modal';
     ProposalListComponent,
     TrainingPageComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NotificationModule,
-    MatPaginatorModule,
-    BrowserAnimationsModule,
-    ModalModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NotificationModule,
+        MatPaginatorModule,
+        BrowserAnimationsModule,
+        ModalModule,
+        MatButtonModule,
+        MatIconModule
+    ],
   providers: [UserService, TrainingService, ProposalService, AuthGuard, NotificationsService, AuthenticationService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]

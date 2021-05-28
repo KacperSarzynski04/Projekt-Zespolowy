@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Proposal } from '../../models/proposal/proposal';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProposalService} from '../../services/proposal-service/proposal-service.service';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../services/authentication-service/authentication.service';
 
 @Component({
   selector: 'app-proposal-form',
