@@ -4,17 +4,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.pwr.app.models.Proposal;
-import pl.edu.pwr.app.models.ProposalHost;
-import pl.edu.pwr.app.models.Training;
-import pl.edu.pwr.app.models.User;
-import pl.edu.pwr.app.repositories.ProposalHostRepository;
-import pl.edu.pwr.app.repositories.ProposalRepository;
-import pl.edu.pwr.app.repositories.TrainingRepository;
-import pl.edu.pwr.app.repositories.UserRepository;
+import pl.edu.pwr.app.models.*;
+import pl.edu.pwr.app.repositories.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -26,11 +21,13 @@ public class ProposalController {
     private final ProposalHostRepository proposalHostRepository;
     private final UserRepository userRepository;
     private final TrainingRepository trainingRepository;
-    public ProposalController(ProposalRepository proposalRepository, ProposalHostRepository proposalHostRepository, UserRepository userRepository, TrainingRepository trainingRepository) {
+    private final ProposalVoteRepository proposalVoteRepository;
+    public ProposalController(ProposalRepository proposalRepository, ProposalHostRepository proposalHostRepository, UserRepository userRepository, TrainingRepository trainingRepository, ProposalVoteRepository proposalVoteRepository) {
         this.proposalRepository = proposalRepository;
         this.proposalHostRepository = proposalHostRepository;
         this.userRepository = userRepository;
         this.trainingRepository = trainingRepository;
+        this.proposalVoteRepository = proposalVoteRepository;
     }
     @GetMapping("/topics")
     public Page<Proposal> list(@RequestParam(name = "page", defaultValue = "0") int page,
@@ -43,6 +40,23 @@ public class ProposalController {
                 .collect(toList());
         return new PageImpl<>(proposals, pageRequest, pageResult.getTotalElements());
     }
+    @GetMapping(path = "/topics/vote", params ={"userId","proposalId"})
+    public void assignUser(@RequestParam("userId") String userId, @RequestParam("proposalId") String proposalId)
+    {
+        ProposalVote proposalVote = new ProposalVote(proposalId,userId);
+        proposalVoteRepository.save(proposalVote);
+        Optional proposalOptional = proposalRepository.findById(Long.parseLong(proposalId));
+        Proposal proposal = (Proposal) proposalOptional.get();
+        Integer votes = proposal.getVotes();
+        if(votes==null){
+            votes=0;
+        }
+        votes++;
+        proposal.setVotes(votes);
+        proposalRepository.save(proposal);
+    }
+
+
     @GetMapping(path = "/assigned", params ={"userId","proposalId"})
     public boolean checkVisibleAssignButton(@RequestParam("userId") String userId, @RequestParam("proposalId") String proposalId){
         List<ProposalHost> proposalHosts= (List<ProposalHost>) proposalHostRepository.findAll();
@@ -55,22 +69,30 @@ public class ProposalController {
     }
     @GetMapping(path = "/voted", params ={"userId","proposalId"})
     public boolean checkVisibleVoteButton(@RequestParam("userId") String userId, @RequestParam("proposalId") String proposalId){
-        List<ProposalHost> proposalHosts= (List<ProposalHost>) proposalHostRepository.findAll();
-        for (ProposalHost proposalHost:proposalHosts) {
-            if (proposalHost.getProposalID() == Long.parseLong(proposalId) && proposalHost.getVotedUserID() == Long.parseLong(userId)) {
+        List<ProposalVote> proposalVoteList= (List<ProposalVote>) proposalVoteRepository.findAll();
+        for (ProposalVote proposalVote : proposalVoteList) {
+            if (proposalVote.getProposalID().equals(proposalId) && proposalVote.getUserID().equals(userId)) {
                 return false;
             }
         }
         return true;
     }
-    @GetMapping(path = "/assign", params ={"userId","proposalId"})
-    public void assignUser(@RequestParam("userId") long userId, @RequestParam("proposalId") long proposalId){
+    @GetMapping(path = "/topics/assign", params ={"userId","proposalId"})
+    public void assignUser(@RequestParam("userId") long userId, @RequestParam("proposalId") String proposalId){
         ProposalHost proposalhost = new ProposalHost();
-        proposalhost.setId(47);
-        proposalhost.setHostID(15);
-        proposalhost.setProposalID(proposalId);
+        proposalhost.setProposalID(Long.parseLong(proposalId));
         proposalhost.setHostID(userId);
         proposalHostRepository.save(proposalhost);
+        Optional proposalOptional = proposalRepository.findById(Long.parseLong(proposalId));
+        Proposal proposal = (Proposal) proposalOptional.get();
+        Integer assigned = proposal.getAssigned();
+        if(assigned==null){
+            assigned=0;
+        }
+        assigned++;
+        proposal.setAssigned(assigned);
+        proposalRepository.save(proposal);
+
     }
     @GetMapping(path = "/vote", params ={"userId","proposalId"})
     public void voteUser(@RequestParam("userId") long userId, @RequestParam("proposalId") long proposalId){

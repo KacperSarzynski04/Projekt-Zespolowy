@@ -27,8 +27,8 @@ export class ProposalService {
       this.proposalsUrl + '?assignAsTrainer=' + assignAsTrainer, proposal, {withCredentials: true});
   }
 
-  public updateVotes(id: number): Observable<any>{
-    return this.http.put<any>(this.proposalsUrl + '/' + id, '');
+  public updateVotes(userId: string, id: number): Observable<any>{
+    return this.http.get<any>('http://localhost:8080/topics/vote' + '?userId=' + userId + '&proposalId=' + id);
   }
   public checkAssign(proposalId: string, userId: string): Observable<boolean>{
     return this.http.get<boolean>('http://localhost:8080/assigned' + '?userId=' + userId + '&proposalId=' + proposalId);
@@ -40,5 +40,8 @@ export class ProposalService {
   public showAssignedUsers(proposalID: number) {
     return this.http.get<User[]>('http://localhost:8080/assignedUsers' + '?proposalId=' + proposalID);
 
+  }
+  public updateAssign(userId: string, id: number): Observable<any>{
+    return this.http.get<any>('http://localhost:8080/topics/assign' + '?userId=' + userId + '&proposalId=' + id);
   }
 }

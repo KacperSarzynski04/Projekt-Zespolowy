@@ -29,6 +29,16 @@ public class User implements Serializable {
     private boolean isActive;
     private boolean isNotLocked;
 
+    public User(User user) {
+        this.id = user.getId();
+        this.firstName = user.getFirstName();
+        this.email = user.getEmail();
+    }
+
+    public User() {
+
+    }
+
     public Long getId() {
         return id;
     }
