@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Training } from '../../models/training/training';
 import { Observable } from 'rxjs';
+import {Proposal} from "../../models/proposal/proposal";
 
 @Injectable()
 export class TrainingService {
@@ -59,4 +60,7 @@ export class TrainingService {
     return formData;
   }
 
+  public delete(trainingId: string): Observable<Training>{
+    return this.http.delete<Training>('http://localhost:8080/trainings?trainingId=' + trainingId);
+  }
 }

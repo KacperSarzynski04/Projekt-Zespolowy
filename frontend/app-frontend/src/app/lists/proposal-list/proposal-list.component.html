@@ -105,7 +105,7 @@
                 </mat-icon>
               </button>
               <button>
-                <mat-icon title="usuń" (click)="delete(proposal.id)">delete</mat-icon>
+                <mat-icon title="usuń" (click)="idToDelete = proposal.id "(click)="openModal('custom-modal-2')">delete</mat-icon>
               </button>
               <button>
                 <mat-icon title="edytuj">settings</mat-icon>
@@ -144,6 +144,15 @@
       <button (click)="closeModal('custom-modal-1');">Zamknij</button>
     </jw-modal>
   </div>
+
+  <div *ngIf = "isAdmin()">
+    <jw-modal id="custom-modal-2">
+      <h1>Czy napewno chcesz usunąć ten temat?</h1>
+      <button (click)="delete(idToDelete)">Usuń</button>
+      <button (click)="closeModal('custom-modal-2');">Anuluj</button>
+    </jw-modal>
+  </div>
+
   <mat-paginator [pageSizeOptions]="[10, 25, 100]" [pageSize]="10" [length]="totalElements"
                  (page)="nextPage($event)">
 

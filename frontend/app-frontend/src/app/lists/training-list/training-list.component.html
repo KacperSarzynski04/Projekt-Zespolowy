@@ -1,33 +1,87 @@
-<div class="myContainer">
-  <div class="card my-5" id="training_list">
-    <div class="card-body">
-      <div class="theader">Zatwierdzone tematy</div>
-      <table class="table table-bordered table-striped">
-        <thead class="thead-dark">
-        <tr>
-          <th scope="col">Temat</th>
-          <th scope="col">Opis</th>
-          <th scope="col">Prowadzący</th>
-          <th scope="col">Czas trwania</th>
-          <th scope="col">Data</th>
-          <th scope="col">Godzina</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr (click)="goToTraining(training.id)" *ngFor="let training of trainings">
-          <td>{{ training.topic }}</td>
-          <td>{{ training.description }}</td>
-          <td>{{ training.trainer }}</td>
-          <td>{{ training.durationInMinutes }}</td>
-          <td>{{ training.date }}</td>
-          <td>{{ training.time }}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <mat-paginator [pageSizeOptions]="[10, 25, 100]" [pageSize]="10" [length]="totalElements"
-                 (page)="nextPage($event)">
+<div *ngIf="isAdmin(); then admin else logged"></div>
 
-  </mat-paginator>
+<ng-template #admin>
+  <div class="myContainer">
+    <div class="card my-5" id="training_list">
+      <div class="card-body">
+        <div class="theader">Zatwierdzone tematy</div>
+        <table class="table table-bordered table-striped">
+          <thead class="thead-dark">
+          <tr>
+            <th scope="col">Temat</th>
+            <th scope="col">Opis</th>
+            <th scope="col">Prowadzący</th>
+            <th scope="col">Czas trwania</th>
+            <th scope="col">Data</th>
+            <th scope="col">Godzina</th>
+            <th scope="col">opcje</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let training of trainings">
+            <td (click)="goToTraining(training.id)">{{ training.topic }}</td>
+            <td>{{ training.description }}</td>
+            <td>{{ training.trainer }}</td>
+            <td>{{ training.durationInMinutes }}</td>
+            <td>{{ training.date }}</td>
+            <td>{{ training.time }}</td>
+            <td><button mat-button>
+                <mat-icon title="usuń" (click)="idToDelete = training.id"(click)="openModal('custom-modal-2')">delete</mat-icon>
+              </button>
+              <button>
+                <mat-icon title="edytuj" (click)="edit(training.id)">settings</mat-icon>
+              </button></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <mat-paginator [pageSizeOptions]="[10, 25, 100]" [pageSize]="10" [length]="totalElements"
+                   (page)="nextPage($event)">
+
+    </mat-paginator>
+  </div>
+</ng-template>
+<ng-template #logged>
+  <div class="myContainer">
+    <div class="card my-5" id="training_list">
+      <div class="card-body">
+        <div class="theader">Zatwierdzone tematy</div>
+        <table class="table table-bordered table-striped">
+          <thead class="thead-dark">
+          <tr>
+            <th scope="col">Temat</th>
+            <th scope="col">Opis</th>
+            <th scope="col">Prowadzący</th>
+            <th scope="col">Czas trwania</th>
+            <th scope="col">Data</th>
+            <th scope="col">Godzina</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr (click)="goToTraining(training.id)" *ngFor="let training of trainings">
+            <td>{{ training.topic }}</td>
+            <td>{{ training.description }}</td>
+            <td>{{ training.trainer }}</td>
+            <td>{{ training.durationInMinutes }}</td>
+            <td>{{ training.date }}</td>
+            <td>{{ training.time }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <mat-paginator [pageSizeOptions]="[10, 25, 100]" [pageSize]="10" [length]="totalElements"
+                   (page)="nextPage($event)">
+
+    </mat-paginator>
+  </div>
+</ng-template>
+
+<div *ngIf = "isAdmin()">
+  <jw-modal id="custom-modal-2">
+    <h1>Czy napewno chcesz usunąć to szkolenie?</h1>
+    <button (click)="delete(idToDelete)">Usuń</button>
+    <button (click)="closeModal('custom-modal-2');">Anuluj</button>
+  </jw-modal>
 </div>

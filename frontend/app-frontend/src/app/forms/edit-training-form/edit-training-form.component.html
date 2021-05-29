@@ -1,0 +1,104 @@
+<div class="myContainer">
+  <div class="card my-5">
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()" #trainingForm="ngForm">
+        <div class="form-group">
+          <label for="topic">Temat</label>
+          <input type="text" [(ngModel)]="training.topic"
+                 class="form-control"
+                 id="topic"
+                 name="topic"
+                 placeholder="{{training.topic}}"
+                 required #name="ngModel">
+        </div>
+        <div [hidden]="!name.pristine || name.untouched" class="alert alert-danger">Uzupełnij pole tematu</div>
+
+        <div class="form-group">
+          <label for="description">Opis</label>
+          <input type="text" [(ngModel)]="training.description"
+                 class="form-control"
+                 id="description"
+                 name="description"
+                 placeholder="{{training.description}}"
+                 required #desc="ngModel">
+        </div>
+        <div [hidden]="!desc.pristine || desc.untouched" class="alert alert-danger">Uzupełnij pole opisu</div>
+
+        <div class="form-group">
+          <label for="trainer">Prowadzący</label>
+          <input type="text" [(ngModel)]="training.trainer"
+                 class="form-control"
+                 id="trainer"
+                 name="trainer"
+                 placeholder="{{training.trainer}}"
+                 required #trainer="ngModel">
+        </div>
+        <div [hidden]="!trainer.pristine || trainer.untouched" class="alert alert-danger">Uzupełnij pole prowadzącego</div>
+
+        <div class="form-group">
+          <label for="date">Data</label>
+          <input type="Date" [(ngModel)]="training.date"
+                 class="form-control"
+                 id="date"
+                 name="date"
+                 placeholder="{{training.date}}"
+                 required #date="ngModel">
+
+        </div>
+
+        <div [hidden]="!date.pristine || date.untouched" class="alert alert-danger">Uzupełnij pole daty</div>
+
+        <div class="form-group">
+          <label for="time">Godzina</label>
+          <input type="Time" [(ngModel)]="training.time"
+                 class="form-control"
+                 id="time"
+                 name="time"
+                 placeholder="{{training.time}}"
+                 required #time="ngModel">
+
+        </div>
+
+        <div [hidden]="!time.pristine || time.untouched" class="alert alert-danger">Uzupełnij pole godziny</div>
+
+        <div class="form-group">
+          <label for="duration">Czas trwania</label>
+          <input type="number" [(ngModel)]="training.durationInMinutes"
+                 class="form-control"
+                 id="duration"
+                 name="duration"
+                 placeholder="{{training.durationInMinutes}}"
+                 required #dur="ngModel">
+          <div [hidden]="!dur.pristine || dur.untouched" class="alert alert-danger">Uzupełnij pole czasu trwania</div>
+        </div>
+
+        <div class="form-group">
+          <label for="file" class="image-upload-container btn btn-bwm">
+            <span>Wybierz zdjęcie  </span>
+            <input #imageInput
+                   type="file"
+                   id="file"
+                   accept="image/*"
+                   placeholder="{{training.trainingImageUrl}}"
+                   (change)="onImageSelected($event)">
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label class="file-upload-container btn btn-bwm">
+            <span>Dodaj materiały  </span>
+            <input #fileInput
+                   type="file"
+                   placeholder="{{training.trainingFileUrl}}"
+                   accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+                    text/plain, application/pdf, image/*"
+                   (change)="onFileSelected($event)">>
+
+          </label>
+        </div>
+        <button type="submit" [disabled]="!trainingForm.form.valid"
+                class="btn btn-info">Zapisz zmiany</button>
+      </form>
+    </div>
+  </div>
+</div>

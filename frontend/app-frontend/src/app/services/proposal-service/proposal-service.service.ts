@@ -9,9 +9,11 @@ import {User} from '../../models/user/user';
 })
 export class ProposalService {
   private proposalsUrl: string;
+  private findProposalUrl: string;
 
   constructor(private http: HttpClient) {
     this.proposalsUrl = 'http://localhost:8080/topics';
+    this.findProposalUrl = 'http://localhost:8080/find_topic/';
   }
   listProposals(request){
     const endpoint = 'http://localhost:8080/topics';
@@ -48,5 +50,10 @@ export class ProposalService {
   public deleteProposal(proposalId: string): Observable<Proposal>{
     console.log(this.proposalsUrl + '?proposalId=' + proposalId);
     return this.http.delete<Proposal>(this.proposalsUrl + '?proposalId=' + proposalId);
+  }
+
+  public find(id: number): Observable<Proposal>{
+    console.log(this.http.get<Proposal>(this.findProposalUrl + id));
+    return this.http.get<Proposal>(this.findProposalUrl + id);
   }
 }

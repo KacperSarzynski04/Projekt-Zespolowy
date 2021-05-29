@@ -25,9 +25,10 @@ import {NotificationsService} from './services/notifications-service/notificatio
 import {TrainingPageComponent} from "./pages/training-page/training-page.component";
 import {  MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ModalModule } from './_modal';
+import { ModalModule } from './modals/_modal';
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
+import { EditTrainingFormComponent } from './forms/edit-training-form/edit-training-form.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import {MatIconModule} from "@angular/material/icon";
     ProposalFormComponent,
     ProposalListComponent,
     TrainingPageComponent,
+    EditTrainingFormComponent,
   ],
     imports: [
         BrowserModule,

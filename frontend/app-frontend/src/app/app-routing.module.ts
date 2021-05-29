@@ -13,6 +13,7 @@ import {AuthGuard} from './guard/guard.guard';
 import {RoleGuard} from './guard/role-guard.guard';
 import {TrainingPageComponent} from './pages/training-page/training-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {EditTrainingFormComponent} from './forms/edit-training-form/edit-training-form.component';
 
 const routes: Routes = [
   { path: 'register', component: UserFormComponent },
@@ -30,7 +31,8 @@ const routes: Routes = [
   { path: 'addproposal', component: ProposalFormComponent, canActivate: [AuthGuard]},
   { path: 'find_training/:id', component: TrainingPageComponent},
   { path: 'logout', component: MainPageComponent},
-  { path: 'users', component: UserListComponent}
+  { path: 'users', component: UserListComponent},
+  { path: 'edit_training/:id', component: EditTrainingFormComponent}
 ];
 
 @NgModule({

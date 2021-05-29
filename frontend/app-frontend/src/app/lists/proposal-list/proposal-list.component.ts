@@ -3,7 +3,7 @@ import { Proposal } from '../../models/proposal/proposal';
 import {ProposalService} from '../../services/proposal-service/proposal-service.service';
 import {AuthenticationService} from '../../services/authentication-service/authentication.service';
 import {PageEvent} from '@angular/material/paginator';
-import { ModalService } from 'src/app/_modal';
+import { ModalService } from 'src/app/modals/_modal';
 import {User} from "../../models/user/user";
 
 @Component({
@@ -19,6 +19,7 @@ export class ProposalListComponent implements OnInit {
   loading: boolean;
   assignedUser = true;
   users: User[] = [];
+  idToDelete: string;
   constructor(private proposalService: ProposalService,
               private authenticationService: AuthenticationService,
               private modalService: ModalService
