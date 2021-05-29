@@ -87,6 +87,7 @@ export class ProposalListComponent implements OnInit {
   }
 
   delete(id: string){
-    this.proposalService.deleteProposal(id);
+    this.proposalService.deleteProposal(id).subscribe();
+    window.location.reload();
   }
 }

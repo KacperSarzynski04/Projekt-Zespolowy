@@ -45,7 +45,8 @@ export class ProposalService {
     return this.http.get<any>('http://localhost:8080/topics/assign' + '?userId=' + userId + '&proposalId=' + id);
   }
 
-  public deleteProposal(proposalId: string){
+  public deleteProposal(proposalId: string): Observable<Proposal>{
+    console.log(this.proposalsUrl + '?proposalId=' + proposalId);
     return this.http.delete<Proposal>(this.proposalsUrl + '?proposalId=' + proposalId);
   }
 }

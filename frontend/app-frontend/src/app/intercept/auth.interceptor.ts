@@ -43,6 +43,7 @@ export class AuthInterceptor implements HttpInterceptor {
       return handler.handle(httpRequest);
     }
 
+
      */
     if (httpRequest.url.includes(`${this.authenticationService.host}/images`)) {
       return handler.handle(httpRequest);
