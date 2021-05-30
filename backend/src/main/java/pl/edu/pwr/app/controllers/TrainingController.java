@@ -1,9 +1,13 @@
 package pl.edu.pwr.app.controllers;
 
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -18,18 +22,22 @@ import pl.edu.pwr.app.service.impl.TrainingService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+import static org.springframework.http.HttpHeaders.CONTENT_DISPOSITION;
 import static java.util.stream.Collectors.toList;
 import static org.springframework.http.MediaType.*;
 
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
+import static java.nio.file.Paths.get;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -39,6 +47,7 @@ public class TrainingController {
     private final TrainingRepository trainingRepository;
     private final TokenBlackListService tokenBlackListService;
     private final TrainingService trainingService;
+
 
     public TrainingController(TrainingRepository trainingRepository, TokenBlackListService tokenBlackListService, TrainingService trainingService) {
         this.trainingRepository = trainingRepository;
@@ -126,10 +135,26 @@ public class TrainingController {
         return Files.readAllBytes(Paths.get(FileConstants.USER_FOLDER + trainingId + FileConstants.FORWARD_SLASH + fileName));
     }
 
-    @GetMapping(path = "/file/{id}/{fileName}", produces = ALL_VALUE)
-    public byte[] getTrainingFile(@PathVariable("id") String trainingId, @PathVariable("fileName") String fileName) throws IOException {
-        return Files.readAllBytes(Paths.get(FileConstants.USER_FOLDER + trainingId + FileConstants.FORWARD_SLASH + fileName));
+//    @GetMapping(path = "/file/{id}/{fileName}", produces = ALL_VALUE)
+//    public byte[] getTrainingFile(@PathVariable("id") String trainingId, @PathVariable("fileName") String fileName) throws IOException {
+//        return Files.readAllBytes(Paths.get(FileConstants.USER_FOLDER + trainingId + FileConstants.FORWARD_SLASH + fileName));
+//    }
+
+    @GetMapping("/file/{id}/{fileName}")
+    public ResponseEntity<Resource> downloadFiles(@PathVariable("id") String trainingId, @PathVariable("fileName") String filename) throws IOException {
+        Path filePath = get(FileConstants.USER_FOLDER + trainingId + FileConstants.FORWARD_SLASH).toAbsolutePath().normalize().resolve(filename);
+        if(!Files.exists(filePath)) {
+            throw new FileNotFoundException(filename + " was not found on the server");
+        }
+        Resource resource = new UrlResource(filePath.toUri());
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("File-Name", filename);
+        httpHeaders.add(CONTENT_DISPOSITION, "attachment;File-Name=" + resource.getFilename());
+        return ResponseEntity.ok().contentType(MediaType.parseMediaType(Files.probeContentType(filePath)))
+                .headers(httpHeaders).body(resource);
     }
+
+
 
     @PostMapping("/trainings")
     ResponseEntity<Training> addTraining(@RequestParam("topic") String topic,
