@@ -47,7 +47,13 @@ export class TrainingFormComponent implements OnInit {
     // this.trainingService.postFile(this.selectedFile).subscribe();
     // this.trainingService.save(this.training).subscribe(result => this.gotoTrainingList());
 
-    const formData = this.trainingService.createTrainingFormDate(null, this.training, this.selectedFile, this.selectedAttachment);
+    let formData = this.trainingService.createTrainingFormDate(null, this.training, this.selectedFile, this.selectedAttachment);
+    if (this.selectedFile != null){
+      formData = this.trainingService.createTrainingFormDate(null, this.training, this.selectedFile, this.selectedAttachment);
+    }
+    else{
+      formData = this.trainingService.createTrainingFormDate(null, this.training, this.selectedFile, this.selectedAttachment);
+    }
     this.subscriptions.push(
       this.trainingService.addUser(formData).subscribe(
         (response: Training) => {

@@ -9,6 +9,7 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
+import {ModalService} from "../modals/_modal";
 
 @Component({
   selector: 'navbar',
@@ -17,8 +18,13 @@ import {
 })
 export class NavbarComponent implements OnInit {
 
+  oldPassword: string;
+  newPassword: string;
+  newPasswordCopy: string;
+
   constructor(private authenticationService : AuthenticationService,
-    private router : Router, private notificationsService: NotificationsService) {
+    private router : Router, private notificationsService: NotificationsService,
+              private modalService: ModalService) {
   }
 
   ngOnInit(): void {
@@ -66,4 +72,27 @@ export class NavbarComponent implements OnInit {
     this.notificationsService.showMessage(NotificationsEnum.DEFAULT, "Logged out");
   }
 
+  changePassword(id: string): void{
+    console.log('oldPassword: ' + this.oldPassword);
+    console.log('real oldPassword: ' + this.authenticationService.getUser().password);
+    console.log('newPassword: ' + this.newPassword);
+    console.log('newPasswordCopy: ' + this.newPasswordCopy);
+    /*if (this.oldPassword === this.authenticationService.getUser().password && this.newPassword === this.newPasswordCopy){
+      this.authenticationService.changePassword(this.authenticationService.getUser(), this.newPassword);
+      this.closeModal(id);
+      this.notificationsService.showMessage(NotificationsEnum.DEFAULT, "Zmieniono hasło");
+    }
+    else{
+      this.notificationsService.showMessage(NotificationsEnum.DEFAULT, "Prowadzono złe stare hasło, lub hasła się nie zgadzają");
+    }
+
+     */
+  }
+
+  closeModal(id: string) {
+    this.modalService.close(id);
+  }
+  openModal(id: string) {
+    this.modalService.open(id);
+  }
 }
