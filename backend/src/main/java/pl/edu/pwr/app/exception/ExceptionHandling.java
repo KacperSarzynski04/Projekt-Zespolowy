@@ -1,7 +1,6 @@
 package pl.edu.pwr.app.exception;
 
 import com.auth0.jwt.exceptions.TokenExpiredException;
-//import pl.edu.pwr.app.responce.HttpResponse;
 import pl.edu.pwr.app.exception.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

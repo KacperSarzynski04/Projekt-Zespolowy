@@ -23,5 +23,25 @@
   <div class="loginSection">
       <h3>Witaj, {{getName()}} </h3>
       <a (click)="logout()" class=item>Wyloguj</a>
+      <a (click)="openModal('custom-modal-1')" class=item>Zmień hasło</a>
   </div>
 </ng-template>
+
+<div *ngIf = "isLoggedIn()">
+  <jw-modal id="custom-modal-1">
+    <h1>Podaj stare hasło</h1>
+    <label for="oldPassword">Podaj stare hasło</label><input type="password" [(ngModel)]="oldPassword"
+                                            class="form-control"
+                                            id="oldPassword"
+                                            name="oldPassword">
+    <label for="newPassword">Podaj nowe hasło</label><input type="password" [(ngModel)]="newPassword"
+                                            class="form-control"
+                                            id="newPassword"
+                                            name="newPassword">
+    <label for="newPasswordCopy">Powtórz nowe hasło</label><input type="password" [(ngModel)]="newPasswordCopy"
+                                            class="form-control"
+                                            id="newPasswordCopy"
+                                            name="newPasswordCopy">
+    <button (click)="changePassword('custom-modal-1')">Zaakceptuj</button>
+  </jw-modal>
+</div>

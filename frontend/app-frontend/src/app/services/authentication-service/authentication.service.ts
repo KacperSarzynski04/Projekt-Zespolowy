@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment.prod';
 import {HttpClient, HttpErrorResponse, HttpResponse, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {User} from '../../models/user/user';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {NotificationsService} from '../notifications-service/notifications.service';
 import {NotificationsEnum} from '../../enum/notifications.enum';
@@ -85,4 +85,8 @@ export class AuthenticationService {
     }
   }
 
+  public changePassword(user: User, newPassword: string): Subscription {
+
+    return this.http.post<User>(`${this.host}/change_password`, user).subscribe(r => console.log(r));
+  }
 }

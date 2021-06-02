@@ -22,10 +22,10 @@
             <td>{{ proposal.assigned }}</td>
             <td>{{ proposal.votes }}</td>
             <td>
-              <button mat-button>
+              <button *ngIf = "proposalMapping.get(proposal)" mat-button>
                 <mat-icon title="poprowadź szkolenie" (click)="onAssignClicked(proposal.id)">face</mat-icon>
               </button>
-              <button mat-button>
+              <button *ngIf = "proposalVoted.get(proposal)" mat-button>
                 <mat-icon title="wyraź zainteresowanie" (click)="onInterestedClicked(proposal.id)">stars</mat-icon>
               </button>
             </td>
@@ -92,16 +92,11 @@
             <td>{{ proposal.assigned }}</td>
             <td>{{ proposal.votes }}</td>
             <td>
-              <button mat-button>
-                <mat-icon title="poprowadź szkolenie" (click)="onAssignClicked(proposal.id)">face</mat-icon>
-              </button>
-              <button mat-button>
-                <mat-icon title="wyraź zainteresowanie" (click)="onInterestedClicked(proposal.id)">stars</mat-icon>
-              </button>
               <button>
-                <mat-icon title="pokaż chętnych na poprowadzenie"
+                <mat-icon type="submit"
+                          title="pokaż chętnych na poprowadzenie"
                           (click)="onShowAssignedUsers(proposal.id)"
-                          (click)="openModal('custom-modal-1')">list
+                          (click)="openModal('custom-modal-users')">list
                 </mat-icon>
               </button>
               <button>
@@ -110,6 +105,12 @@
               <button>
                 <mat-icon title="edytuj">settings</mat-icon>
               </button>
+              <button *ngIf = "proposalMapping.get(proposal)" mat-button>
+                <mat-icon title="poprowadź szkolenie" (click)="onAssignClicked(proposal.id)">face</mat-icon>
+              </button>
+              <button *ngIf = "proposalVoted.get(proposal)" mat-button>
+                <mat-icon title="wyraź zainteresowanie" (click)="onInterestedClicked(proposal.id)">stars</mat-icon>
+              </button>
             </td>
           </tr>
           </tbody>
@@ -117,8 +118,8 @@
       </div>
     </div>
   </div>
-  <div *ngIf = "isAdmin()">
-    <jw-modal id="custom-modal-1">
+  <div>
+    <jw-modal id="custom-modal-users">
       <h1>Użytkownicy związani ze szkoleniem</h1>
       <table class="table table-bordered table-striped">
         <thead class="thead-dark">
@@ -141,7 +142,7 @@
         </tr>
         </tbody>
       </table>
-      <button (click)="closeModal('custom-modal-1');">Zamknij</button>
+      <button (click)="closeModal('custom-modal-users');">Zamknij</button>
     </jw-modal>
   </div>
 
