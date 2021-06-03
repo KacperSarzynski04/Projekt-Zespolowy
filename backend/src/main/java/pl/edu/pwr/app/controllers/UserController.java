@@ -18,9 +18,13 @@ import pl.edu.pwr.app.jwt.JwtFilter;
 import pl.edu.pwr.app.jwt.JwtTokenGenerator;
 import pl.edu.pwr.app.models.*;
 import pl.edu.pwr.app.repositories.UserRepository;
+import pl.edu.pwr.app.service.MailService;
 import pl.edu.pwr.app.service.TokenBlackListService;
 import pl.edu.pwr.app.service.UserService;
+import pl.edu.pwr.app.service.impl.RandomString;
+import pl.edu.pwr.app.service.impl.UserServiceImpl;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -37,22 +41,27 @@ public class UserController {
     private AuthenticationManager authenticationManager;
     private JwtTokenGenerator jwtTokenGenerator;
     private TokenBlackListService tokenBlackListService;
-
+    private MailService mailService;
+    private UserServiceImpl userServiceImpl;
     @Autowired
     public UserController(UserRepository userRepository,
                           UserService userService,
                           AuthenticationManager authenticationManager,
-                          JwtTokenGenerator jwtTokenGenerator, TokenBlackListService tokenBlackListService) {
+                          JwtTokenGenerator jwtTokenGenerator, TokenBlackListService tokenBlackListService, MailService mailService, UserServiceImpl userServiceImpl) {
         this.userRepository = userRepository;
         this.userService = userService;
         this.authenticationManager = authenticationManager;
         this.jwtTokenGenerator = jwtTokenGenerator;
         this.tokenBlackListService = tokenBlackListService;
+        this.mailService = mailService;
+        this.userServiceImpl = userServiceImpl;
     }
 
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
+
 
     public User findUserID(int id){
         List<User> userList = (List<User>) userRepository.findAll();
@@ -87,6 +96,26 @@ public class UserController {
         }
         return false;
     }
+
+    @GetMapping(path = "/send",params={"mail"})
+    public boolean sendMail(@RequestParam("mail") String mail) throws MessagingException, UserNotFoundException, UsernameExistException, EmailExistException {
+        RandomString randomString = new RandomString();
+        String password = randomString.getAlphaNumericString(8);
+        List<User> userList = (List<User>) userRepository.findAll();
+        User user = userList.stream()
+                .filter(customer -> mail.equals(customer.getEmail()))
+                .findAny()
+                .orElse(null);
+        mailService.sendMail("kmbpucitot3@gmail.com",
+                "Zmiana hasła",
+                "Twoje nowe hasło to : "+password+". Masz 10 minut na ustawienie przy pomocy tego hasła nowego hasła dla swojego konta.", true);
+        password = userServiceImpl.encodePassword(password);
+        user.setPassword(password);
+        userRepository.save(user);
+
+        return true;
+    }
+
     @GetMapping("/users")
     public Page<User> list(@RequestParam(name = "page", defaultValue = "0") int page,
                                @RequestParam(name = "size", defaultValue = "10") int size){
@@ -148,6 +177,7 @@ public class UserController {
         System.out.println("User logged out");
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
+
 
     private void getAuthentication(String email, String password) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));

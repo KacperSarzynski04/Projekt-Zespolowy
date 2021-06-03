@@ -30,14 +30,30 @@
                 *ngIf="passwordInput.invalid && passwordInput.touched">Please enter a password.</span>
           <div class="d-flex justify-content-center mt-3 login_container">
             <button type="submit" [disabled]="loginForm.invalid" name="button"  class="btn login_btn">
-              <span style="color: white;"> Login</span>
+              <span style="color: white;"> Zaloguj</span>
             </button>
           </div>
         </form>
       </div>
-
+      <div>
+        <button (click)="openModal('custom-modal-1')" name="button2"  class="btn remind_btn">
+          <span style="color: white;"> Przypomnij Hasło</span>
+        </button>
+      </div>
     </div>
   </div>
+</div>
+<div>
+  <jw-modal id="custom-modal-1">
+    <h1>Wyślij nowe hasło</h1>
+    <label>Adres Mail:</label>
+    <form>
+      <input type="text" class="form-control" name="mail" placeholder="mail" ngModel
+             #mail required>
+      <button type="submit" (click)="sendPassword(mail)" name="remind_button">Wyślij nowe hasło</button>
+    </form>
+    <button (click)="closeModal('custom-modal-1');">Zamknij</button>
+  </jw-modal>
 </div>
 
 

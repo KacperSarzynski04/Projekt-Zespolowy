@@ -49,6 +49,13 @@ html {
   background: #875a2a !important;
   color: black !important;
 }
+.remind_btn{
+  width: 40%;
+  height: 50px;
+  margin-left: 173px;
+  background: #875a2a !important;
+  color: black !important;
+}
 .login_btn:focus {
   box-shadow: none !important;
   outline: 0 !important;

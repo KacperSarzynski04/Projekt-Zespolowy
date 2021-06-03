@@ -7,6 +7,7 @@ import {User} from '../../models/user/user';
 import {HeadersPrefix} from '../../enum/headers.enum';
 import {NotificationsEnum} from '../../enum/notifications.enum';
 import {NotificationsService} from '../../services/notifications-service/notifications.service';
+import { ModalService } from 'src/app/modals/_modal';
 
 @Component({
   selector: 'app-login-form',
@@ -16,9 +17,10 @@ import {NotificationsService} from '../../services/notifications-service/notific
 export class LoginFormComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   constructor(private router: Router, private authenticationService: AuthenticationService,
-              private notificationsService: NotificationsService) { }
+              private notificationsService: NotificationsService, private modalService: ModalService) { }
 
   @Output() loginEvent = new EventEmitter();
+
 
   ngOnInit(): void {
     if (this.authenticationService.isLogged()) {
@@ -57,5 +59,14 @@ export class LoginFormComponent implements OnInit, OnDestroy {
       this.notificationsService.showMessage(notificationType, 'Bład. Sprobuj jeszcze raz');
     }
   }
+  closeModal(id: string) {
+    this.modalService.close(id);
+  }
+  openModal(id: string) {
+    this.modalService.open(id);
+  }
 
+  sendPassword(mail: HTMLInputElement){
+    this.modalService.send(mail.value).subscribe();
+  }
 }
