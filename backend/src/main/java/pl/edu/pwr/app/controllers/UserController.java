@@ -106,7 +106,10 @@ public class UserController {
                 .filter(customer -> mail.equals(customer.getEmail()))
                 .findAny()
                 .orElse(null);
-        mailService.sendMail("kmbpucitot3@gmail.com",
+        if(user==null){
+            return false;
+        }
+        mailService.sendMail(mail,
                 "Zmiana hasła",
                 "Twoje nowe hasło to : "+password+". Masz 10 minut na ustawienie przy pomocy tego hasła nowego hasła dla swojego konta.", true);
         password = userServiceImpl.encodePassword(password);

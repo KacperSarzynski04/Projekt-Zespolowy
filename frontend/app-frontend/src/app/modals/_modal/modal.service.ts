@@ -35,6 +35,6 @@ export class ModalService {
     }
 
   send(value: string) {
-      return this.http.get<any>('http://localhost:8080/send' + '?mail=' + value);
+      return this.http.get<boolean>('http://localhost:8080/send' + '?mail=' + value);
   }
 }

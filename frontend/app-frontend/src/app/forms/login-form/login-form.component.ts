@@ -16,6 +16,7 @@ import { ModalService } from 'src/app/modals/_modal';
 })
 export class LoginFormComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
+  correct: boolean;
   constructor(private router: Router, private authenticationService: AuthenticationService,
               private notificationsService: NotificationsService, private modalService: ModalService) { }
 
@@ -67,6 +68,13 @@ export class LoginFormComponent implements OnInit, OnDestroy {
   }
 
   sendPassword(mail: HTMLInputElement){
-    this.modalService.send(mail.value).subscribe();
+    this.modalService.send(mail.value).subscribe(bool => {
+    if (bool === true){
+      this.notificationsService.showMessage(NotificationsEnum.SUCCESS, 'Zmienione hasło wysłano na maila');
+    }
+    if (bool === false){
+      this.notificationsService.showMessage(NotificationsEnum.ERROR, 'Użytkownik o podanym adresie mail nie istnieje');
+    }}
+    );
   }
 }
