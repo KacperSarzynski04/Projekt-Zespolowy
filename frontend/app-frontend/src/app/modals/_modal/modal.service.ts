@@ -3,6 +3,7 @@ import {Proposal} from "../../models/proposal/proposal";
 import {Observable} from "rxjs";
 import {HttpClient} from '@angular/common/http';
 import {User} from '../../models/user/user';
+import {environment} from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import {User} from '../../models/user/user';
 @Injectable({ providedIn: 'root' })
 export class ModalService {
     private modals: any[] = [];
+  public host = environment.apiUrl;
   constructor(private http: HttpClient) {
   }
     add(modal: any) {
@@ -35,6 +37,6 @@ export class ModalService {
     }
 
   send(value: string) {
-      return this.http.get<boolean>('http://localhost:8080/send' + '?mail=' + value);
+      return this.http.get<boolean>(`${this.host}/send` + '?mail=' + value);
   }
 }

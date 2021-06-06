@@ -3,6 +3,7 @@ import { HttpClient} from '@angular/common/http';
 import { Training } from '../../models/training/training';
 import { Observable } from 'rxjs';
 import {Proposal} from "../../models/proposal/proposal";
+import {environment} from '../../../environments/environment.prod';
 
 @Injectable()
 export class TrainingService {
@@ -10,11 +11,12 @@ export class TrainingService {
   private trainingsUrl: string;
   private threeTrainingsUrl: string;
   private trainingUrl: string;
+  public host = environment.apiUrl;
 
   constructor(private http: HttpClient) {
-    this.trainingsUrl = 'http://localhost:8080/trainings';
-    this.threeTrainingsUrl = 'http://localhost:8080/three_trainings';
-    this.trainingUrl = 'http://localhost:8080/find_training/';
+    this.trainingsUrl = `${this.host}/trainings`;
+    this.threeTrainingsUrl = `${this.host}/three_trainings`;
+    this.trainingUrl = `${this.host}/find_training/`;
   }
 
   public find(id: number): Observable<Training>{
@@ -35,16 +37,16 @@ export class TrainingService {
   }
 
   public addUser(formData: FormData): Observable<Training> {
-    return this.http.post<Training>(`http://localhost:8080/trainings`, formData);
+    return this.http.post<Training>(`${this.host}/trainings`, formData);
   }
   public listTrainings(request){
-    const endpoint = 'http://localhost:8080/trainings';
+    const endpoint = `${this.host}/trainings`;
     const params = request;
     return this.http.get(endpoint, {params});
   }
   // tslint:disable-next-line:ban-types
   public postFile(fileToUpload: File): Observable<Object> {
-    return this.http.post<any>('http://localhost:8080/images', fileToUpload);
+    return this.http.post<any>(`${this.host}/images`, fileToUpload);
   }
 
   public createTrainingFormDate(loggedInUsername: string, training: Training, trainingImage: File, trainingFile: File): FormData {
@@ -61,6 +63,6 @@ export class TrainingService {
   }
 
   public delete(trainingId: string): Observable<Training>{
-    return this.http.delete<Training>('http://localhost:8080/trainings?trainingId=' + trainingId);
+    return this.http.delete<Training>(`${this.host}/trainings?trainingId=` + trainingId);
   }
 }

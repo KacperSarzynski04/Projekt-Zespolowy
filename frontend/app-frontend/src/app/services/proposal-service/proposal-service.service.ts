@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Proposal} from '../../models/proposal/proposal';
 import {Observable, Subscription} from 'rxjs';
 import {User} from '../../models/user/user';
+import {environment} from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +11,14 @@ import {User} from '../../models/user/user';
 export class ProposalService {
   private proposalsUrl: string;
   private findProposalUrl: string;
+  public host = environment.apiUrl;
 
   constructor(private http: HttpClient) {
-    this.proposalsUrl = 'http://localhost:8080/topics';
-    this.findProposalUrl = 'http://localhost:8080/find_topic/';
+    this.proposalsUrl = `${this.host}/topics`;
+    this.findProposalUrl = `${this.host}/find_topic/`;
   }
   listProposals(request){
-    const endpoint = 'http://localhost:8080/topics';
+    const endpoint = `${this.host}/topics`;
     const params = request;
     return this.http.get(endpoint, {params});
   }
@@ -30,21 +32,21 @@ export class ProposalService {
   }
 
   public updateVotes(userId: string, id: number): Observable<any>{
-    return this.http.get<any>('http://localhost:8080/topics/vote' + '?userId=' + userId + '&proposalId=' + id);
+    return this.http.get<any>(`${this.host}/topics/vote` + '?userId=' + userId + '&proposalId=' + id);
   }
   public checkAssign(proposalId: string, userId: string): Observable<boolean>{
-    return this.http.get<boolean>('http://localhost:8080/assigned' + '?userId=' + userId + '&proposalId=' + proposalId);
+    return this.http.get<boolean>(`${this.host}/assigned` + '?userId=' + userId + '&proposalId=' + proposalId);
   }
   public checkVote(proposalId: string, userId: string): Observable<boolean>{
-    return this.http.get<boolean>('http://localhost:8080/voted' + '?userId=' + userId + '&proposalId=' + proposalId);
+    return this.http.get<boolean>(`${this.host}/voted` + '?userId=' + userId + '&proposalId=' + proposalId);
   }
 
   public showAssignedUsers(proposalID: number) {
-    return this.http.get<User[]>('http://localhost:8080/assignedUsers' + '?proposalId=' + proposalID);
+    return this.http.get<User[]>(`${this.host}/assignedUsers` + '?proposalId=' + proposalID);
 
   }
   public updateAssign(userId: string, id: number): Observable<any>{
-    return this.http.get<any>('http://localhost:8080/topics/assign' + '?userId=' + userId + '&proposalId=' + id);
+    return this.http.get<any>(`${this.host}/topics/assign` + '?userId=' + userId + '&proposalId=' + id);
   }
 
   public deleteProposal(proposalId: string): Observable<Proposal>{

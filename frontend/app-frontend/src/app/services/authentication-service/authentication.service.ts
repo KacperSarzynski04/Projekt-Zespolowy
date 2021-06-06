@@ -18,7 +18,7 @@ export class AuthenticationService {
   private token: string;
   private loggedInUserEmail: string;
   private  jwtHelperService = new JwtHelperService(); constructor(private http: HttpClient) {
-    this.logoutsUrl = `http://localhost:8080/user/logout`;
+    this.logoutsUrl = `${this.host}/user/logout`;
   }
 
   public login(user: User): Observable<HttpResponse<User>> {

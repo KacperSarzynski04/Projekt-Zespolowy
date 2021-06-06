@@ -4,6 +4,7 @@ import {Observable, Subscription} from 'rxjs';
 import {pluck} from 'rxjs/operators';
 import {Training} from '../../models/training/training';
 import {TrainingService} from '../../services/training-service/training-service.service';
+import {environment} from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-training-page',
@@ -12,6 +13,7 @@ import {TrainingService} from '../../services/training-service/training-service.
 })
 export class TrainingPageComponent implements OnInit {
 
+  public host = environment.apiUrl;
   training: Training;
   private routeSub: Subscription;
   private id: number;
