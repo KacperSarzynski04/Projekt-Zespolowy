@@ -38,13 +38,15 @@ export class ProposalListComponent implements OnInit {
   }
 
   onAssignClicked(id: string): void{
-    this.proposalService.updateAssign( this.authenticationService.getUser().id , Number.parseFloat(id)).subscribe();
-    window.location.reload();
+    this.proposalService.updateAssign( this.authenticationService.getUser().id , Number.parseFloat(id)).subscribe(data => {
+      window.location.reload();
+    });
   }
 
   onInterestedClicked(id: string): void{
-    this.proposalService.updateVotes( this.authenticationService.getUser().id , Number.parseFloat(id)).subscribe();
-    window.location.reload();
+    this.proposalService.updateVotes( this.authenticationService.getUser().id , Number.parseFloat(id)).subscribe(data => {
+      window.location.reload();
+    });
   }
   onShowAssignedUsers(id: string): void{
     this.proposalService.showAssignedUsers(Number.parseInt(id)).subscribe(data => {
