@@ -3,10 +3,14 @@ package pl.edu.pwr.app.controllers;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pwr.app.models.*;
 import pl.edu.pwr.app.repositories.*;
+import pl.edu.pwr.app.response.HttpResponse;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -102,10 +106,16 @@ public class ProposalController {
         proposalHostRepository.save(proposalhost);
     }
 
-    @DeleteMapping(path = "/topics", params ={"proposalId"})
-    public void delete(@RequestParam("proposalId") long proposalId){
-        System.out.println("works");
-        proposalRepository.deleteById(proposalId);
+    @DeleteMapping("topics/delete/{id}")
+    //@PreAuthorize("hasAnyAuthority('user:delete')")
+    public ResponseEntity<HttpResponse> deleteUser(@PathVariable("id") long id) throws IOException {
+        proposalRepository.deleteById(id);
+        return response(HttpStatus.OK, "Deleted successfully");
+    }
+
+    private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {
+        return new ResponseEntity<>(new HttpResponse(httpStatus.value(), httpStatus, httpStatus.getReasonPhrase().toUpperCase(),
+                message), httpStatus);
     }
 
     @PostMapping(path = "/topics", params = {"assignAsTrainer"})

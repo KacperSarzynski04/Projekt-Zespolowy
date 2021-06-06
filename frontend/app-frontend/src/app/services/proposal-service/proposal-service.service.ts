@@ -4,6 +4,7 @@ import {Proposal} from '../../models/proposal/proposal';
 import {Observable, Subscription} from 'rxjs';
 import {User} from '../../models/user/user';
 import {environment} from '../../../environments/environment.prod';
+import {CustomHttpRespone} from '../../models/custom-http-responce';
 
 @Injectable({
   providedIn: 'root'
@@ -49,9 +50,8 @@ export class ProposalService {
     return this.http.get<any>(`${this.host}/topics/assign` + '?userId=' + userId + '&proposalId=' + id);
   }
 
-  public deleteProposal(proposalId: string): Observable<Proposal>{
-    console.log(this.proposalsUrl + '?proposalId=' + proposalId);
-    return this.http.delete<Proposal>(this.proposalsUrl + '?proposalId=' + proposalId);
+  public delete(topicId: string): Observable<CustomHttpRespone> {
+    return this.http.delete<CustomHttpRespone>(`${this.host}/topics/delete/${topicId}`);
   }
 
   public find(id: number): Observable<Proposal>{

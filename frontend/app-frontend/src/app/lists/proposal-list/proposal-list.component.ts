@@ -5,6 +5,11 @@ import {AuthenticationService} from '../../services/authentication-service/authe
 import {PageEvent} from '@angular/material/paginator';
 import { ModalService } from 'src/app/modals/_modal';
 import {User} from "../../models/user/user";
+import {CustomHttpRespone} from '../../models/custom-http-responce';
+import {NotificationsEnum} from '../../enum/notifications.enum';
+import {HttpErrorResponse} from '@angular/common/http';
+import {NotificationsService} from '../../services/notifications-service/notifications.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-proposal-list',
@@ -19,10 +24,12 @@ export class ProposalListComponent implements OnInit {
   loading: boolean;
   assignedUser = true;
   users: User[] = [];
+  private subscriptions: Subscription[] = [];
   idToDelete: string;
   constructor(private proposalService: ProposalService,
               private authenticationService: AuthenticationService,
-              private modalService: ModalService
+              private modalService: ModalService,
+              private notifications: NotificationsService
               ) { }
 
   ngOnInit(): void {
@@ -86,9 +93,27 @@ export class ProposalListComponent implements OnInit {
   openModal(id: string) {
     this.modalService.open(id);
   }
+  private sendNotification(notificationType: NotificationsEnum, message: string): void {
+    if (message) {
+      this.notifications.showMessage(notificationType, message);
+    } else {
+      this.notifications.showMessage(notificationType, 'An error occurred. Please try again.');
+    }
+  }
 
   delete(id: string){
-    this.proposalService.deleteProposal(id).subscribe();
-    window.location.reload();
+    // this.trainingService.delete(id).subscribe();
+    // window.location.reload();
+    this.subscriptions.push(
+      this.proposalService.delete(id).subscribe(
+        (response: CustomHttpRespone) => {
+          this.sendNotification(NotificationsEnum.SUCCESS, response.message);
+          window.location.reload();
+        },
+        (error: HttpErrorResponse) => {
+          this.sendNotification(NotificationsEnum.ERROR, error.error.message);
+        }
+      )
+    );
   }
 }
