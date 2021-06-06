@@ -76,21 +76,16 @@ export class NavbarComponent implements OnInit {
   }
 
   changePassword(id: string): void{
-    console.log('oldPassword: ' + this.oldPassword);
-    console.log('real oldPassword: ' + this.authenticationService.getUser().password);
-    console.log('newPassword: ' + this.newPassword);
-    console.log('newPasswordCopy: ' + this.newPasswordCopy);
     if (this.newPassword === this.newPasswordCopy){
       const passwordChanger = new PasswordChanger();
       passwordChanger.user = this.authenticationService.getUser();
       passwordChanger.oldPassword = this.oldPassword;
       passwordChanger.newPassword = this.newPassword;
       const x = this.userService.changePassword(passwordChanger).subscribe(r => {console.log(r.status); if (r.status === 200) {
-        console.log('ok'); }
-        else{
-          console.log('nie ok');
-        }
+        this.notificationsService.showMessage(NotificationsEnum.SUCCESS, 'Hasło zostało zmienione');
       });
+    }else {
+      this.notificationsService.showMessage(NotificationsEnum.ERROR, "Hasła się nie zgadzają!");
     }
   }
 
