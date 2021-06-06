@@ -3,6 +3,7 @@ import { HttpClient} from '@angular/common/http';
 import { User } from '../../models/user/user';
 import { Observable } from 'rxjs';
 import {environment} from '../../../environments/environment.prod';
+import {PasswordChanger} from "../../models/PasswordChanger/PasswordChanger";
 
 @Injectable()
 export class UserService {
@@ -34,5 +35,10 @@ export class UserService {
     const endpoint = `${this.host}/users`;
     const params = request;
     return this.http.get(endpoint, {params});
+  }
+
+  public changePassword(passwordChanger: PasswordChanger){
+    console.log(`${this.host}/change_password`);
+    return this.http.post<PasswordChanger>(`${this.host}/change_password`, passwordChanger, { observe: 'response' });
   }
 }

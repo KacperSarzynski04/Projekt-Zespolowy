@@ -64,7 +64,6 @@ export class AuthenticationService {
 
   public loadToken(): void {
     this.token = localStorage.getItem('token');
-    console.log(this.token);
   }
 
   public getToken(): string {
@@ -87,6 +86,6 @@ export class AuthenticationService {
 
   public changePassword(user: User, newPassword: string): Subscription {
 
-    return this.http.post<User>(`${this.host}/change_password`, user).subscribe(r => console.log(r));
+    return this.http.post<User>(`${this.host}/change_password`, user).subscribe();
   }
 }

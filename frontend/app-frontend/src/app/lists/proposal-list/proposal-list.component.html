@@ -102,9 +102,6 @@
               <button>
                 <mat-icon title="usuń" (click)="idToDelete = proposal.id "(click)="openModal('custom-modal-2')">delete</mat-icon>
               </button>
-              <button>
-                <mat-icon title="edytuj">settings</mat-icon>
-              </button>
               <button *ngIf = "proposalMapping.get(proposal)" mat-button>
                 <mat-icon title="poprowadź szkolenie" (click)="onAssignClicked(proposal.id)">face</mat-icon>
               </button>

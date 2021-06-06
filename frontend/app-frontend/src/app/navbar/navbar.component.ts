@@ -9,7 +9,9 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import {ModalService} from "../modals/_modal";
+import {ModalService} from '../modals/_modal';
+import {PasswordChanger} from '../models/PasswordChanger/PasswordChanger';
+import {UserService} from '../services/user-service/user-service.service';
 
 @Component({
   selector: 'navbar',
@@ -18,22 +20,23 @@ import {ModalService} from "../modals/_modal";
 })
 export class NavbarComponent implements OnInit {
 
+  constructor(private authenticationService: AuthenticationService,
+              private router: Router, private notificationsService: NotificationsService,
+              private modalService: ModalService,
+              private userService: UserService) {
+  }
+
   oldPassword: string;
   newPassword: string;
   newPasswordCopy: string;
-
-  constructor(private authenticationService : AuthenticationService,
-    private router : Router, private notificationsService: NotificationsService,
-              private modalService: ModalService) {
-  }
-
-  ngOnInit(): void {
-  }
 
   public classes = {
     specialItem : true,
     item : true
   };
+
+  ngOnInit(): void {
+  }
 
 
 
@@ -53,8 +56,8 @@ export class NavbarComponent implements OnInit {
   }
 
   public isAdmin(){
-      let role = this.authenticationService.getUser().role;
-      return role == "ROLE_ADMIN";
+      const role = this.authenticationService.getUser().role;
+      return role == 'ROLE_ADMIN';
   }
 
   public isLoggedIn(){
@@ -67,9 +70,9 @@ export class NavbarComponent implements OnInit {
 
   gotoHome(): void {
     this.authenticationService.clearCache();
-    console.log("Going to home");
+    console.log('Going to home');
     this.router.navigate(['/home']);
-    this.notificationsService.showMessage(NotificationsEnum.DEFAULT, "Logged out");
+    this.notificationsService.showMessage(NotificationsEnum.DEFAULT, 'Logged out');
   }
 
   changePassword(id: string): void{
@@ -77,16 +80,18 @@ export class NavbarComponent implements OnInit {
     console.log('real oldPassword: ' + this.authenticationService.getUser().password);
     console.log('newPassword: ' + this.newPassword);
     console.log('newPasswordCopy: ' + this.newPasswordCopy);
-    /*if (this.oldPassword === this.authenticationService.getUser().password && this.newPassword === this.newPasswordCopy){
-      this.authenticationService.changePassword(this.authenticationService.getUser(), this.newPassword);
-      this.closeModal(id);
-      this.notificationsService.showMessage(NotificationsEnum.DEFAULT, "Zmieniono hasło");
+    if (this.newPassword === this.newPasswordCopy){
+      const passwordChanger = new PasswordChanger();
+      passwordChanger.user = this.authenticationService.getUser();
+      passwordChanger.oldPassword = this.oldPassword;
+      passwordChanger.newPassword = this.newPassword;
+      const x = this.userService.changePassword(passwordChanger).subscribe(r => {console.log(r.status); if (r.status === 200) {
+        console.log('ok'); }
+        else{
+          console.log('nie ok');
+        }
+      });
     }
-    else{
-      this.notificationsService.showMessage(NotificationsEnum.DEFAULT, "Prowadzono złe stare hasło, lub hasła się nie zgadzają");
-    }
-
-     */
   }
 
   closeModal(id: string) {

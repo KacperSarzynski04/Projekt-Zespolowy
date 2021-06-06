@@ -61,8 +61,6 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-
-
     public User findUserID(int id){
         List<User> userList = (List<User>) userRepository.findAll();
         User resultUser = null;
@@ -131,8 +129,6 @@ public class UserController {
         return new PageImpl<>(users, pageRequest, pageResult.getTotalElements());
     }
 
-
-
         @GetMapping("/find/{email}")
     public String getUser(@PathVariable("email") String email) {
         User user = userRepository.findByEmail(email);
@@ -184,5 +180,17 @@ public class UserController {
 
     private void getAuthentication(String email, String password) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+    }
+
+    @PostMapping("/change_password")
+    public ResponseEntity<Boolean> changePassword(@RequestBody PasswordChanger passwordChanger){
+        if(authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(passwordChanger.getUser().getEmail(), passwordChanger.getOldPassword())).isAuthenticated()){
+            User tempUser = userService.findUserByEmail(passwordChanger.getUser().getEmail());
+            System.out.println(tempUser.getEmail());
+            tempUser.setPassword(userServiceImpl.encodePassword(passwordChanger.getNewPassword()));
+            userRepository.save(tempUser);
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
     }
 }
