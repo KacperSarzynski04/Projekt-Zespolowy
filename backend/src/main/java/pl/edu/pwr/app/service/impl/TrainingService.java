@@ -12,6 +12,8 @@ import static pl.edu.pwr.app.constant.FileConstants.*;
 import pl.edu.pwr.app.constant.FileConstants.*;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -100,6 +102,14 @@ public class TrainingService {
         return ServletUriComponentsBuilder.fromCurrentContextPath().path(USER_FILE_PATH + trainingId + FORWARD_SLASH
                 + fileName).toUriString();
     }
+
+    public void deleteTraining(long id) throws IOException {
+        Training training = trainingRepository.findById(id);
+        Path userFolder = Paths.get(USER_FOLDER + training.getId()).toAbsolutePath().normalize();
+        FileUtils.deleteDirectory(new File(userFolder.toString()));
+        trainingRepository.deleteById(training.getId());
+    }
+
 
     private String getTemporarytrainingImageUrl(String trainingId) {
         return ServletUriComponentsBuilder.fromCurrentContextPath().path(DEFAULT_USER_IMAGE_PATH + trainingId).toUriString();

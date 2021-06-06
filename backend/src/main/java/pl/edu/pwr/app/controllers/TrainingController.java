@@ -17,6 +17,7 @@ import pl.edu.pwr.app.exception.domain.IncorrectFileTypeException;
 import pl.edu.pwr.app.exception.domain.NotAnImageFileException;
 import pl.edu.pwr.app.models.Training;
 import pl.edu.pwr.app.repositories.TrainingRepository;
+import pl.edu.pwr.app.response.HttpResponse;
 import pl.edu.pwr.app.service.TokenBlackListService;
 import pl.edu.pwr.app.service.impl.TrainingService;
 
@@ -75,6 +76,19 @@ public class TrainingController {
         //Wyswietlenie trzech najblizszych szkolen dla niezalogowanego uzytkownika
         return getTrainingsAsUser(3);
 
+    }
+
+    @DeleteMapping("trainings/delete/{id}")
+    //@PreAuthorize("hasAnyAuthority('user:delete')")
+    public ResponseEntity<HttpResponse> deleteUser(@PathVariable("id") long id) throws IOException {
+        trainingService.deleteTraining(id);
+        return response(HttpStatus.OK, "Deleted successfully");
+    }
+
+
+    private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {
+        return new ResponseEntity<>(new HttpResponse(httpStatus.value(), httpStatus, httpStatus.getReasonPhrase().toUpperCase(),
+                message), httpStatus);
     }
 
     @GetMapping("/find_training/{id}")

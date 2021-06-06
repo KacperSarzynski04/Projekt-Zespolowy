@@ -4,6 +4,7 @@ import { Training } from '../../models/training/training';
 import { Observable } from 'rxjs';
 import {Proposal} from "../../models/proposal/proposal";
 import {environment} from '../../../environments/environment.prod';
+import {CustomHttpRespone} from '../../models/custom-http-responce';
 
 @Injectable()
 export class TrainingService {
@@ -62,7 +63,7 @@ export class TrainingService {
     return formData;
   }
 
-  public delete(trainingId: string): Observable<Training>{
-    return this.http.delete<Training>(`${this.host}/trainings?trainingId=` + trainingId);
+  public delete(trainingId: string): Observable<CustomHttpRespone> {
+    return this.http.delete<CustomHttpRespone>(`${this.host}/trainings/delete/${trainingId}`);
   }
 }
