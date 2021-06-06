@@ -1,5 +1,6 @@
 package pl.edu.pwr.app.controllers;
 
+import javassist.NotFoundException;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
@@ -153,6 +154,35 @@ public class TrainingController {
 //    public byte[] getTrainingFile(@PathVariable("id") String trainingId, @PathVariable("fileName") String fileName) throws IOException {
 //        return Files.readAllBytes(Paths.get(FileConstants.USER_FOLDER + trainingId + FileConstants.FORWARD_SLASH + fileName));
 //    }
+
+//    @PostMapping("/update")
+//    public ResponseEntity<User> update(@RequestParam("currentUsername") String currentUsername,
+//                                       @RequestParam("firstName") String firstName,
+//                                       @RequestParam("lastName") String lastName,
+//                                       @RequestParam("username") String username,
+//                                       @RequestParam("email") String email,
+//                                       @RequestParam("role") String role,
+//                                       @RequestParam("isActive") String isActive,
+//                                       @RequestParam("isNonLocked") String isNonLocked,
+//                                       @RequestParam(value = "profileImage", required = false) MultipartFile profileImage) throws UserNotFoundException, UsernameExistException, EmailExistException, IOException, NotAnImageFileException {
+//        User updatedUser = userService.updateUser(currentUsername, firstName, lastName, username,email, role, Boolean.parseBoolean(isNonLocked), Boolean.parseBoolean(isActive), profileImage);
+//        return new ResponseEntity<>(updatedUser, OK);
+//    }
+    @PostMapping("/training/update")
+    ResponseEntity<Training> update(@RequestParam("id") long id,
+                                        @RequestParam("topic") String topic,
+                                         @RequestParam("description") String description,
+                                         @RequestParam("trainer") String trainer,
+                                         @RequestParam("durationInMinutes") int durationInMinutes,
+                                         @RequestParam(value = "trainingImage", required = false) MultipartFile trainingImage,
+                                         @RequestParam(value = "trainingFile", required = false) MultipartFile trainingFile ) throws IOException, NotAnImageFileException, IncorrectFileTypeException, NotFoundException {
+        Training training = trainingService.updateTraining(id, topic, description, trainer, durationInMinutes, trainingImage, trainingFile);
+
+        return new ResponseEntity<>(training, HttpStatus.OK);
+
+    }
+
+
 
     @GetMapping("/file/{id}/{fileName}")
     public ResponseEntity<Resource> downloadFiles(@PathVariable("id") String trainingId, @PathVariable("fileName") String filename) throws IOException {

@@ -13,12 +13,37 @@ public class Training implements Comparable<Training>{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private final String topic;
-    private final String description;
-    private final String trainer;
-    private final int durationInMinutes;
-    private final LocalDate date;
-    private final LocalTime time;
+    private String topic;
+    private String description;
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setTrainer(String trainer) {
+        this.trainer = trainer;
+    }
+
+    public void setDurationInMinutes(int durationInMinutes) {
+        this.durationInMinutes = durationInMinutes;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
+    private String trainer;
+    private int durationInMinutes;
+    private LocalDate date;
+    private LocalTime time;
     private String trainingImageUrl;
     private String trainingFileUrl;
     private String userId;

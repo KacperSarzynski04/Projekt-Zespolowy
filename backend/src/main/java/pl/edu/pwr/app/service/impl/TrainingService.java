@@ -1,5 +1,7 @@
 package pl.edu.pwr.app.service.impl;
 
+import javassist.NotFoundException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -49,6 +51,23 @@ public class TrainingService {
 
         return training;
     }
+    public Training updateTraining(long id, String topic, String description,
+                                   String trainer, int durationInMinutes,
+                                   MultipartFile trainingImage, MultipartFile trainingFile) throws IOException, NotAnImageFileException, IncorrectFileTypeException, NotFoundException {
+        Training training = validateTraining(id);
+        training.setTopic(topic);
+        training.setDescription(description);
+        training.setTrainer(trainer);
+        training.setDurationInMinutes(durationInMinutes);
+        trainingRepository.save(training);
+        saveTrainingImage(training, trainingImage);
+        saveTrainingFile(training, trainingFile);
+        LOGGER.info("New picture added");
+
+        return training;
+    }
+
+
 
     private void saveTrainingImage(Training training, MultipartFile trainingImage) throws IOException, NotAnImageFileException {
         if (trainingImage != null) {
@@ -108,6 +127,20 @@ public class TrainingService {
         Path userFolder = Paths.get(USER_FOLDER + training.getId()).toAbsolutePath().normalize();
         FileUtils.deleteDirectory(new File(userFolder.toString()));
         trainingRepository.deleteById(training.getId());
+    }
+
+    public Training findById(long id) {
+        return trainingRepository.findById(id);
+    }
+
+    private Training validateTraining(long id) throws NotFoundException {
+        Training training = findById(id);
+
+        if(training == null) {
+            throw new NotFoundException("Not found");
+        }
+        return training;
+
     }
 
 

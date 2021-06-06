@@ -52,6 +52,7 @@ export class TrainingService {
 
   public createTrainingFormDate(loggedInUsername: string, training: Training, trainingImage: File, trainingFile: File): FormData {
     const formData = new FormData();
+    formData.append('id', training.id);
     formData.append('topic', training.topic);
     formData.append('description', training.description);
     formData.append('trainer', training.trainer);
@@ -65,5 +66,9 @@ export class TrainingService {
 
   public delete(trainingId: string): Observable<CustomHttpRespone> {
     return this.http.delete<CustomHttpRespone>(`${this.host}/trainings/delete/${trainingId}`);
+  }
+
+  public updateTraining(formData: FormData): Observable<Training> {
+    return this.http.post<Training>(`${this.host}/training/update`, formData);
   }
 }
