@@ -44,22 +44,14 @@ export class TrainingFormComponent implements OnInit {
   onSubmit() {
     console.log(this.selectedFile);
     console.log(this.selectedAttachment);
-    // this.trainingService.postFile(this.selectedFile).subscribe();
-    // this.trainingService.save(this.training).subscribe(result => this.gotoTrainingList());
-
-    let formData = this.trainingService.createTrainingFormDate(null, this.training, this.selectedFile, this.selectedAttachment);
-    if (this.selectedFile != null){
-      formData = this.trainingService.createTrainingFormDate(null, this.training, this.selectedFile, this.selectedAttachment);
-    }
-    else{
-      formData = this.trainingService.createTrainingFormDate(null, this.training, this.selectedFile, this.selectedAttachment);
-    }
+    const formData = this.trainingService.createTrainingFormDate(null, this.training, this.selectedFile, this.selectedAttachment);
     this.subscriptions.push(
       this.trainingService.addUser(formData).subscribe(
         (response: Training) => {
           this.selectedFile = null;
           //this.profileImage = null;
           this.sendNotification(NotificationsEnum.SUCCESS, `Added successfully`);
+          this.gotoTrainingList();
         },
         (errorResponse: HttpErrorResponse) => {
           this.sendNotification(NotificationsEnum.ERROR, errorResponse.error.message);
@@ -67,7 +59,6 @@ export class TrainingFormComponent implements OnInit {
         }
       )
     );
-    this.gotoTrainingList();
   }
 
   private sendNotification(notificationType: NotificationsEnum, message: string): void {
