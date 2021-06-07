@@ -3,6 +3,7 @@ package pl.edu.pwr.app;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -11,6 +12,7 @@ import pl.edu.pwr.app.controllers.ProposalController;
 import pl.edu.pwr.app.controllers.UserController;
 import pl.edu.pwr.app.models.ProposalHost;
 import pl.edu.pwr.app.models.User;
+import pl.edu.pwr.app.reminder.Reminder;
 import pl.edu.pwr.app.repositories.ProposalHostRepository;
 
 import java.util.Arrays;
@@ -19,6 +21,7 @@ import java.io.File;
 
 import static pl.edu.pwr.app.constant.FileConstants.USER_FOLDER;
 
+@EnableScheduling
 @SpringBootApplication
 public class AppApplication {
     public static void main(String[] args) {
