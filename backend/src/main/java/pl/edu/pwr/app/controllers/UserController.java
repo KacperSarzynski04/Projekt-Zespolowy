@@ -113,7 +113,6 @@ public class UserController {
         password = userServiceImpl.encodePassword(password);
         user.setPassword(password);
         userRepository.save(user);
-
         return true;
     }
 
