@@ -1,12 +1,11 @@
 package pl.edu.pwr.app.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
+@Table(name = "training")
 public class Training implements Comparable<Training>{
 
     @javax.persistence.Id
@@ -14,6 +13,8 @@ public class Training implements Comparable<Training>{
     private long id;
 
     private String topic;
+
+    @Column(name = "description", columnDefinition = "LONGTEXT")
     private String description;
 
     public void setTopic(String topic) {

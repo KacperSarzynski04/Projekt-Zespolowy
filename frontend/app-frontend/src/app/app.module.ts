@@ -29,6 +29,7 @@ import { ModalModule } from './modals/_modal';
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import { EditTrainingFormComponent } from './forms/edit-training-form/edit-training-form.component';
+import {TrainingFromProposalFormComponent} from "./forms/training-from-proposal-form/training-from-proposal-form.component";
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { EditTrainingFormComponent } from './forms/edit-training-form/edit-train
     ProposalListComponent,
     TrainingPageComponent,
     EditTrainingFormComponent,
+    TrainingFromProposalFormComponent,
   ],
     imports: [
         BrowserModule,

@@ -10,6 +10,7 @@ import {NotificationsEnum} from '../../enum/notifications.enum';
 import {HttpErrorResponse} from '@angular/common/http';
 import {NotificationsService} from '../../services/notifications-service/notifications.service';
 import {Subscription} from 'rxjs';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-proposal-list',
@@ -29,7 +30,8 @@ export class ProposalListComponent implements OnInit {
   constructor(private proposalService: ProposalService,
               private authenticationService: AuthenticationService,
               private modalService: ModalService,
-              private notifications: NotificationsService
+              private notifications: NotificationsService,
+              private router: Router
               ) { }
 
   ngOnInit(): void {
@@ -117,5 +119,9 @@ export class ProposalListComponent implements OnInit {
         }
       )
     );
+  }
+
+  createTraining(id: string){
+    this.router.navigateByUrl('createTrainingFromProposal/' + id);
   }
 }

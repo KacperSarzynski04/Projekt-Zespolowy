@@ -172,4 +172,8 @@ public class ProposalController {
         return resultList;
     }
 
+    @GetMapping("/find_topic/{id}")
+    public Optional<Proposal> getProposal(@PathVariable("id") long id) {
+        return proposalRepository.findById(id);
+    }
 }

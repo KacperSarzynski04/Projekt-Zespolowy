@@ -1,30 +1,30 @@
 <img src="{{training.trainingImageUrl}}"
-     class="img"
-     width="40%"
-     height="40%"
+     class="my_img"
+     width="auto"
+     height="auto"
      alt="photo_1"/>
 
 
 <div class="img"></div>
 
-<div id="topic" class="headerText"> Temat
+<div id="topic" class="my_title">
   <div
     id="topicText" class="myText"> {{training.topic}}
   </div>
 </div>
-<div id="description" class="headerText">Opis
+<div id="description" class="headerText">
   <div
-    id="descriptionText" class="myText"> {{training.description}}
+    id="descriptionText" class="my_text"> {{training.description}}
   </div>
 </div>
-<div id="trainer" class="headerText">Prowadzący
+<div id="trainer" class="headerText">
   <div
-    id="topicTrainer" class="myText"> {{training.trainer}}
+    id="topicTrainer" class="my_author"> Prowadzący: {{training.trainer}}
   </div>
 </div>
-<div id="Info" class="headerText">Szczegóły
+<div id="Info" class="headerText">
   <div
-    id="infoData" class="infoText" style="padding-left: 20px">
+    id="infoData" class="my_data">
     Data: {{training.date}}<br>
     Godzina: {{training.time}}<br>
     Czas trwania: {{training.durationInMinutes}}
@@ -34,33 +34,7 @@
     <a href="{{training.trainingFileUrl}}" class="">Download attached {{training.trainingFileUrl.split('.').pop()}} file</a>
     </span>
 
-
-
-
-  </div>
-
-
-
-</div>
-
-
-
-
-<div class="float-container">
-  <div class="float-child">
-    <button type="submit" name="button"  class="left_btn">
-      <span style="color: white;"> Login</span>
-    </button>
-  </div>
-  <div class="float-child">
-    <button type="submit" name="button"  class="right_btn">
-      <span style="color: white;"> Login</span>
-    </button>
   </div>
 </div>
-<div class="emptyHeaderText" ></div>
-<div class="emptyHeaderText" ></div>
-<div class="emptyHeaderText" ></div>
-<div class="empty"></div>
-<div class="empty"></div>
+
 

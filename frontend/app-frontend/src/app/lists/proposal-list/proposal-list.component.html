@@ -108,6 +108,9 @@
               <button *ngIf = "proposalVoted.get(proposal)" mat-button>
                 <mat-icon title="wyraź zainteresowanie" (click)="onInterestedClicked(proposal.id)">stars</mat-icon>
               </button>
+              <button>
+                <mat-icon type="submit" title="stwórz szkolenie" (click)="createTraining(proposal.id)">Close</mat-icon>
+              </button>
             </td>
           </tr>
           </tbody>

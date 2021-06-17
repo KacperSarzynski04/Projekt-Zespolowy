@@ -1,53 +1,87 @@
-.img {
-  padding: 20px;
-  margin-left: 30%;
-  margin-right: 30%;
-}
+.my_title {
 
-.headerText {
-  text-align: center;
-  font-size: 40px;
+  position: absolute;
+  width: 70%;
+  height: auto;
+  left: 15%;
+  right: auto;
+  top: 20%;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 48px;
+  line-height: 56px;
+
   color: #000000;
-  background: #DBC49E;
-  width: 70%;
-  margin-left: 15%;
-  padding-top: 30px;
 }
 
-.emptyHeaderText {
-  background: #DBC49E;
-  height: 5%;
-  width: 70%;
-  margin-left: 15%;
-  padding-top: 30px;
-}
+.my_img {
 
-.myText {
-  text-align: center;
-  font-size: 20px;
-  color: #FFFFFF;
-  background: #654321;
+  position: absolute;
+  width: 40%;
   height: auto;
-  width: 70%;
-  margin-left: 15%;
+  left: 10%;
+  top: 40%;
+
+  background: url(data:image/png;base64,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);
+  border: 1px solid #000000;
+
 }
 
-.infoText {
-  text-align: left;
-  font-size: 20px;
-  color: #FFFFFF;
-  background: #654321;
-  height: auto;
-  width: 70%;
-  margin-left: 15%;
+.my_author {
+
+  position: absolute;
+  width: 40%;
+  height: 10%;
+  left: 55%;
+  top: 40%;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 42px;
+
+  color: #000000;
 }
 
-.empty {
-  padding-bottom: 50px;
+.my_text {
+
+  position: absolute;
+  width: 40%;
+  height: 10%;
+  left: 55%;
+  top: 70%;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+
+  color: #000000;
+}
+
+.my_data {
+
+  position: absolute;
+  width: 40%;
+  height: 10%;
+  left: 55%;
+  top: 55%;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+
+  color: #000000;
 }
 
 .left_btn {
-  background: #654321;
+  background: #000000;
   height: 50px;
   width: 50%;
   margin-left: 40%;
@@ -55,7 +89,7 @@
 }
 
 .right_btn {
-  background: #654321;
+  background: #000000;
   height: 50px;
   width: 50%;
   float: right;
@@ -64,7 +98,7 @@
 
 .float-container {
   padding: 20px;
-  background: #DBC49E;
+  background: #ffffff;
   width: 70%;
   margin-left: 15%;
 }
@@ -73,23 +107,5 @@
   width: 50%;
   float: left;
   padding: 20px;
-  background-color: #DBC49E;
-}
-
-span.file a {
-  padding: 1px 0 1px 20px;
-  display: block;
-}
-span.file a[href$=".docx"] {
-  /* Overwrite background */
-  background: url('http://image.chromefans.org/fileicons/format/docx.png') 0 0 no-repeat;
-}
-
-span.file a[href$=".pdf"] {
-  background: url('https://static.spiceworks.com/images/how_to_steps/0005/9590/8a544ad4a4ee8c8b164ff38a3f700f5a35f3805cbf7f27d8ec0bb4e455e5dab1_icpdf.gif') 0 0 no-repeat;
-}
-
-span.file a[href$=".xls"] {
-  /* Overwrite background */
-  background: url('http://image.chromefans.org/fileicons/format/xls.png') 0 0 no-repeat;
+  background-color: #ffffff;
 }
