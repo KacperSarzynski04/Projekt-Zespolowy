@@ -14,6 +14,7 @@ import {RoleGuard} from './guard/role-guard.guard';
 import {TrainingPageComponent} from './pages/training-page/training-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {EditTrainingFormComponent} from './forms/edit-training-form/edit-training-form.component';
+import {UserGuideComponent} from './user-guide/user-guide.component';
 
 const routes: Routes = [
   { path: 'register', component: UserFormComponent },
@@ -32,7 +33,8 @@ const routes: Routes = [
   { path: 'find_training/:id', component: TrainingPageComponent},
   { path: 'logout', component: MainPageComponent},
   { path: 'users', component: UserListComponent},
-  { path: 'edit_training/:id', component: EditTrainingFormComponent}
+  { path: 'edit_training/:id', component: EditTrainingFormComponent},
+  { path: 'guide', component: UserGuideComponent}
 ];
 
 @NgModule({

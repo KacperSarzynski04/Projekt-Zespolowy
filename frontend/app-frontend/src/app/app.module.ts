@@ -30,6 +30,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import { EditTrainingFormComponent } from './forms/edit-training-form/edit-training-form.component';
 import { FooterComponent } from './footer/footer.component';
+import { UserGuideComponent } from './user-guide/user-guide.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { FooterComponent } from './footer/footer.component';
     TrainingPageComponent,
     EditTrainingFormComponent,
     FooterComponent,
+    UserGuideComponent,
   ],
     imports: [
         BrowserModule,
