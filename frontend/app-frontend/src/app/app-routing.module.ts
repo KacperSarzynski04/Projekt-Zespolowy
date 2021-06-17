@@ -15,6 +15,7 @@ import {TrainingPageComponent} from './pages/training-page/training-page.compone
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {EditTrainingFormComponent} from './forms/edit-training-form/edit-training-form.component';
 import {TrainingFromProposalFormComponent} from './forms/training-from-proposal-form/training-from-proposal-form.component';
+import {UserGuideComponent} from './user-guide/user-guide.component';
 
 const routes: Routes = [
   { path: 'register', component: UserFormComponent },
@@ -34,7 +35,9 @@ const routes: Routes = [
   { path: 'logout', component: MainPageComponent},
   { path: 'users', component: UserListComponent},
   { path: 'edit_training/:id', component: EditTrainingFormComponent},
-  { path: 'createTrainingFromProposal/:id', component: TrainingFromProposalFormComponent}
+  { path: 'createTrainingFromProposal/:id', component: TrainingFromProposalFormComponent},
+  { path: 'guide', component: UserGuideComponent}
+
 ];
 
 @NgModule({

@@ -30,6 +30,8 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import { EditTrainingFormComponent } from './forms/edit-training-form/edit-training-form.component';
 import {TrainingFromProposalFormComponent} from "./forms/training-from-proposal-form/training-from-proposal-form.component";
+import { FooterComponent } from './footer/footer.component';
+import { UserGuideComponent } from './user-guide/user-guide.component';
 
 
 @NgModule({
@@ -49,6 +51,8 @@ import {TrainingFromProposalFormComponent} from "./forms/training-from-proposal-
     TrainingPageComponent,
     EditTrainingFormComponent,
     TrainingFromProposalFormComponent,
+    FooterComponent,
+    UserGuideComponent,
   ],
     imports: [
         BrowserModule,
