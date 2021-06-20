@@ -1,5 +1,6 @@
 package pl.edu.pwr.app;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +25,11 @@ import static pl.edu.pwr.app.constant.FileConstants.USER_FOLDER;
 @EnableScheduling
 @SpringBootApplication
 public class AppApplication {
+
+    @Value("${angularAppLink}")
+    String app;
+
+
     public static void main(String[] args) {
         SpringApplication.run(AppApplication.class, args);
         new File(USER_FOLDER).mkdirs();
@@ -39,7 +45,7 @@ public class AppApplication {
         UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowCredentials(true);
-        corsConfiguration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+        corsConfiguration.setAllowedOrigins(Collections.singletonList(app));
         corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
                 "Accept", "Jwt-Token", "Authorization", "Origin, Accept", "X-Requested-With",
                 "Access-Control-Request-Method", "Access-Control-Request-Headers"));

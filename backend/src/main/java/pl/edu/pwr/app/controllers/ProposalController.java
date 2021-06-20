@@ -18,7 +18,7 @@ import java.util.Optional;
 import static java.util.stream.Collectors.toList;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200",allowCredentials = "true")
+//@CrossOrigin(origins = "http://localhost:4200",allowCredentials = "true")
 @RequestMapping(path = { "/"})
 public class ProposalController {
     private final ProposalRepository proposalRepository;
