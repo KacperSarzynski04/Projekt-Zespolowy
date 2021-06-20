@@ -109,7 +109,7 @@ public class UserController {
         }
         mailService.sendMail(mail,
                 "Zmiana hasła",
-                "Twoje nowe hasło to : "+password+". Masz 10 minut na ustawienie przy pomocy tego hasła nowego hasła dla swojego konta.", true);
+                "Twoje nowe hasło to : "+password+".", true);
         password = userServiceImpl.encodePassword(password);
         user.setPassword(password);
         userRepository.save(user);
