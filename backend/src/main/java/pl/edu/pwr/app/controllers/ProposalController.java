@@ -123,7 +123,12 @@ public class ProposalController {
         ProposalHost proposalHost;
         proposalRepository.save(proposal);
         if(assign){
+
             proposalHost = new ProposalHost(proposal.getId(), proposal.getAuthorId(), proposal.getAuthorId());
+            int assigned = proposal.getAssigned();
+            assigned++;
+            proposal.setAssigned(assigned);
+            proposalRepository.save(proposal);
         } else
             proposalHost = new ProposalHost(proposal.getId(), proposal.getAuthorId());
 
